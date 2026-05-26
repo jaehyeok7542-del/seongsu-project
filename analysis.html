@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>분석 — 성수동 프로젝트</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav id="nav" class="scrolled">
+  <a class="nav-logo" href="index.html">성수동 프로젝트</a>
+  <ul class="nav-links">
+    <li><a href="index.html">홈</a></li>
+    <li><a href="analysis.html" class="active">분석</a></li>
+    <li><a href="proposal.html">제안</a></li>
+    <li><a href="media.html">영상</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="section-label">현황 분석</p>
+  <h1>성수동 공간 구조<br>읽기</h1>
+  <p class="page-header-desc">
+    보행 접근성, 개발 격차, 산업 블록 내부 구조를 체계적으로 분석합니다.
+  </p>
+</div>
+
+<!-- ── 01 보행 접근성 ── -->
+<section class="section">
+  <p class="section-label">01 — 보행 접근성</p>
+  <h2 class="section-title">보행 네트워크 현황</h2>
+  <p class="section-desc">
+    산업 블록의 폐쇄적 구조로 인해 보행 접근성이 낮은 구간을 파악합니다.
+    지하철역 반경 내 보행 단절 지점을 중심으로 분석합니다.
+  </p>
+
+  <!-- 2열 이미지 -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
+    <div>
+      <div class="split-img" style="aspect-ratio:4/3; font-size:0.72rem;">
+        <!-- <img src="images/walk-network.jpg" alt="보행 네트워크"> -->
+        보행 네트워크 다이어그램
+      </div>
+      <p style="font-size:0.78rem; color:var(--gray-mid); margin-top:0.6rem; letter-spacing:0.04em;">보행 접근성 분석도</p>
+    </div>
+    <div>
+      <div class="split-img" style="aspect-ratio:4/3; font-size:0.72rem;">
+        <!-- <img src="images/walk-break.jpg" alt="단절 구간"> -->
+        보행 단절 구간 지도
+      </div>
+      <p style="font-size:0.78rem; color:var(--gray-mid); margin-top:0.6rem; letter-spacing:0.04em;">보행 단절 구간</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FULL BAND ── -->
+<div class="img-band">
+  <!-- <img src="images/analysis-full.jpg" alt="전체 분석 지도"> -->
+  <span class="img-band-placeholder">전체 분석 지도 / 파노라마 이미지 삽입</span>
+</div>
+
+<!-- ── 02 개발 격차 ── -->
+<section class="section section-alt">
+  <p class="section-label">02 — 개발 격차</p>
+  <h2 class="section-title">개발 격차의<br>공간적 분포</h2>
+  <p class="section-desc">
+    성수동 내 고밀 개발 지역과 노후 산업 공간이 혼재하는 양상을 분석합니다.
+    블록 단위의 용도·밀도 변화를 시각화합니다.
+  </p>
+
+  <div style="display:grid; grid-template-columns:2fr 1fr; gap:1.5rem; align-items:start;">
+    <div class="split-img" style="aspect-ratio:4/3; font-size:0.72rem;">
+      <!-- <img src="images/dev-gap.jpg" alt="개발 격차 지도"> -->
+      개발 격차 분포 지도
+    </div>
+    <div style="display:flex; flex-direction:column; gap:1.5rem;">
+      <div style="background:var(--white); border:1px solid var(--gray-light); padding:1.5rem;">
+        <div class="card-tag">고밀 구역</div>
+        <div style="font-family:var(--font-display); font-size:1.6rem; margin:0.3rem 0;">상업·업무</div>
+        <p style="font-size:0.85rem; color:var(--gray-dark); line-height:1.6;">급격한 개발 압력을 받는 구역</p>
+      </div>
+      <div style="background:var(--white); border:1px solid var(--gray-light); padding:1.5rem;">
+        <div class="card-tag">저밀 구역</div>
+        <div style="font-family:var(--font-display); font-size:1.6rem; margin:0.3rem 0;">노후 산업</div>
+        <p style="font-size:0.85rem; color:var(--gray-dark); line-height:1.6;">기존 산업 기능이 남아있는 구역</p>
+      </div>
+      <div style="background:var(--white); border:1px solid var(--gray-light); padding:1.5rem;">
+        <div class="card-tag">전이 구간</div>
+        <div style="font-family:var(--font-display); font-size:1.6rem; margin:0.3rem 0;">혼재</div>
+        <p style="font-size:0.85rem; color:var(--gray-dark); line-height:1.6;">개발과 산업이 공존하는 경계 구역</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 03 블록 구조 ── -->
+<section class="section">
+  <p class="section-label">03 — 블록 구조</p>
+  <h2 class="section-title">산업 블록 내부 구조</h2>
+  <p class="section-desc">
+    블록 내부의 공간 구성, 공개공지 현황, 필로티 분포를 파악하고
+    개입 가능한 지점을 도출합니다.
+  </p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-img-box">
+        <!-- <img src="images/gonggae.jpg" alt="공개공지"> -->
+        공개공지 현황
+      </div>
+      <div class="card-body">
+        <p class="card-tag">공개공지</p>
+        <h3 class="card-title">공개공지 현황</h3>
+        <p class="card-text">블록 내 공개공지 위치 및 규모 분석. 보행 통로 연결 가능성 검토.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img-box">
+        <!-- <img src="images/piloti.jpg" alt="필로티"> -->
+        필로티 분포
+      </div>
+      <div class="card-body">
+        <p class="card-tag">필로티</p>
+        <h3 class="card-title">필로티 분포</h3>
+        <p class="card-text">기존 건축물 필로티 위치 및 보행 연속성 확보 가능 지점.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img-box">
+        <!-- <img src="images/summary.jpg" alt="종합 분석"> -->
+        종합 분석
+      </div>
+      <div class="card-body">
+        <p class="card-tag">종합</p>
+        <h3 class="card-title">개입 지점 도출</h3>
+        <p class="card-text">분석을 종합한 개입 가능 구간 우선순위 설정.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="page-nav">
+  <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
+  <a href="proposal.html" class="btn btn-dark">설계 제안 보기 →</a>
+</div>
+
+<footer>
+  <span>성수동 프로젝트 &nbsp;·&nbsp; 도시설계 스튜디오 2025</span>
+  <a href="index.html">← 홈으로</a>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY < 40) nav.classList.remove('scrolled');
+  else nav.classList.add('scrolled');
+});
+</script>
+</body>
+</html>
