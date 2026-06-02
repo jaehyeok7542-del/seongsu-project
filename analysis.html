@@ -139,7 +139,123 @@
     </div>
   </div>
 </section>
+<!-- ── 04 대상지 산업분석 ── -->
+<section class="section section-alt">
+  <p class="section-label">04 — 대상지 산업분석</p>
+  <h2 class="section-title">성수동은<br>서울의 인쇄 산업 집적지입니다</h2>
+  <p class="section-desc">
+    성수동 4개 행정동의 인쇄업 사업체 261개로, 성동구 전체 인쇄업의 88%가 이곳에 집중되어 있습니다.
+  </p>
 
+  <!-- 숫자 카드 3개 -->
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--gray-light); border:1px solid var(--gray-light); margin-bottom:2.5rem;">
+    <div style="background:var(--accent,#1D6B4A); padding:2rem 1.5rem;">
+      <p style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.8); margin-bottom:0.8rem;">성수동 인쇄업 사업체 수</p>
+      <div style="display:flex; align-items:baseline; gap:4px; margin-bottom:0.5rem;">
+        <span style="font-family:var(--font-display); font-size:2.8rem; font-weight:600; color:#fff; line-height:1;">261</span>
+        <span style="font-size:1.1rem; color:rgba(255,255,255,0.8);">개</span>
+      </div>
+      <p style="font-size:12px; color:rgba(255,255,255,0.7); line-height:1.6;">성수 4개 행정동 합산<br>성동구 전체의 87.9%</p>
+    </div>
+    <div style="background:var(--white); padding:2rem 1.5rem;">
+      <p style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.8rem;">인쇄업 종사자 수</p>
+      <div style="display:flex; align-items:baseline; gap:4px; margin-bottom:0.5rem;">
+        <span style="font-family:var(--font-display); font-size:2.8rem; font-weight:600; color:var(--black); line-height:1;">2,521</span>
+        <span style="font-size:1.1rem; color:var(--gray-dark);">명</span>
+      </div>
+      <p style="font-size:12px; color:var(--gray-mid); line-height:1.6;">인쇄업 + 인쇄관련산업<br>성수동 4개 행정동 합산</p>
+    </div>
+    <div style="background:var(--white); padding:2rem 1.5rem;">
+      <p style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.8rem;">서울시 자치구 순위</p>
+      <div style="display:flex; align-items:baseline; gap:4px; margin-bottom:0.5rem;">
+        <span style="font-family:var(--font-display); font-size:2.8rem; font-weight:600; color:var(--black); line-height:1;">3</span>
+        <span style="font-size:1.1rem; color:var(--gray-dark);">위</span>
+      </div>
+      <p style="font-size:12px; color:var(--gray-mid); line-height:1.6;">성동구 기준 (297개)<br>중구·영등포구에 이어</p>
+    </div>
+  </div>
+
+  <!-- Chart.js 불러오기 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+
+  <!-- 차트1: 행정동별 사업체 수 -->
+  <div style="margin-bottom:2.5rem;">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--gray-light); padding-bottom:0.8rem; margin-bottom:1.2rem;">
+      <p style="font-size:14px; font-weight:500;">성수동 행정동별 인쇄업 사업체 수</p>
+      <div style="display:flex; gap:16px; font-size:11px; color:var(--gray-mid);">
+        <span style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:12px; height:3px; background:#1D6B4A; border-radius:2px;"></span>인쇄업</span>
+        <span style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:12px; height:3px; background:#4DA07A; border-radius:2px;"></span>인쇄관련산업</span>
+      </div>
+    </div>
+    <div style="position:relative; height:220px;">
+      <canvas id="chartDong"></canvas>
+    </div>
+  </div>
+
+  <!-- 차트2: 행정동별 종사자 수 -->
+  <div style="margin-bottom:2rem;">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--gray-light); padding-bottom:0.8rem; margin-bottom:1.2rem;">
+      <p style="font-size:14px; font-weight:500;">성수동 행정동별 인쇄업 종사자 수</p>
+      <div style="display:flex; gap:16px; font-size:11px; color:var(--gray-mid);">
+        <span style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:12px; height:3px; background:#1D6B4A; border-radius:2px;"></span>인쇄업 + 인쇄관련산업</span>
+      </div>
+    </div>
+    <div style="position:relative; height:220px;">
+      <canvas id="chartWorker"></canvas>
+    </div>
+  </div>
+
+  <p style="font-size:11px; color:var(--gray-mid); border-top:1px solid var(--gray-light); padding-top:1rem; letter-spacing:0.03em;">
+    출처: 서울특별시, 「서울특별시 기본통계 — 출판·인쇄 및 기록매체 복제업」, 2024년 기준 / stat.eseoul.go.kr
+  </p>
+
+  <script>
+    const gridColor = 'rgba(26,26,24,0.07)';
+    const textColor = '#6b6b64';
+    Chart.defaults.color = textColor;
+    Chart.defaults.font.family = "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif";
+    Chart.defaults.font.size = 12;
+
+    new Chart(document.getElementById('chartDong'), {
+      type: 'bar',
+      data: {
+        labels: ['성수1가1동', '성수1가2동', '성수2가1동', '성수2가3동'],
+        datasets: [
+          { label: '인쇄업', data: [22, 57, 23, 159], backgroundColor: '#1D6B4A', borderRadius: 2, barPercentage: 0.55 },
+          { label: '인쇄관련산업', data: [2, 7, 18, 41], backgroundColor: '#4DA07A', borderRadius: 2, barPercentage: 0.55 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}개` } } },
+        scales: {
+          x: { grid: { display: false } },
+          y: { grid: { color: gridColor }, border: { display: false }, ticks: { callback: v => v + '개' } }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('chartWorker'), {
+      type: 'bar',
+      data: {
+        labels: ['성수1가1동', '성수1가2동', '성수2가1동', '성수2가3동'],
+        datasets: [{
+          data: [229, 284, 212, 2190],
+          backgroundColor: ['#c5c3bb','#c5c3bb','#c5c3bb','#1D6B4A'],
+          borderRadius: 2, barPercentage: 0.55
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y.toLocaleString()}명` } } },
+        scales: {
+          x: { grid: { display: false } },
+          y: { grid: { color: gridColor }, border: { display: false }, ticks: { callback: v => v.toLocaleString() + '명' } }
+        }
+      }
+    });
+  </script>
+</section>
 <div class="page-nav">
   <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
   <a href="proposal.html" class="btn btn-dark">설계 제안 보기 →</a>
