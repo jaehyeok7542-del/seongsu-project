@@ -65,7 +65,7 @@ nav.scrolled .nav-links a.active {
 }
 .hero-bg {
   position: absolute; inset: 0;
-  background-image: url('./images/hero.png');
+  background-image: url('./hero.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
