@@ -196,7 +196,170 @@
   </p>
 </section>
 
-<div class="page-nav">
+<!-- ── 05 대상지 생활권 현황 ── -->
+<section class="section">
+  <p class="section-label">05 — 대상지 생활권 현황</p>
+  <h2 class="section-title">반경 0.5km 이내<br>생활권 통계</h2>
+  <p class="section-desc">
+    삼성문화인쇄(주) 대상지 반경 0.5km 이내 인구·가구·주택 현황입니다.
+    총 면적 0.78km² 내 9,797명이 거주하며, 직주혼재 성격이 강한 지역입니다.
+  </p>
+
+  <!-- 지도 + 총인구 -->
+  <div style="display:grid; grid-template-columns:3fr 2fr; gap:1.5rem; margin-bottom:2.5rem; align-items:stretch;">
+    <div class="split-img" style="aspect-ratio:4/3; font-size:0.72rem; min-height:260px;">
+      <!-- 지도 이미지 올리면: <img src="images/sgis-map.png" alt="대상지 반경 0.5km 생활권 지도" style="width:100%;height:100%;object-fit:cover;"> -->
+      대상지 반경 0.5km 생활권 지도
+    </div>
+    <div style="display:flex; flex-direction:column; gap:1px; background:var(--gray-light); border:1px solid var(--gray-light);">
+      <div style="background:var(--black); padding:1.8rem 1.5rem; flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <p style="font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent,#b89a5e); margin-bottom:0.6rem;">총 인구</p>
+        <div style="display:flex; align-items:baseline; gap:4px;">
+          <span style="font-family:var(--font-display); font-size:2.6rem; font-weight:600; color:#fff; line-height:1;">9,797</span>
+          <span style="font-size:1rem; color:rgba(255,255,255,0.5);">명</span>
+        </div>
+        <p style="font-size:11px; color:rgba(255,255,255,0.4); margin-top:0.4rem;">반경 0.5km · 총면적 0.78km²</p>
+      </div>
+      <div style="background:var(--white); padding:1.8rem 1.5rem; flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <p style="font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.6rem;">총 가구</p>
+        <div style="display:flex; align-items:baseline; gap:4px;">
+          <span style="font-family:var(--font-display); font-size:2.6rem; font-weight:600; color:var(--black); line-height:1;">4,501</span>
+          <span style="font-size:1rem; color:var(--gray-mid);">가구</span>
+        </div>
+        <p style="font-size:11px; color:var(--gray-mid); margin-top:0.4rem;">1인 가구 46.1% · 친족 가구 50.1%</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4개 차트 그리드 -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
+
+    <!-- 차트1: 인구(나이) -->
+    <div style="border:1px solid var(--gray-light); padding:1.5rem;">
+      <div style="border-bottom:1px solid var(--gray-light); padding-bottom:0.7rem; margin-bottom:1.2rem;">
+        <p style="font-size:13px; font-weight:500; color:var(--black);">인구 (연령대)</p>
+        <p style="font-size:11px; color:var(--gray-mid); margin-top:2px;">전체 9,797명</p>
+      </div>
+      <div style="position:relative; height:200px;">
+        <canvas id="chartAge"></canvas>
+      </div>
+    </div>
+
+    <!-- 차트2: 인구(성별) -->
+    <div style="border:1px solid var(--gray-light); padding:1.5rem;">
+      <div style="border-bottom:1px solid var(--gray-light); padding-bottom:0.7rem; margin-bottom:1.2rem;">
+        <p style="font-size:13px; font-weight:500; color:var(--black);">인구 (성별)</p>
+        <p style="font-size:11px; color:var(--gray-mid); margin-top:2px;">전체 9,797명</p>
+      </div>
+      <div style="position:relative; height:200px;">
+        <canvas id="chartGender"></canvas>
+      </div>
+    </div>
+
+    <!-- 차트3: 가구 -->
+    <div style="border:1px solid var(--gray-light); padding:1.5rem;">
+      <div style="border-bottom:1px solid var(--gray-light); padding-bottom:0.7rem; margin-bottom:1.2rem;">
+        <p style="font-size:13px; font-weight:500; color:var(--black);">가구 유형</p>
+        <p style="font-size:11px; color:var(--gray-mid); margin-top:2px;">전체 4,501가구</p>
+      </div>
+      <div style="position:relative; height:200px;">
+        <canvas id="chartHousehold"></canvas>
+      </div>
+    </div>
+
+    <!-- 차트4: 주택 -->
+    <div style="border:1px solid var(--gray-light); padding:1.5rem;">
+      <div style="border-bottom:1px solid var(--gray-light); padding-bottom:0.7rem; margin-bottom:1.2rem;">
+        <p style="font-size:13px; font-weight:500; color:var(--black);">주택 유형</p>
+        <p style="font-size:11px; color:var(--gray-mid); margin-top:2px;">전체 2,651호</p>
+      </div>
+      <div style="position:relative; height:200px;">
+        <canvas id="chartHousing"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <p style="font-size:11px; color:var(--gray-mid); border-top:1px solid var(--gray-light); padding-top:1rem; letter-spacing:0.03em;">
+    출처: 통계지리정보서비스(SGIS), 생활권역 통계지도, 2024년 기준 / sgis.mods.go.kr
+  </p>
+</section>
+
+<script>
+(function() {
+  const gc = 'rgba(26,26,24,0.07)';
+  const tc = '#6b6b64';
+  const accent = '#b89a5e';
+  const accentDark = '#1a1a1e';
+  const gray = '#c5c3bb';
+
+  // 공통 옵션
+  const donutOpts = (labels, data, colors) => ({
+    type: 'doughnut',
+    data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 0, hoverOffset: 4 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      cutout: '62%',
+      plugins: {
+        legend: {
+          position: 'right',
+          labels: { color: tc, font: { size: 11 }, boxWidth: 10, padding: 10,
+            generateLabels: (chart) => {
+              const d = chart.data;
+              return d.labels.map((label, i) => ({
+                text: `${label}  ${d.datasets[0].data[i].toLocaleString()}`,
+                fillStyle: d.datasets[0].backgroundColor[i],
+                hidden: false, index: i
+              }));
+            }
+          }
+        },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed.toLocaleString()}명` } }
+      }
+    }
+  });
+
+  // 인구(나이) - 가로 막대
+  new Chart(document.getElementById('chartAge'), {
+    type: 'bar',
+    data: {
+      labels: ['0~9세', '10~19세', '20~29세', '30~39세', '40~49세', '50~59세', '60~69세', '70~79세', '80세↑'],
+      datasets: [{
+        data: [376, 448, 1714, 1745, 1308, 1451, 1423, 827, 499],
+        backgroundColor: ['#ddd','#ddd','#1a1a1e','#b89a5e','#c5b48a','#ddd','#ddd','#ddd','#ddd'],
+        borderRadius: 2, barPercentage: 0.65
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.x.toLocaleString()}명` } }
+      },
+      scales: {
+        x: { grid: { color: gc }, border: { display: false }, ticks: { color: tc, callback: v => v.toLocaleString() } },
+        y: { grid: { display: false }, ticks: { color: tc, font: { size: 10 } } }
+      }
+    }
+  });
+
+  // 인구(성별) - 도넛
+  new Chart(document.getElementById('chartGender'),
+    donutOpts(['남', '여'], [4804, 4991], [accentDark, accent])
+  );
+
+  // 가구 - 도넛
+  new Chart(document.getElementById('chartHousehold'),
+    donutOpts(['친족 가구', '1인 가구', '비친족 가구'], [2254, 2076, 172], [accentDark, accent, gray])
+  );
+
+  // 주택 - 도넛
+  new Chart(document.getElementById('chartHousing'),
+    donutOpts(['아파트', '다세대주택', '단독주택', '기타'], [1891, 420, 291, 49], [accentDark, accent, gray, '#e8e6df'])
+  );
+})();
+</script><div class="page-nav">
   <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
   <a href="proposal.html" class="btn btn-dark">설계 제안 보기 →</a>
 </div>
