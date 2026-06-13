@@ -64,28 +64,36 @@
   </div>
 
   <!-- 탭 콘텐츠 -->
-  <div style="border:1px solid var(--gray-light); border-top:none; padding:3rem; background:var(--white); min-height:320px;">
+  <div style="border:1px solid var(--gray-light); border-top:none; padding:3rem; background:var(--white);">
 
     <!-- 과거 -->
     <div id="tab-past" style="display:block;">
-      <div style="display:grid; grid-template-columns:1fr 2fr; gap:3rem; align-items:start;">
-        <div>
-          <p style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent,#b89a5e); margin-bottom:0.8rem;">1960s — 1990s</p>
-          <h3 style="font-family:var(--font-display); font-size:1.8rem; line-height:1.3; color:var(--black); margin-bottom:1rem;">아날로그<br>대량 생산</h3>
-          <div style="width:2rem; height:2px; background:var(--accent,#b89a5e);"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1.5fr; gap:1.5rem; align-items:start;">
+        <!-- 사진 2장 -->
+        <div style="overflow:hidden; aspect-ratio:3/4;">
+          <img src="images/past.jpg" alt="과거 인쇄 산업" style="width:100%;height:100%;object-fit:cover;">
         </div>
-        <div style="display:flex; flex-direction:column; gap:1.5rem;">
-          <div style="border-left:2px solid var(--gray-light); padding-left:1.5rem;">
-            <p style="font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.4rem;">기술 방식</p>
-            <p style="font-size:0.95rem; color:var(--black); line-height:1.7;">활판·오프셋 인쇄 중심. 납 활자와 수작업으로 이루어진 노동 집약적 산업.</p>
+        <div style="overflow:hidden; aspect-ratio:3/4;">
+          <img src="images/past1.jpg" alt="과거 인쇄 산업" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <!-- 텍스트 -->
+        <div style="display:flex; flex-direction:column; gap:1.2rem; padding-left:1rem;">
+          <div>
+            <p style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent,#b89a5e); margin-bottom:0.5rem;">1960s — 1990s</p>
+            <h3 style="font-family:var(--font-display); font-size:1.6rem; line-height:1.3; color:var(--black); margin-bottom:0.8rem;">아날로그<br>대량 생산</h3>
+            <div style="width:2rem; height:2px; background:var(--accent,#b89a5e); margin-bottom:1.2rem;"></div>
           </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1.5rem;">
-            <p style="font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.4rem;">생산 방식</p>
-            <p style="font-size:0.95rem; color:var(--black); line-height:1.7;">신문, 교과서, 포스터 등 대량 인쇄 수요 대응. 성수동에 인쇄 공장 밀집 시작.</p>
+          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
+            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">기술 방식</p>
+            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">활판·오프셋 인쇄 중심. 납 활자와 수작업으로 이루어진 노동 집약적 산업.</p>
           </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1.5rem;">
-            <p style="font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.4rem;">특징</p>
-            <p style="font-size:0.95rem; color:var(--black); line-height:1.7;">인쇄 산업 전성기. 성수동 2가 일대 인쇄소 밀집 형성. 지역 경제의 핵심 동력.</p>
+          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
+            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">생산 방식</p>
+            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">신문, 교과서, 포스터 등 대량 인쇄 수요 대응. 성수동에 인쇄 공장 밀집 시작.</p>
+          </div>
+          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
+            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">특징</p>
+            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">인쇄 산업 전성기. 성수동 2가 일대 인쇄소 밀집 형성. 지역 경제의 핵심 동력.</p>
           </div>
         </div>
       </div>
@@ -93,24 +101,30 @@
 
     <!-- 현재 -->
     <div id="tab-present" style="display:none;">
-      <div style="display:grid; grid-template-columns:1fr 2fr; gap:3rem; align-items:start;">
-        <div>
-          <p style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent,#b89a5e); margin-bottom:0.8rem;">2000s — 현재</p>
-          <h3 style="font-family:var(--font-display); font-size:1.8rem; line-height:1.3; color:var(--black); margin-bottom:1rem;">디지털 전환<br>소량 다품종</h3>
-          <div style="width:2rem; height:2px; background:var(--accent,#b89a5e);"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1.5fr; gap:1.5rem; align-items:start;">
+        <div style="overflow:hidden; aspect-ratio:3/4;">
+          <img src="images/now1.jpg" alt="현재 인쇄 산업" style="width:100%;height:100%;object-fit:cover;">
         </div>
-        <div style="display:flex; flex-direction:column; gap:1.5rem;">
-          <div style="border-left:2px solid var(--gray-light); padding-left:1.5rem;">
-            <p style="font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.4rem;">기술 방식</p>
-            <p style="font-size:0.95rem; color:var(--black); line-height:1.7;">디지털 인쇄·CTP(컴퓨터 투 플레이트) 도입. 납 활자 퇴출 및 자동화 진행.</p>
+        <div style="overflow:hidden; aspect-ratio:3/4;">
+          <img src="images/now3.jpg" alt="현재 인쇄 산업" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:1.2rem; padding-left:1rem;">
+          <div>
+            <p style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent,#b89a5e); margin-bottom:0.5rem;">2000s — 현재</p>
+            <h3 style="font-family:var(--font-display); font-size:1.6rem; line-height:1.3; color:var(--black); margin-bottom:0.8rem;">디지털 전환<br>소량 다품종</h3>
+            <div style="width:2rem; height:2px; background:var(--accent,#b89a5e); margin-bottom:1.2rem;"></div>
           </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1.5rem;">
-            <p style="font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.4rem;">생산 방식</p>
-            <p style="font-size:0.95rem; color:var(--black); line-height:1.7;">소량 다품종 주문 인쇄로 전환. 패키지, 카탈로그, 브랜딩 인쇄물 비중 증가.</p>
+          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
+            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">기술 방식</p>
+            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">디지털 인쇄·CTP 도입. 납 활자 퇴출 및 자동화 진행.</p>
           </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1.5rem;">
-            <p style="font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.4rem;">특징</p>
-            <p style="font-size:0.95rem; color:var(--black); line-height:1.7;">성수동 젠트리피케이션 심화로 임대료 상승. 인쇄소 상층부 이전 및 산업 가시성 저하.</p>
+          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
+            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">생산 방식</p>
+            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">소량 다품종 주문 인쇄로 전환. 패키지, 카탈로그, 브랜딩 인쇄물 비중 증가.</p>
+          </div>
+          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
+            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">특징</p>
+            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">젠트리피케이션 심화로 임대료 상승. 인쇄소 상층부 이전 및 산업 가시성 저하.</p>
           </div>
         </div>
       </div>
@@ -118,24 +132,31 @@
 
     <!-- 최신 -->
     <div id="tab-latest" style="display:none;">
-      <div style="display:grid; grid-template-columns:1fr 2fr; gap:3rem; align-items:start;">
-        <div>
-          <p style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent,#b89a5e); margin-bottom:0.8rem;">최신 동향</p>
-          <h3 style="font-family:var(--font-display); font-size:1.8rem; line-height:1.3; color:var(--black); margin-bottom:1rem;">고부가가치<br>시각 문화</h3>
-          <div style="width:2rem; height:2px; background:var(--accent,#b89a5e);"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1.5fr; gap:1.5rem; align-items:start;">
+        <div style="overflow:hidden; aspect-ratio:3/4;">
+          <img src="images/trend.webp" alt="최신 인쇄 트렌드" style="width:100%;height:100%;object-fit:cover;"
+            onerror="this.src='images/trend2.jpg'">
         </div>
-        <div style="display:flex; flex-direction:column; gap:1.5rem;">
-          <div style="border-left:2px solid var(--gray-light); padding-left:1.5rem;">
-            <p style="font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.4rem;">기술 방식</p>
-            <p style="font-size:0.95rem; color:var(--black); line-height:1.7;">UV인쇄, 리소그래피, 친환경 대두인쇄 등 고품질·특수 인쇄 기술 주목.</p>
+        <div style="overflow:hidden; aspect-ratio:3/4;">
+          <img src="images/trend1.jpg" alt="최신 인쇄 트렌드" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:1.2rem; padding-left:1rem;">
+          <div>
+            <p style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent,#b89a5e); margin-bottom:0.5rem;">최신 동향</p>
+            <h3 style="font-family:var(--font-display); font-size:1.6rem; line-height:1.3; color:var(--black); margin-bottom:0.8rem;">고부가가치<br>시각 문화</h3>
+            <div style="width:2rem; height:2px; background:var(--accent,#b89a5e); margin-bottom:1.2rem;"></div>
           </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1.5rem;">
-            <p style="font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.4rem;">생산 방식</p>
-            <p style="font-size:0.95rem; color:var(--black); line-height:1.7;">디자인 스튜디오·브랜드와 협업. 팝업스토어 굿즈, 아트북, 리미티드 에디션 인쇄.</p>
+          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
+            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">기술 방식</p>
+            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">UV인쇄, 리소그래피, 친환경 대두인쇄 등 고품질·특수 인쇄 기술 주목.</p>
           </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1.5rem;">
-            <p style="font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.4rem;">특징</p>
-            <p style="font-size:0.95rem; color:var(--black); line-height:1.7;">단순 인쇄를 넘어 시각 문화 산업으로 진화. 성수동 감성과 결합한 고부가가치 방향.</p>
+          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
+            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">생산 방식</p>
+            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">디자인 스튜디오·브랜드와 협업. 팝업스토어 굿즈, 아트북, 리미티드 에디션 인쇄.</p>
+          </div>
+          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
+            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">특징</p>
+            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">단순 인쇄를 넘어 시각 문화 산업으로 진화. 성수동 감성과 결합한 고부가가치 방향.</p>
           </div>
         </div>
       </div>
@@ -146,20 +167,15 @@
 
 <script>
 function showTab(tab) {
-  // 모든 탭 숨기기
   document.getElementById('tab-past').style.display = 'none';
   document.getElementById('tab-present').style.display = 'none';
   document.getElementById('tab-latest').style.display = 'none';
-
-  // 모든 버튼 비활성화
   document.getElementById('btn-past').style.background = 'var(--white)';
   document.getElementById('btn-past').style.color = 'var(--gray-mid)';
   document.getElementById('btn-present').style.background = 'var(--white)';
   document.getElementById('btn-present').style.color = 'var(--gray-mid)';
   document.getElementById('btn-latest').style.background = 'var(--white)';
   document.getElementById('btn-latest').style.color = 'var(--gray-mid)';
-
-  // 선택한 탭 활성화
   document.getElementById('tab-' + tab).style.display = 'block';
   document.getElementById('btn-' + tab).style.background = 'var(--black)';
   document.getElementById('btn-' + tab).style.color = '#fff';
