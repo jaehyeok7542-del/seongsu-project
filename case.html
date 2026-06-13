@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>사례 — 성수동 프로젝트</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav id="nav" class="scrolled">
+  <a class="nav-logo" href="index.html">성수동 프로젝트</a>
+  <ul class="nav-links">
+    <li><a href="index.html">홈</a></li>
+    <li><a href="status.html">현황</a></li>
+    <li><a href="analysis.html">분석</a></li>
+    <li><a href="case.html" class="active">사례</a></li>
+    <li><a href="proposal.html">제안</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="section-label">사례</p>
+  <h1>국내외<br>사례 연구</h1>
+  <p class="page-header-desc">
+    산업과 도시가 공존하는 국내외 사례를 살펴봅니다.
+  </p>
+</div>
+
+<!-- ── 해외 사례 ── -->
+<section class="section">
+  <p class="section-label">01 — 해외 사례</p>
+  <h2 class="section-title">해외 사례</h2>
+  <p class="section-desc">내용을 입력하세요.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-img-box">이미지</div>
+      <div class="card-body">
+        <p class="card-tag">해외</p>
+        <h3 class="card-title">사례 제목</h3>
+        <p class="card-text">사례 설명을 입력하세요.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img-box">이미지</div>
+      <div class="card-body">
+        <p class="card-tag">해외</p>
+        <h3 class="card-title">사례 제목</h3>
+        <p class="card-text">사례 설명을 입력하세요.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img-box">이미지</div>
+      <div class="card-body">
+        <p class="card-tag">해외</p>
+        <h3 class="card-title">사례 제목</h3>
+        <p class="card-text">사례 설명을 입력하세요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 국내 사례 ── -->
+<section class="section section-alt">
+  <p class="section-label">02 — 국내 사례</p>
+  <h2 class="section-title">국내 사례</h2>
+  <p class="section-desc">내용을 입력하세요.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-img-box">이미지</div>
+      <div class="card-body">
+        <p class="card-tag">국내</p>
+        <h3 class="card-title">사례 제목</h3>
+        <p class="card-text">사례 설명을 입력하세요.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img-box">이미지</div>
+      <div class="card-body">
+        <p class="card-tag">국내</p>
+        <h3 class="card-title">사례 제목</h3>
+        <p class="card-text">사례 설명을 입력하세요.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img-box">이미지</div>
+      <div class="card-body">
+        <p class="card-tag">국내</p>
+        <h3 class="card-title">사례 제목</h3>
+        <p class="card-text">사례 설명을 입력하세요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="page-nav">
+  <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
+  <a href="proposal.html" class="btn btn-dark">제안 보기 →</a>
+</div>
+
+<footer>
+  <span>성수동 프로젝트 &nbsp;·&nbsp; 도시설계 스튜디오 2025</span>
+  <a href="index.html">← 홈으로</a>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY < 40) nav.classList.remove('scrolled');
+  else nav.classList.add('scrolled');
+});
+</script>
+</body>
+</html>
