@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>현황 — 성수동 프로젝트</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav id="nav" class="scrolled">
+  <a class="nav-logo" href="index.html">성수동 프로젝트</a>
+  <ul class="nav-links">
+    <li><a href="index.html">홈</a></li>
+    <li><a href="status.html" class="active">현황</a></li>
+    <li><a href="analysis.html">분석</a></li>
+    <li><a href="proposal.html">제안</a></li>
+    <li><a href="media.html">영상</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="section-label">현황</p>
+  <h1>성수동 인쇄 산업<br>현황</h1>
+  <p class="page-header-desc">
+    성수동 인쇄 산업의 역사, 종류 및 변화, 대상지 현황을 살펴봅니다.
+  </p>
+</div>
+
+<!-- ── 01 인쇄업 역사 ── -->
+<section class="section">
+  <p class="section-label">01 — 인쇄업 역사</p>
+  <h2 class="section-title">성수동 인쇄 산업의<br>역사</h2>
+  <p class="section-desc">
+    성수동 인쇄 산업이 걸어온 역사를 살펴봅니다.
+  </p>
+  <div class="video-wrap">
+    <video controls style="position:absolute;inset:0;width:100%;height:100%;">
+      <source src="videos/print-history.mp4" type="video/mp4" />
+    </video>
+  </div>
+</section>
+
+<!-- ── 02 인쇄업 종류 및 변화 ── -->
+<section class="section section-alt">
+  <p class="section-label">02 — 인쇄업 종류 및 변화</p>
+  <h2 class="section-title">인쇄업 종류 및<br>변화</h2>
+  <p class="section-desc">
+    내용을 입력하세요.
+  </p>
+</section>
+
+<!-- ── 03 대상지 현황 ── -->
+<section class="section">
+  <p class="section-label">03 — 대상지 현황</p>
+  <h2 class="section-title">대상지 현황</h2>
+  <p class="section-desc">
+    내용을 입력하세요.
+  </p>
+</section>
+
+<div class="page-nav">
+  <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
+  <a href="analysis.html" class="btn btn-dark">분석 보기 →</a>
+</div>
+
+<footer>
+  <span>성수동 프로젝트 &nbsp;·&nbsp; 도시설계 스튜디오 2025</span>
+  <a href="index.html">← 홈으로</a>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY < 40) nav.classList.remove('scrolled');
+  else nav.classList.add('scrolled');
+});
+</script>
+</body>
+</html>
