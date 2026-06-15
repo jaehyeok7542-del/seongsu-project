@@ -72,7 +72,7 @@
       font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.65;
     }
 
-    /* 페이지 네비게이션 카드 (현황/분석/사례/제안) */
+    /* 페이지 네비게이션 카드 */
     .nav-card-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -121,32 +121,123 @@
     }
     .nav-card:hover .nav-card-img img { transform: scale(1.04); }
 
-    /* 인트로 섹션 */
-    .home-intro {
-      max-width: 800px;
+    /* ── 인트로 섹션 (키워드 시각화) ── */
+    .home-intro-wrap {
+      padding: 8rem 3rem;
+      border-bottom: 1px solid var(--gray-light);
+      overflow: hidden;
+    }
+    .home-intro-top {
       text-align: center;
-      padding: 7rem 3rem;
-      margin: 0 auto;
+      margin-bottom: 4.5rem;
     }
-    .home-intro h2 {
+    .home-intro-top .section-label {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .home-intro-top h2 {
       font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-      margin-bottom: 2rem; font-weight: normal; line-height: 1.4;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: normal; line-height: 1.4;
+      color: var(--black);
     }
-    .home-intro p {
-      font-size: 1rem; color: var(--gray-dark);
-      line-height: 1.9; text-align: justify; max-width: 640px; margin: 0 auto;
+
+    /* 키워드 카드 3개 */
+    .keyword-trio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto 4.5rem;
+    }
+    .kw-card {
+      position: relative;
+      padding: 3rem 2.5rem 3.5rem;
+      border: 1px solid var(--gray-light);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: default;
+      /* 스크롤 진입 전 초기 상태 */
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.65s ease, transform 0.65s ease,
+                  border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .kw-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .kw-card:nth-child(2) { transition-delay: 0.1s; }
+    .kw-card:nth-child(3) { transition-delay: 0.2s; }
+    .kw-card:hover {
+      border-color: #C05A46;
+      box-shadow: 0 20px 50px rgba(192,90,70,0.1);
+      transform: translateY(-6px);
+    }
+
+    /* 배경 대형 이모지 */
+    .kw-card-bg {
+      position: absolute;
+      right: 1rem; bottom: 0.5rem;
+      font-size: 6.5rem;
+      opacity: 0.055;
+      user-select: none;
+      pointer-events: none;
+      line-height: 1;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .kw-card:hover .kw-card-bg {
+      opacity: 0.1;
+      transform: scale(1.1) rotate(-6deg);
+    }
+
+    /* 하단 진행 바 */
+    .kw-bar {
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 3px; width: 0;
+      background: #C05A46;
+      border-radius: 0 2px 2px 0;
+      transition: width 0.45s ease;
+    }
+    .kw-card:hover .kw-bar { width: 100%; }
+
+    .kw-num {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: #C05A46; margin-bottom: 1.25rem; display: block;
+    }
+    .kw-word {
+      font-family: var(--font-display);
+      font-size: clamp(1.7rem, 2.4vw, 2.2rem);
+      font-weight: normal; line-height: 1.2;
+      color: var(--black); margin-bottom: 1rem;
+    }
+    .kw-desc {
+      font-size: 0.88rem; color: var(--gray-dark);
+      line-height: 1.78;
+    }
+
+    /* 한 줄 요약 */
+    .intro-summary {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 0.97rem;
+      color: var(--gray-dark);
+      line-height: 1.9;
     }
 
     @media (max-width: 900px) {
+      .home-intro-wrap { padding: 5rem 1.5rem; }
+      .keyword-trio { grid-template-columns: 1fr; gap: 1rem; }
       .home-split { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.5rem; }
       .home-stat-strip { grid-template-columns: 1fr; }
       .home-stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
       .nav-card-grid { grid-template-columns: 1fr 1fr; }
       .nav-card { border-right: none; border-bottom: 1px solid var(--gray-light); }
-      .home-intro { padding: 4rem 1.5rem; }
     }
-
     @media (max-width: 600px) {
       .nav-card-grid { grid-template-columns: 1fr; }
     }
@@ -181,15 +272,40 @@
     <div class="hero-scroll">SCROLL</div>
   </header>
 
-  <!-- ── 인트로 ── -->
-  <div style="border-bottom: 1px solid var(--gray-light);">
-    <div class="home-intro">
-      <p class="section-label" style="justify-content:center; display:flex;">INTRODUCTION</p>
+  <!-- ── 인트로 (키워드 시각화) ── -->
+  <div class="home-intro-wrap">
+    <div class="home-intro-top">
+      <p class="section-label">INTRODUCTION</p>
       <h2>성수동의 가장 깊은 골목,<br />그곳의 이야기를 다시 쓰다.</h2>
-      <p>
-        붉은 벽돌과 철제 셔터문, 밤낮없이 돌아가는 윤전기 소리. 성수동 북측의 인쇄 골목은 오랜 시간 동안 도시의 보이지 않는 생산 엔진 역할을 해왔습니다. 하지만 급격한 주변부 개발과 세련된 상업화의 물결 속에서, 이 소중한 산업 생태계와 골목 가로는 점차 단절되고 고립되고 있습니다. 본 프로젝트는 성수동 고유의 인쇄 인프라를 보존하는 동시에, 시민의 보행과 문화적 크리에이티브를 수용하는 열린 거리로의 재생 마스터플랜을 제안합니다.
-      </p>
     </div>
+
+    <div class="keyword-trio">
+      <div class="kw-card">
+        <div class="kw-card-bg">🏭</div>
+        <span class="kw-num">01 · PRESERVE</span>
+        <div class="kw-word">남겨진<br>산업 생태계</div>
+        <p class="kw-desc">기획·출력·후가공·제본이 반경 500m 안에 집적된 성수동의 인쇄 클러스터. 철제 셔터 뒤에 숨겨진 도시의 보이지 않는 생산 엔진을 보존합니다.</p>
+        <div class="kw-bar"></div>
+      </div>
+      <div class="kw-card">
+        <div class="kw-card-bg">🚶</div>
+        <span class="kw-num">02 · CONNECT</span>
+        <div class="kw-word">끊어진<br>보행 네트워크</div>
+        <p class="kw-desc">대상 가로의 78%에서 보도가 확보되지 않습니다. 조업 차량과 지게차가 점령한 골목을 시민이 걸을 수 있는 열린 통로로 되돌립니다.</p>
+        <div class="kw-bar"></div>
+      </div>
+      <div class="kw-card">
+        <div class="kw-card-bg">✨</div>
+        <span class="kw-num">03 · ACTIVATE</span>
+        <div class="kw-word">새로운<br>문화거리 재생</div>
+        <p class="kw-desc">전통 인쇄 산업의 정체성을 체험·창작·브랜딩으로 연결해, 골목 자체를 도시의 문화 콘텐츠로 전환하는 마스터플랜을 제안합니다.</p>
+        <div class="kw-bar"></div>
+      </div>
+    </div>
+
+    <p class="intro-summary">
+      본 프로젝트는 성수동 고유의 인쇄 인프라를 보존하는 동시에, 시민의 보행과 문화적 크리에이티브를 수용하는 열린 거리로의 재생 마스터플랜을 제안합니다.
+    </p>
   </div>
 
   <!-- ── 핵심 지표 스트립 ── -->
@@ -275,11 +391,24 @@
   </footer>
 
   <script>
+    /* 네비게이션 스크롤 */
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       if (window.scrollY < 60) nav.classList.remove('scrolled');
       else nav.classList.add('scrolled');
     });
+
+    /* 키워드 카드 스크롤 진입 애니메이션 */
+    const cards = document.querySelectorAll('.kw-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    cards.forEach(card => observer.observe(card));
   </script>
 </body>
 </html>
