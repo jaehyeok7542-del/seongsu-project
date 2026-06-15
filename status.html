@@ -116,8 +116,115 @@
     .meta-box h3 { font-size: 1.25rem; font-weight: normal; color: var(--black); margin-bottom: 1rem; border-left: 3px solid #C05A46; padding-left: 0.75rem; }
     .meta-box p { font-size: 0.94rem; line-height: 1.75; color: var(--gray-dark); }
 
+    /* ── 🌍 [NEW] 대상지 주변 산업현황 GIS 인터랙티브 대시보드 스타일 ── */
+    .gis-dashboard {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 2rem;
+      background: #111;
+      color: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      margin-top: 3rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    }
+    .gis-control-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      background: #1e1e1e;
+      padding: 1.5rem;
+      border-radius: 14px;
+      border: 1px solid #333;
+    }
+    .gis-panel-title {
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #C05A46;
+      border-bottom: 1px solid #333;
+      padding-bottom: 0.5rem;
+    }
+    .layer-btn {
+      width: 100%;
+      padding: 12px 16px;
+      background: #2a2a2a;
+      border: 1px solid #444;
+      color: #ccc;
+      text-align: left;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .layer-btn::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #666;
+    }
+    /* 각 레이어 버튼 클릭 활성화 시 테마 색상 정의 */
+    .layer-btn.active[data-layer="1"] { background: rgba(220, 53, 69, 0.15); border-color: #dc3545; color: #ff6b6b; }
+    .layer-btn.active[data-layer="1"]::before { background: #dc3545; box-shadow: 0 0 8px #dc3545; }
+    
+    .layer-btn.active[data-layer="2"] { background: rgba(0, 123, 255, 0.15); border-color: #007bff; color: #74b9ff; }
+    .layer-btn.active[data-layer="2"]::before { background: #007bff; box-shadow: 0 0 8px #007bff; }
+    
+    .layer-btn.active[data-layer="3"] { background: rgba(40, 167, 69, 0.15); border-color: #28a745; color: #55efc4; }
+    .layer-btn.active[data-layer="3"]::before { background: #28a745; box-shadow: 0 0 8px #28a745; }
+    
+    .layer-btn.active[data-layer="4"] { background: rgba(23, 162, 184, 0.15); border-color: #17a2b8; color: #81ecec; }
+    .layer-btn.active[data-layer="4"]::before { background: #17a2b8; box-shadow: 0 0 8px #17a2b8; }
+    
+    .layer-btn.active[data-layer="5"] { background: rgba(255, 193, 7, 0.15); border-color: #ffc107; color: #ffeaa7; }
+    .layer-btn.active[data-layer="5"]::before { background: #ffc107; box-shadow: 0 0 8px #ffc107; }
+
+    /* 지도 스크린 캔버스 */
+    .gis-map-canvas {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/10;
+      background: #151515;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #333;
+    }
+    .gis-layer-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none; /* 클릭 이벤트가 겹쳐서 모달을 방해하지 않게 방지 */
+    }
+    .gis-layer-img.active {
+      opacity: 1;
+      pointer-events: auto; /* 활성화된 이미지만 라이트박스 연동 가능하도록 개방 */
+    }
+    .gis-map-tip {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      background: rgba(0,0,0,0.6);
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: #aaa;
+      z-index: 10;
+    }
+
     @media (max-width: 900px) {
-      .site-reason-grid, .site-analysis-grid, .status-split, .status-meta-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .site-reason-grid, .site-analysis-grid, .status-split, .status-meta-grid, .gis-dashboard { grid-template-columns: 1fr; gap: 2rem; }
+      .gis-dashboard { padding: 1rem; }
     }
   </style>
 </head>
@@ -182,31 +289,51 @@
 
       <div class="site-analysis-grid">
         <div class="analysis-photo-card">
-          <div class="analysis-img-box">
-            <img src="images/site-main.png" alt="종합 대상지 마스터 지도">
-          </div>
+          <div class="analysis-img-box"><img src="images/site-main.png" alt="종합 대상지 마스터 지도"></div>
           <div class="analysis-card-body">
             <h4 style="font-size:1.15rem; font-weight:normal; margin-bottom:0.5rem; color:var(--black);">종합 대상지 도면</h4>
             <p style="font-size:0.88rem; color:var(--gray-mid); line-height:1.5; margin:0;">인쇄 골목 가로망의 메인 축과 핵심 연계 구역을 표기한 범위 도면입니다.</p>
           </div>
         </div>
         <div class="analysis-photo-card">
-          <div class="analysis-img-box">
-            <img src="images/site-parking.jpg" alt="건물 및 건축물 분석 도면">
-          </div>
+          <div class="analysis-img-box"><img src="images/site-parking.jpg" alt="건물 및 건축물 분석 도면"></div>
           <div class="analysis-card-body">
             <h4 style="font-size:1.15rem; font-weight:normal; margin-bottom:0.5rem; color:var(--black);">건물 필지 현황도</h4>
             <p style="font-size:0.88rem; color:var(--gray-mid); line-height:1.5; margin:0;">필지 밀집도와 노후 건축물, 그리고 준공업 인쇄공장들의 분포도 매핑입니다.</p>
           </div>
         </div>
         <div class="analysis-photo-card">
-          <div class="analysis-img-box">
-            <img src="images/site-building.jpg" alt="가로 진입구 분석 도면">
-          </div>
+          <div class="analysis-img-box"><img src="images/site-building.jpg" alt="가로 진입구 분석 도면"></div>
           <div class="analysis-card-body">
             <h4 style="font-size:1.15rem; font-weight:normal; margin-bottom:0.5rem; color:var(--black);">진입로 동선 분석</h4>
             <p style="font-size:0.88rem; color:var(--gray-mid); line-height:1.5; margin:0;">성수역 및 대로변에서 타겟 골목길로 인입되는 주요 보행 결절점 분석입니다.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
+      <p class="section-label">INDUSTRIAL GEOGRAPHY</p>
+      <h2 class="section-title">대상지 주변 산업현황 데이터 맵</h2>
+      <p class="section-desc">성수동 북측 인쇄지구 일대의 용도 분포, 사업체 밀집도, 유동 동선을 다각도로 중첩 분석한 인구·산업 지리 정보 레이어입니다. 좌측의 제안 장치를 클릭하여 입체적으로 비교 분석해 보세요.</p>
+
+      <div class="gis-dashboard">
+        <div class="gis-control-panel">
+          <div class="gis-panel-title">데이터 레이어 토글</div>
+          <button class="layer-btn active" data-layer="1" onclick="toggleGisLayer(1)">출판·인쇄업 집적도 (밀집 구역)</button>
+          <button class="layer-btn" data-layer="2" onclick="toggleGisLayer(2)">지식기반·정보통신 산업 분할</button>
+          <button class="layer-btn" data-layer="3" onclick="toggleGisLayer(3)">유통 및 물류 가로 시설 링크</button>
+          <button class="layer-btn" data-layer="4" onclick="toggleGisLayer(4)">가로 보행 유동인구 핫스팟</button>
+          <button class="layer-btn" data-layer="5" onclick="toggleGisLayer(5)">용도별 평균 가로 임대료 밀도</button>
+        </div>
+
+        <div class="gis-map-canvas">
+          <img src="images/population1.jpg" id="gis-img-1" class="gis-layer-img active" alt="출판·인쇄업 집적도 레이어">
+          <img src="images/population2.jpg" id="gis-img-2" class="gis-layer-img" alt="지식기반·정보통신 산업 분할 레이어">
+          <img src="images/population3.jpg" id="gis-img-3" class="gis-layer-img" alt="유통 및 물류 가로 시설 레이어">
+          <img src="images/population4.jpg" id="gis-img-4" class="gis-layer-img" alt="가로 보행 유동인구 핫스팟 레이어">
+          <img src="images/population5.jpg" id="gis-img-5" class="gis-layer-img" alt="용도별 평균 가로 임대료 밀도 레이어">
+          <div class="gis-map-tip">💡 활성화된 도면을 클릭하면 원본 크기로 팝업 확대됩니다</div>
         </div>
       </div>
     </section>
@@ -263,15 +390,34 @@
   </footer>
 
   <script>
+    // 1. 네비게이션 고정 제어
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       if (window.scrollY < 40) nav.classList.remove('scrolled');
       else nav.classList.add('scrolled');
     });
 
+    // 2. 🌍 GIS 데이터 레이어 변경 인터랙티브 컨트롤 시스템
+    function toggleGisLayer(layerNum) {
+      // 모든 버튼 활성화 해제
+      document.querySelectorAll('.layer-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      // 모든 이미지 가리기
+      document.querySelectorAll('.gis-layer-img').forEach(img => {
+        img.classList.remove('active');
+      });
+
+      // 선택한 버튼 및 이미지 레이어만 전면 표출 활성화
+      document.querySelector(`.layer-btn[data-layer="${layerNum}"]`).classList.add('active');
+      document.getElementById(`gis-img-${layerNum}`).classList.add('active');
+    }
+
+    // 3. 🔍 이미지 크게보기 고급 모달 시스템
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
 
+    // 동적으로 바뀌는 GIS 맵을 포함해 본문 내 모든 이미지를 모달 타겟팅
     document.querySelectorAll('img').forEach(img => {
       if (!img.classList.contains('nav-logo')) {
         img.addEventListener('click', function() {
