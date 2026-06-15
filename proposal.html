@@ -3,193 +3,276 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>제안 — 성수동 프로젝트</title>
+  <title>제안 — 남겨진 공장, 열린 거리</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── 제안 페이지 전용 고도화 스타일 ── */
+    
+    /* 섹션 공통 여백 및 헤더 정렬 맞춤 */
+    .proposal-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* 컨셉 섹션 강조 */
+    .concept-box {
+      background-color: var(--gray-bg);
+      padding: 4rem;
+      border-radius: 24px;
+      margin: 4rem 0;
+      border-left: 6px solid #C05A46;
+    }
+    .concept-quote {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      line-height: 1.3;
+      margin-bottom: 2rem;
+      color: var(--black);
+    }
+
+    /* 전략 카드 디자인 고도화 */
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .strategy-item {
+      background: var(--white);
+      padding: 2.5rem;
+      border: 1px solid var(--gray-light);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+    .strategy-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+      border-color: #C05A46;
+    }
+    .strategy-num {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: #C05A46;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    /* 공간 전략 이미지 + 텍스트 슬라이드 스타일 */
+    .space-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .space-row:last-child { border-bottom: none; }
+    .space-row.reverse { direction: rtl; }
+    .space-row.reverse .space-text { direction: ltr; }
+    
+    .space-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      background-color: #eee;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .space-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* 기대효과 박스 */
+    .effect-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .effect-card {
+      background: #fafafa;
+      padding: 2rem;
+      border-radius: 12px;
+    }
+    .effect-card h4 {
+      color: #C05A46;
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+    }
+
+    /* 이미지 갤러리 (핀터레스트/언스플래시) */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .gallery-item {
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+    @media (max-width: 900px) {
+      .strategy-grid, .space-row, .effect-grid, .gallery-grid { grid-template-columns: 1fr; }
+      .concept-box { padding: 2rem; }
+    }
+  </style>
 </head>
 <body>
 
-<nav id="nav" class="scrolled">
-  <a class="nav-logo" href="index.html">성수동 프로젝트</a>
-  <ul class="nav-links">
-    <li><a href="index.html">홈</a></li>
-    <li><a href="status.html">현황</a></li>
-    <li><a href="analysis.html">분석</a></li>
-    <li><a href="case.html">사례</a></li>
-    <li><a href="proposal.html" class="active">제안</a></li>
-  </ul>
-</nav>
+  <nav id="nav" class="scrolled">
+    <a class="nav-logo" href="index.html">남겨진 공장, 열린 거리</a>
+    <ul class="nav-links">
+      <li><a href="index.html">홈</a></li>
+      <li><a href="status.html">현황</a></li>
+      <li><a href="analysis.html">분석</a></li>
+      <li><a href="case.html">사례</a></li>
+      <li><a href="proposal.html" class="active">제안</a></li>
+    </ul>
+  </nav>
 
-<div class="page-header">
-  <p class="section-label">설계 제안</p>
-  <h1>보행 통로를<br>만드는 방법</h1>
-  <p class="page-header-desc">
-    공개공지와 필로티를 연결점으로 삼아 산업 블록을 관통하는
-    보행 통로를 단계적으로 확보합니다.
-  </p>
-</div>
+  <div class="page-header">
+    <p class="section-label">DESIGN PROPOSAL</p>
+    <h1>아이디어가 인쇄되고,<br>거리가 되는 곳</h1>
+    <p class="page-header-desc">
+      전통 인쇄 산업과 창작 문화를 연결하여 성수동만의 새로운 가로 정체성을 제안합니다.
+    </p>
+  </div>
 
-<!-- ── 전략 개요 ── -->
-<section class="section">
-  <p class="section-label">전략 개요</p>
-  <h2 class="section-title">개입의 원칙</h2>
-  <p class="section-desc">
-    기존 도시 구조를 존중하면서 최소한의 개입으로 최대한의 연결성을 만들어냅니다.
-  </p>
-</section>
+  <div class="proposal-container">
+    
+    <div class="concept-box">
+      <h2 class="concept-quote">
+        "성수동 인쇄거리는 단순한 제조업의 보존을 넘어,<br>
+        <span style="color:#C05A46;">시민의 아이디어가 물질로 구현되는 창작의 가로</span>가 됩니다."
+      </h2>
+      <p class="section-desc" style="max-width: 100%;">
+        기존의 강력한 생산 인프라를 유지하면서 시민참여형 체험, 창작 협업, 문화 콘텐츠를 결합한 새로운 인쇄산업거리 모델을 제안합니다. 사람들은 이곳에서 인쇄의 역사를 읽고, 자신의 아이디어를 직접 인쇄하며, 거리를 걷는 즐거움을 발견하게 될 것입니다.
+      </p>
+    </div>
 
-<!-- 마스터플랜 풀밴드 -->
-<div class="img-band" style="aspect-ratio:16/7;">
-  <!-- <img src="images/masterplan.jpg" alt="마스터플랜"> -->
-  <span class="img-band-placeholder">마스터플랜 / 전략 다이어그램 삽입</span>
-</div>
-
-<!-- ── 개입 원칙 3가지 ── -->
-<section class="section section-alt">
-  <p class="section-label">핵심 전략</p>
-  <h2 class="section-title">3가지 개입 원칙</h2>
-
-  <div class="card-grid">
-    <div class="card">
-      <div class="card-img-box">
-        <!-- <img src="images/strategy-1.jpg" alt="공개공지 활용"> -->
-        공개공지 활용
+    <section class="section" style="padding: 2rem 0;">
+      <p class="section-label">STRATEGY</p>
+      <h2 class="section-title">3가지 핵심 개입 전략</h2>
+      <div class="strategy-grid">
+        <div class="strategy-item">
+          <span class="strategy-num">01</span>
+          <h3>체험거리 활성화</h3>
+          <p class="card-text">제조 공간을 시민과 연결하여 엽서, 포스터 제작 등 인쇄 공정을 직접 경험하는 접점을 만듭니다.</p>
+        </div>
+        <div class="strategy-item">
+          <span class="strategy-num">02</span>
+          <h3>창작 네트워크 구축</h3>
+          <p class="card-text">인쇄업체와 디자이너, 브랜드 간의 공동 기획 및 제작이 가능한 협업 시스템을 구축합니다.</p>
+        </div>
+        <div class="strategy-item">
+          <span class="strategy-num">03</span>
+          <h3>거리 브랜딩 강화</h3>
+          <p class="card-text">인쇄 모티프 바닥 디자인과 공간 구성을 통해 성수동만의 독보적인 장소 정체성을 형성합니다.</p>
+        </div>
       </div>
-      <div class="card-body">
-        <p class="card-tag" style="font-size:1.8rem; font-family:var(--font-display); color:var(--black); letter-spacing:0; text-transform:none; margin-bottom:0.3rem;">01</p>
-        <h3 class="card-title">공개공지 연결</h3>
-        <p class="card-text">블록 내 공개공지를 보행 동선으로 재활용. 사적 공간을 공공 통로와 연결합니다.</p>
+    </section>
+
+    <section class="section" style="padding: 5rem 0;">
+      <p class="section-label">SPACE PLAN</p>
+      <h2 class="section-title">공간별 기능 전략</h2>
+      
+      <div class="space-row">
+        <div class="space-img">
+          <img src="images/old-machine.jpg" alt="인쇄 역사 공간"> </div>
+        <div class="space-text">
+          <p class="card-tag">역사 / 전시</p>
+          <h3>인쇄 역사 공간</h3>
+          <p class="section-desc" style="margin-bottom:0;">활판 인쇄부터 디지털까지의 기술 변천을 전시하여 방문자가 거리의 맥락을 이해하는 출발점을 제공합니다.</p>
+        </div>
+      </div>
+
+      <div class="space-row reverse">
+        <div class="space-img">
+          <img src="images/modern-print.jpg" alt="체험 공간"> </div>
+        <div class="space-text">
+          <p class="card-tag">참여 / 경험</p>
+          <h3>인쇄 체험 공간</h3>
+          <p class="section-desc" style="margin-bottom:0;">기존 업체 장비를 활용한 굿즈 커스터마이징 프로그램을 운영하여 새로운 방문 수요를 창출합니다.</p>
+        </div>
+      </div>
+
+      <div class="space-row">
+        <div class="space-img">
+          <img src="images/collab-space.jpg" alt="창작 협업 공간"> </div>
+        <div class="space-text">
+          <p class="card-tag">협업 / 생산</p>
+          <h3>창작 협업 공간</h3>
+          <p class="section-desc" style="margin-bottom:0;">디자인 스튜디오와 제작실을 연계하여 기획부터 물질적 구현까지 한 공간에서 이루어지는 구조를 만듭니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding: 5rem 0;">
+      <p class="section-label">EXPECTED EFFECTS</p>
+      <h2 class="section-title">기대효과</h2>
+      <div class="effect-grid">
+        <div class="effect-card">
+          <h4>산업적 측면</h4>
+          <p class="card-text">전통 인쇄 산업의 생산 기반을 유지하면서 새로운 창작 협업 수요를 창출하여 제조업의 지속가능성을 확보합니다.</p>
+        </div>
+        <div class="effect-card">
+          <h4>문화적 측면</h4>
+          <p class="card-text">성수동만의 독특한 산업 문화 정체성을 강화하고, 낙후된 골목을 보행 중심의 문화 거리로 재편합니다.</p>
+        </div>
+        <div class="effect-card">
+          <h4>경제적 측면</h4>
+          <p class="card-text">유동 인구 증가와 체험 소비를 통해 지역 상권을 활성화하고 고부가가치 시각 문화 산업을 육성합니다.</p>
+        </div>
+        <div class="effect-card">
+          <h4>도시재생 측면</h4>
+          <p class="card-text">물리적 철거 없이 기존 도시 구조 내에서의 최소 개입으로 연결을 회복하는 지속가능한 재생 모델을 제시합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding: 5rem 0;">
+      <p class="section-label">INSPIRATION</p>
+      <h2 class="section-title">디자인 모티프 및 레퍼런스</h2>
+      <p class="section-desc">프로젝트가 추구하는 거리의 질감과 제작 문화의 예시입니다.</p>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="images/custom-sticker.jpg" alt="커스텀 인쇄 예시"></div>
+        <div class="gallery-item"><img src="images/vintage-press.jpg" alt="과거 인쇄 장비"></div>
+        <div class="gallery-item"><img src="images/modern-industrial.jpg" alt="현대 인쇄기"></div>
+        <div class="gallery-item"><img src="images/floor-design.jpg" alt="가로 바닥 디자인"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="section" style="background:var(--black); padding: 8rem 0;">
+    <div class="proposal-container">
+      <h2 style="font-family:var(--font-display); font-size:2.5rem; color:#fff; margin-bottom: 2rem;">레트로 인쇄 체험</h2>
+      <div class="video-wrap">
+        <video controls style="position:absolute;inset:0;width:100%;height:100%;">
+          <source src="videos/vintage.mp4" type="video/mp4" />
+        </video>
       </div>
     </div>
-    <div class="card">
-      <div class="card-img-box">
-        <!-- <img src="images/strategy-2.jpg" alt="필로티 활용"> -->
-        필로티 활용
-      </div>
-      <div class="card-body">
-        <p class="card-tag" style="font-size:1.8rem; font-family:var(--font-display); color:var(--black); letter-spacing:0; text-transform:none; margin-bottom:0.3rem;">02</p>
-        <h3 class="card-title">필로티 통과</h3>
-        <p class="card-text">기존 건물 필로티를 보행 통로로 확보. 우천 시에도 연속적인 보행이 가능합니다.</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img-box">
-        <!-- <img src="images/strategy-3.jpg" alt="단계적 개입"> -->
-        단계적 개입
-      </div>
-      <div class="card-body">
-        <p class="card-tag" style="font-size:1.8rem; font-family:var(--font-display); color:var(--black); letter-spacing:0; text-transform:none; margin-bottom:0.3rem;">03</p>
-        <h3 class="card-title">단계적 구현</h3>
-        <p class="card-text">개발 압력에 따라 구간별로 순차 적용. 도시 변화에 유연하게 대응합니다.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- ── 구간 A ── -->
-<div class="split">
-  <div class="split-img" style="font-size:0.72rem;">
-    <!-- <img src="images/zone-a.jpg" alt="구간 A"> -->
-    구간 A 다이어그램 / 이미지
-  </div>
-  <div class="split-body">
-    <p class="section-label">구간 A</p>
-    <h2 class="section-title" style="font-size:2rem;">○○길 —<br>△△로 연결부</h2>
-    <p class="section-desc" style="margin-bottom:1.5rem;">
-      공개공지를 활용한 블록 내부 통과 동선 확보.
-      기존 건물 필로티와 연계하여 우천 시에도 보행 가능한 연속 공간을 구성합니다.
-    </p>
-    <p style="font-size:0.78rem; color:var(--gray-mid); letter-spacing:0.06em; border-left:2px solid var(--accent); padding-left:1rem;">
-      전략 &nbsp;→&nbsp; 공개공지 연결 + 필로티 활용
-    </p>
-  </div>
-</div>
-
-<!-- ── 구간 B ── -->
-<div class="split" style="direction:rtl;">
-  <div class="split-img" style="font-size:0.72rem; direction:ltr;">
-    <!-- <img src="images/zone-b.jpg" alt="구간 B"> -->
-    구간 B 다이어그램 / 이미지
-  </div>
-  <div class="split-body dark" style="direction:ltr;">
-    <p class="section-label">구간 B</p>
-    <h2 class="section-title" style="font-size:2rem;">○○로 —<br>△△길 연결부</h2>
-    <p class="section-desc" style="margin-bottom:1.5rem;">
-      내용을 입력하세요. 어떤 방식으로 개입하는지,
-      어떤 공간을 활용하는지 설명합니다.
-    </p>
-    <p style="font-size:0.78rem; color:rgba(255,255,255,0.35); letter-spacing:0.06em; border-left:2px solid var(--accent); padding-left:1rem;">
-      전략 &nbsp;→&nbsp; 전략 내용 입력
-    </p>
-  </div>
-</div>
-
-<!-- ── 구간 C ── -->
-<div class="split">
-  <div class="split-img" style="font-size:0.72rem;">
-    <!-- <img src="images/zone-c.jpg" alt="구간 C"> -->
-    구간 C 다이어그램 / 이미지
-  </div>
-  <div class="split-body">
-    <p class="section-label">구간 C</p>
-    <h2 class="section-title" style="font-size:2rem;">○○길 —<br>△△길 연결부</h2>
-    <p class="section-desc" style="margin-bottom:1.5rem;">
-      내용을 입력하세요.
-    </p>
-    <p style="font-size:0.78rem; color:var(--gray-mid); letter-spacing:0.06em; border-left:2px solid var(--accent); padding-left:1rem;">
-      전략 &nbsp;→&nbsp; 전략 내용 입력
-    </p>
-  </div>
-</div>
-
-<!-- ── 렌더링 갤러리 ── -->
-<section class="section section-alt">
-  <p class="section-label">렌더링</p>
-  <h2 class="section-title">공간 이미지</h2>
-  <p class="section-desc">제안된 보행 공간의 분위기와 재료감을 표현합니다.</p>
-
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
-    <div class="split-img" style="aspect-ratio:16/10; font-size:0.72rem;">
-      <!-- <img src="images/render-1.jpg" alt="렌더링 1"> -->
-      렌더링 이미지 1
-    </div>
-    <div class="split-img" style="aspect-ratio:16/10; font-size:0.72rem;">
-      <!-- <img src="images/render-2.jpg" alt="렌더링 2"> -->
-      렌더링 이미지 2
-    </div>
+  <div class="page-nav">
+    <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
+    <a href="media.html" class="btn btn-dark">현장 기록 영상 보기 →</a>
   </div>
 
-  <div class="img-band" style="aspect-ratio:21/8;">
-    <!-- <img src="images/render-panorama.jpg" alt="전체 렌더링"> -->
-    <span class="img-band-placeholder">전체 조감 렌더링 / 파노라마 이미지</span>
-  </div>
-</section>
-  
-<!-- ── 제안 영상 ── -->
-<section class="section">
-<section class="section" style="background:var(--black);">
-  <h2 style="font-family:'Georgia', serif; font-size:2.5rem; color:#fff;">레트로 인쇄 체험</h2>
-  <div class="video-wrap">
-    <video controls style="position:absolute;inset:0;width:100%;height:100%;">
-      <source src="videos/vintage.mp4" type="video/mp4" />
-    </video>
-  </div>
-</section>
-<div class="page-nav">
-  <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
-  <a href="media.html" class="btn btn-dark">영상 보기 →</a>
-</div>
+  <footer>
+    <span>성수동 프로젝트 &nbsp;·&nbsp; 도시설계 스튜디오 2026</span>
+    <a href="index.html">← 홈으로</a>
+  </footer>
 
-<footer>
-  <span>성수동 프로젝트 &nbsp;·&nbsp; 도시설계 스튜디오 2025</span>
-  <a href="index.html">← 홈으로</a>
-</footer>
-
-<script>
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY < 40) nav.classList.remove('scrolled');
-  else nav.classList.add('scrolled');
-});
-</script>
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY < 40) nav.classList.remove('scrolled');
+      else nav.classList.add('scrolled');
+    });
+  </script>
 </body>
 </html>
