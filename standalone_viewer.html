@@ -8,7 +8,7 @@
     /* 전체 화면 기본 스타일 리셋 */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background-color: #08080a;
+      background-color: #141416;
       color: #ffffff;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       overflow: hidden;
@@ -26,38 +26,32 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      perspective: 1500px; /* 3D 깊이감 */
+      perspective: 1500px;
     }
 
-    /* ── 🗺️ 1단계 스테이지: 마스터플랜 조감도 화면 ── */
+    /* ── 🗺️ 1단계 스테이지: 검은 여백을 없애고 프레임에 100% 꽉 채운 조감도 화면 ── */
     .map-stage {
       position: relative;
-      width: 90vmin;
-      height: 90vmin;
-      max-width: 900px;
-      max-height: 900px;
+      width: 100vw;
+      height: 100vh;
       background: #141416;
-      border-radius: 20px;
-      box-shadow: 0 50px 100px rgba(0, 0, 0, 0.7);
       overflow: hidden;
-      /* 시네마틱 트래킹 애니메이션 */
       transition: transform 1.3s cubic-bezier(0.7, 0, 0.15, 1), 
                   opacity 1s cubic-bezier(0.7, 0, 0.2, 1), 
                   filter 1s ease;
       transform-origin: center center;
       z-index: 1;
-      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    /* 조감도 배경 이미지 */
+    /* 조감도 배경 이미지 - 박스에 빈틈없이 꽉 채우는 프리미엄 커버 정렬 */
     .map-background {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       display: block;
     }
 
-    /* ── 🎯 [피드백 반영] 내부 블러를 제거한 선명한 레이더 핫스팟 경계면 ── */
+    /* 내부 블러를 제거한 선명한 레이더 핫스팟 경계면 */
     .hotspot-boundary {
       position: absolute;
       border-radius: 50%;
@@ -68,12 +62,11 @@
       justify-content: center;
       align-items: center;
       z-index: 10;
-      /* 변경 핵심: 가느다란 정밀 헤어라인선만 남기고, 내부는 100% 투명하고 선명하게 처리 */
       border: 1.5px solid currentColor;
       background: rgba(255, 255, 255, 0); 
     }
 
-    /* 🌀 은은하게 퍼져나가는 고품격 맥박/레이더 파동 모션 */
+    /* 은은하게 퍼져나가는 고품격 맥박/레이더 파동 모션 */
     .hotspot-boundary::before {
       content: '';
       position: absolute;
@@ -92,7 +85,7 @@
       100% { transform: scale(1.25); opacity: 0; filter: blur(2px); }
     }
 
-    /* 정밀 타겟 조준점 내부 도트 점 구현 */
+    /* 정밀 타겟 조준점 내부 도트 점 */
     .hotspot-boundary::after {
       content: '';
       position: absolute;
@@ -104,18 +97,15 @@
       transition: transform 0.4s ease;
     }
 
-    /* 🔥 호버 시 네온 가스 발광 및 부드러운 스케일링 극대화 */
+    /* 호버 시 네온 발광 효과 */
     .hotspot-boundary:hover {
       background: rgba(255, 255, 255, 0.04);
       box-shadow: inset 0 0 20px currentColor, 0 0 30px rgba(255, 255, 255, 0.1);
       transform: translate(-50%, -50%) scale(1.04);
     }
-    
-    .hotspot-boundary:hover::after {
-      transform: scale(1.5);
-    }
+    .hotspot-boundary:hover::after { transform: scale(1.5); }
 
-    /* 안내 문구 툴팁 디자인 가공 */
+    /* 안내 문구 툴팁 디자인 */
     .hotspot-tooltip {
       position: absolute;
       font-size: 11px;
@@ -139,12 +129,12 @@
       transform: translateY(0);
     }
 
-    /* 각 컬러 경계면 스케일 및 정밀 포지셔닝 고정 */
+    /* 꽉 찬 화면 비율에 최적화된 대형 핫스팟 레이더 터치 영역 포지셔닝 고정 */
     .hotspot-boundary.red { left: 36%; top: 68%; width: 25%; height: 25%; color: #ff4757; }
     .hotspot-boundary.green { left: 44%; top: 27%; width: 32%; height: 26%; color: #2ed573; }
     .hotspot-boundary.blue { left: 79%; top: 22%; width: 22%; height: 22%; color: #0097e6; }
 
-    /* ── 🌀 클릭 시 조감도가 거대화되며 빨려 들어가는 흡입 효과 효과 ── */
+    /* 클릭 시 시네마틱 흡입 효과 효과 */
     .map-stage.sucked-in {
       transform: scale(8);
       opacity: 0;
@@ -152,7 +142,7 @@
       pointer-events: none;
     }
 
-    /* ── 👁️ 2단계 스테이지: 사람이 현장에 서서 보게 될 1인칭 전경 화면 ── */
+    /* ── 👁️ 2단계 스테이지: 1인칭 전경 화면 ── */
     .perspective-stage {
       position: absolute;
       width: 100vw;
@@ -165,28 +155,20 @@
       transition: transform 1.3s cubic-bezier(0.6, 0, 0.15, 1), 
                   opacity 1s cubic-bezier(0.6, 0, 0.2, 1);
     }
-
     .perspective-stage.active {
       opacity: 1;
       pointer-events: auto;
       transform: scale(1) translateZ(0);
     }
-
     .human-view-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none;
+      width: 100%; height: 100%; object-fit: cover; display: none;
     }
-    .human-view-img.active {
-      display: block;
-    }
+    .human-view-img.active { display: block; }
 
     /* 상단 정보 패널 뱃지 */
     .info-overlay {
       position: absolute;
-      top: 2rem;
-      left: 2rem;
+      top: 2rem; left: 2rem;
       background: rgba(11, 11, 14, 0.85);
       padding: 14px 24px;
       border-radius: 40px;
@@ -199,11 +181,10 @@
     .status-indicator { width: 8px; height: 8px; border-radius: 50%; box-shadow: 0 0 12px currentColor; }
     .location-title { font-size: 14px; font-weight: 600; letter-spacing: 0.5px; }
 
-    /* ↩️ 원상복구 탈출(Back) 버튼 디자인 */
+    /* 탈출(Back) 버튼 */
     .exit-button {
       position: absolute;
-      bottom: 3.5rem;
-      left: 50%;
+      bottom: 3.5rem; left: 50%;
       transform: translateX(-50%);
       background: #ffffff;
       color: #0c0c0e;
