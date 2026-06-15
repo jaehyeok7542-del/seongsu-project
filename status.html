@@ -3,210 +3,189 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>현황 — 성수동 프로젝트</title>
+  <title>현황 — 남겨진 공장, 열린 거리</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* 라이트박스 모달 팝업 스타일 */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      cursor: zoom-out;
+    }
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 6px;
+      animation: zoom 0.3s ease;
+    }
+    @keyframes zoom {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    /* 본문 내 확대 가능한 이미지에 커서 스타일 추가 */
+    .section img {
+      cursor: zoom-in;
+      transition: opacity 0.3s;
+    }
+    .section img:hover {
+      opacity: 0.95;
+    }
+
+    /* 이관된 대상지 선정 이유 전용 카드 디자인 */
+    .site-reason-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .site-reason-card {
+      background: var(--white);
+      padding: 2.5rem;
+      border: 1px solid var(--gray-light);
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    }
+    .reason-num {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: #C05A46;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+
+    /* 현황 투인원 스플릿 박스 조정 */
+    .status-split {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin: 4rem 0;
+    }
+    .status-img-frame {
+      width: 100%;
+      aspect-ratio: 16/10;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .status-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    @media (max-width: 900px) {
+      .site-reason-grid, .status-split { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
 </head>
 <body>
 
-<nav id="nav" class="scrolled">
-  <a class="nav-logo" href="index.html">성수동 프로젝트</a>
-  <ul class="nav-links">
-    <li><a href="index.html">홈</a></li>
-    <li><a href="status.html" class="active">현황</a></li>
-    <li><a href="analysis.html">분석</a></li>
-    <li><a href="case.html">사례</a></li>
-    <li><a href="proposal.html">제안</a></li>
-  </ul>
-</nav>
+  <nav id="nav" class="scrolled">
+    <a class="nav-logo" href="index.html">남겨진 공장, 열린 거리</a>
+    <ul class="nav-links">
+      <li><a href="index.html">홈</a></li>
+      <li><a href="status.html" class="active">현황</a></li>
+      <li><a href="analysis.html">분석</a></li>
+      <li><a href="case.html">사례</a></li>
+      <li><a href="proposal.html">제안</a></li>
+    </ul>
+  </nav>
 
-<div class="page-header">
-  <p class="section-label">현황</p>
-  <h1>성수동 인쇄 산업<br>현황</h1>
-  <p class="page-header-desc">
-    성수동 인쇄 산업의 역사, 종류 및 변화, 대상지 현황을 살펴봅니다.
-  </p>
-</div>
-
-<!-- ── 01 인쇄업 역사 ── -->
-<section class="section">
-  <p class="section-label">01 — 인쇄업 역사</p>
-  <h2 class="section-title">성수동 인쇄 산업의<br>역사</h2>
-  <p class="section-desc">
-    성수동 인쇄 산업이 걸어온 역사를 살펴봅니다.
-  </p>
-  <div class="video-wrap">
-    <video controls style="position:absolute;inset:0;width:100%;height:100%;">
-      <source src="videos/print-history.mp4" type="video/mp4" />
-    </video>
-  </div>
-</section>
-
-<!-- ── 02 인쇄업 종류 및 변화 ── -->
-<section class="section section-alt">
-  <p class="section-label">02 — 인쇄업 종류 및 변화</p>
-  <h2 class="section-title">인쇄업의<br>변화</h2>
-  <p class="section-desc">성수동 인쇄 산업은 시대에 따라 기술과 역할이 크게 변화해왔습니다.</p>
-
-  <!-- 토글 탭 버튼 -->
-  <div style="display:flex; gap:0; margin:2.5rem 0 0; border:1px solid var(--gray-light); width:fit-content;">
-    <button onclick="showTab('past')" id="btn-past"
-      style="padding:0.9rem 2.5rem; font-size:0.85rem; font-family:var(--font-body); letter-spacing:0.08em; cursor:pointer; border:none; transition:all 0.25s ease; background:var(--black); color:#fff;">
-      과거
-    </button>
-    <button onclick="showTab('present')" id="btn-present"
-      style="padding:0.9rem 2.5rem; font-size:0.85rem; font-family:var(--font-body); letter-spacing:0.08em; cursor:pointer; border:none; border-left:1px solid var(--gray-light); transition:all 0.25s ease; background:var(--white); color:var(--gray-mid);">
-      현재
-    </button>
-    <button onclick="showTab('latest')" id="btn-latest"
-      style="padding:0.9rem 2.5rem; font-size:0.85rem; font-family:var(--font-body); letter-spacing:0.08em; cursor:pointer; border:none; border-left:1px solid var(--gray-light); transition:all 0.25s ease; background:var(--white); color:var(--gray-mid);">
-      최신
-    </button>
+  <div class="page-header">
+    <p class="section-label">SITE STATUS</p>
+    <h1>대상지 선정 및 가로 현황</h1>
+    <p class="page-header-desc">성수동 북측 인쇄 단지가 지닌 독특한 공간 구조와 골목 환경을 진단합니다.</p>
   </div>
 
-  <!-- 탭 콘텐츠 -->
-  <div style="border:1px solid var(--gray-light); border-top:none; padding:3rem; background:var(--white);">
+  <div class="container">
+    
+    <section class="section" style="padding-top: 4rem; border-bottom: 1px solid var(--gray-light);">
+      <p class="section-label">SELECTION REASON</p>
+      <h2 class="section-title">왜 성수동 북측 인쇄 가로인가?</h2>
+      <p class="section-desc">
+        성수2가 1동 및 성수동 북측 준공업지역 일대는 성수동의 중심부와 상업지구 이면에 숨겨진 가장 밀도 높은 독자적 산업 공간입니다.
+      </p>
 
-    <!-- 과거 -->
-    <div id="tab-past" style="display:block;">
-      <div style="display:grid; grid-template-columns:1fr 1fr 1.5fr; gap:1.5rem; align-items:start;">
-        <!-- 사진 2장 -->
-        <div style="overflow:hidden; aspect-ratio:3/4;">
-          <img src="images/past.jpg" alt="과거 인쇄 산업" style="width:100%;height:100%;object-fit:cover;">
+      <div class="site-reason-grid">
+        <div class="site-reason-card">
+          <span class="reason-num">01</span>
+          <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">독보적인 산업 생태계</h3>
+          <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark);">기획, 디자인, 출력, 후가공까지 전 공정이 반경 500m 이내에 긴밀한 물리적 네트워크로 집적되어 있는 살아있는 준공업 도심 제조 유산입니다.</p>
         </div>
-        <div style="overflow:hidden; aspect-ratio:3/4;">
-          <img src="images/past1.gif" alt="과거 인쇄 산업" style="width:100%;height:100%;object-fit:cover;">
+        <div class="site-reason-card">
+          <span class="reason-num">02</span>
+          <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">주변 상업 중심과의 단절</h3>
+          <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark);">성수역 남측 연무장길이나 카페거리의 급격한 젠트리피케이션 및 트렌디한 상업화 흐름과 대조적으로, 북측 블록은 물리적·인지적으로 고립되어 있어 재생이 시급합니다.</p>
         </div>
-        <!-- 텍스트 -->
-        <div style="display:flex; flex-direction:column; gap:1.2rem; padding-left:1rem;">
-          <div>
-            <p style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent,#b89a5e); margin-bottom:0.5rem;">1960s — 1990s</p>
-            <h3 style="font-family:var(--font-display); font-size:1.6rem; line-height:1.3; color:var(--black); margin-bottom:0.8rem;">아날로그<br>대량 생산</h3>
-            <div style="width:2rem; height:2px; background:var(--accent,#b89a5e); margin-bottom:1.2rem;"></div>
-          </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
-            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">기술 방식</p>
-            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">활판·오프셋 인쇄 중심. 납 활자와 수작업으로 이루어진 노동 집약적 산업.</p>
-          </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
-            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">생산 방식</p>
-            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">신문, 교과서, 포스터 등 대량 인쇄 수요 대응. 성수동에 인쇄 공장 밀집 시작.</p>
-          </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
-            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">특징</p>
-            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">인쇄 산업 전성기. 성수동 2가 일대 인쇄소 밀집 형성. 지역 경제의 핵심 동력.</p>
-          </div>
+        <div class="site-reason-card">
+          <span class="reason-num">03</span>
+          <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">보행 친화적 잠재력</h3>
+          <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark);">낮은 스카이라인과 옛 격자형 골목 조직을 원형 그대로 유지하고 있어, 필로티와 닫힌 공장 전면부를 조정하면 매력적인 문화적 보행 통로로 전환 가능합니다.</p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- 현재 -->
-    <div id="tab-present" style="display:none;">
-      <div style="display:grid; grid-template-columns:1fr 1fr 1.5fr; gap:1.5rem; align-items:start;">
-        <div style="overflow:hidden; aspect-ratio:3/4;">
-          <img src="images/now1.jpg" alt="현재 인쇄 산업" style="width:100%;height:100%;object-fit:cover;">
+    <section class="section" style="padding-top: 5rem;">
+      <p class="section-label">STREETSCAPE ANALYSIS</p>
+      <h2 class="section-title">과거와 현재의 공간 구조 변화</h2>
+      
+      <div class="status-split">
+        <div class="status-img-frame">
+          <img src="images/past1.gif" alt="성수동 가로 조직 과거 역사 지도 레이어">
         </div>
-        <div style="overflow:hidden; aspect-ratio:3/4;">
-          <img src="images/now3.jpg" alt="현재 인쇄 산업" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <div style="display:flex; flex-direction:column; gap:1.2rem; padding-left:1rem;">
-          <div>
-            <p style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent,#b89a5e); margin-bottom:0.5rem;">2000s — 현재</p>
-            <h3 style="font-family:var(--font-display); font-size:1.6rem; line-height:1.3; color:var(--black); margin-bottom:0.8rem;">디지털 전환<br>소량 다품종</h3>
-            <div style="width:2rem; height:2px; background:var(--accent,#b89a5e); margin-bottom:1.2rem;"></div>
-          </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
-            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">기술 방식</p>
-            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">디지털 인쇄·CTP 도입. 납 활자 퇴출 및 자동화 진행.</p>
-          </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
-            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">생산 방식</p>
-            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">소량 다품종 주문 인쇄로 전환. 패키지, 카탈로그, 브랜딩 인쇄물 비중 증가.</p>
-          </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
-            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">특징</p>
-            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">온라인 주문 플랫폼 확산. 인쇄물 온라인 주문·배송 서비스 성장으로 B2C 시장 확대.</p>
-          </div>
+        <div class="status-text-frame">
+          <p class="card-tag">HISTORICAL CONTEXT</p>
+          <h3 style="font-size:1.6rem; font-weight:normal; margin-bottom:1rem;">준공업 가로 조직의 고착화</h3>
+          <p class="section-desc" style="max-width: 100%; font-size:0.95rem; text-align:justify;">
+            과거 공장 마스터플랜 지도를 복합적으로 대조해 보면, 성수동 북측 인쇄거리는 1970-80년대 형성된 소규모 필지 분할 구조를 오늘날까지 거의 그대로 보존하고 있습니다. 이로 인해 소규모 대형 장비를 다루는 소공인 인쇄 공장들이 끈끈하게 군집을 이룰 수 있었던 토대가 되었으나, 현대 도시가 요구하는 보행 인도 및 오픈 스페이스 여백은 턱없이 부족해지는 원인이 되기도 하였습니다.
+          </p>
         </div>
       </div>
-    </div>
-
-    <!-- 최신 -->
-    <div id="tab-latest" style="display:none;">
-      <div style="display:grid; grid-template-columns:1fr 1fr 1.5fr; gap:1.5rem; align-items:start;">
-        <div style="overflow:hidden; aspect-ratio:3/4;">
-          <img src="images/trend.webp" alt="최신 인쇄 트렌드" style="width:100%;height:100%;object-fit:cover;"
-            onerror="this.src='images/trend2.jpg'">
-        </div>
-        <div style="overflow:hidden; aspect-ratio:3/4;">
-          <img src="images/trend1.jpg" alt="최신 인쇄 트렌드" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <div style="display:flex; flex-direction:column; gap:1.2rem; padding-left:1rem;">
-          <div>
-            <p style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent,#b89a5e); margin-bottom:0.5rem;">최신 동향</p>
-            <h3 style="font-family:var(--font-display); font-size:1.6rem; line-height:1.3; color:var(--black); margin-bottom:0.8rem;">고부가가치<br>시각 문화</h3>
-            <div style="width:2rem; height:2px; background:var(--accent,#b89a5e); margin-bottom:1.2rem;"></div>
-          </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
-            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">기술 방식</p>
-            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">UV인쇄, 리소그래피, 친환경 대두인쇄 등 고품질·특수 인쇄 기술 주목.</p>
-          </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
-            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">생산 방식</p>
-            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">디자인 스튜디오·브랜드와 협업. 팝업스토어 굿즈, 아트북, 리미티드 에디션 인쇄.</p>
-          </div>
-          <div style="border-left:2px solid var(--gray-light); padding-left:1rem;">
-            <p style="font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.3rem;">특징</p>
-            <p style="font-size:0.88rem; color:var(--black); line-height:1.7;">단순 인쇄를 넘어 시각 문화 산업으로 진화. 성수동 감성과 결합한 고부가가치 방향.</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
 
   </div>
-</section>
 
-<script>
-function showTab(tab) {
-  document.getElementById('tab-past').style.display = 'none';
-  document.getElementById('tab-present').style.display = 'none';
-  document.getElementById('tab-latest').style.display = 'none';
-  document.getElementById('btn-past').style.background = 'var(--white)';
-  document.getElementById('btn-past').style.color = 'var(--gray-mid)';
-  document.getElementById('btn-present').style.background = 'var(--white)';
-  document.getElementById('btn-present').style.color = 'var(--gray-mid)';
-  document.getElementById('btn-latest').style.background = 'var(--white)';
-  document.getElementById('btn-latest').style.color = 'var(--gray-mid)';
-  document.getElementById('tab-' + tab).style.display = 'block';
-  document.getElementById('btn-' + tab).style.background = 'var(--black)';
-  document.getElementById('btn-' + tab).style.color = '#fff';
-}
-</script>
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <img class="modal-content" id="modalImg" />
+  </div>
 
-<!-- ── 03 대상지 현황 ── -->
-<section class="section">
-  <p class="section-label">03 — 대상지 현황</p>
-  <h2 class="section-title">대상지 현황</h2>
-  <p class="section-desc">
-    내용을 입력하세요.
-  </p>
-</section>
+  <div class="page-nav">
+    <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
+    <a href="analysis.html" class="btn btn-dark">현황 데이터 정밀 분석 보기 →</a>
+  </div>
 
-<div class="page-nav">
-  <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
-  <a href="analysis.html" class="btn btn-dark">분석 보기 →</a>
-</div>
+  <footer>
+    <span>성수동 프로젝트 &nbsp;·&nbsp; 도시설계 스튜디오 2026</span>
+    <a href="index.html">← 홈으로</a>
+  </footer>
 
-<footer>
-  <span>성수동 프로젝트 &nbsp;·&nbsp; 도시설계 스튜디오 2025</span>
-  <a href="index.html">← 홈으로</a>
-</footer>
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY < 40) nav.classList.remove('scrolled');
+      else nav.classList.add('scrolled');
+    });
 
-<script>
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY < 40) nav.classList.remove('scrolled');
-  else nav.classList.add('scrolled');
-});
-</script>
+    // 💡 이미지 클릭 원본 확대 스크립트 모듈
+    document.querySelectorAll('.section img').forEach(img => {
+      img.addEventListener('click', function() {
+        document.getElementById('imageModal').style.display = "block";
+        document.getElementById('modalImg').src = this.src;
+      });
+    });
+
+    function closeModal() {
+      document.getElementById('imageModal').style.display = "none";
+    }
+  </script>
 </body>
 </html>
