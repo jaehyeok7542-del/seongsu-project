@@ -11,25 +11,31 @@
     /* 레드프린팅 소개 스플릿 */
     .home-split {
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      padding: 7rem 3rem;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 0;
+      align-items: stretch;
       border-bottom: 1px solid var(--gray-light);
     }
     .home-split-img {
       width: 100%;
-      aspect-ratio: 16/10;
-      border-radius: 14px;
+      min-height: 520px;
       overflow: hidden;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+      position: relative;
     }
     .home-split-img img {
       width: 100%; height: 100%; object-fit: cover;
+      display: block;
       transition: transform 0.6s ease;
     }
     .home-split-img:hover img { transform: scale(1.03); }
 
+    .home-split-text {
+      padding: 5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 1px solid var(--gray-light);
+    }
     .home-split-text .label {
       font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
       text-transform: uppercase; color: #C05A46; margin-bottom: 1rem;
@@ -37,13 +43,43 @@
     }
     .home-split-text h2 {
       font-family: var(--font-display);
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-size: clamp(1.5rem, 2.5vw, 2.1rem);
       line-height: 1.2; font-weight: normal;
-      margin-bottom: 1.5rem; color: var(--black);
+      margin-bottom: 2rem; color: var(--black);
     }
-    .home-split-text p {
-      font-size: 0.97rem; color: var(--gray-dark);
-      line-height: 1.85; text-align: justify; margin-bottom: 2rem;
+
+    /* 정보 리스트 */
+    .info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 2.5rem;
+    }
+    .info-list li {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 1rem;
+      align-items: baseline;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--gray-light);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    .info-list li:first-child {
+      border-top: 1px solid var(--gray-light);
+    }
+    .info-key {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      white-space: nowrap;
+    }
+    .info-val {
+      color: var(--black);
+      font-size: 0.9rem;
     }
 
     /* 핵심 지표 스트립 (홈용) */
@@ -290,6 +326,10 @@
     @media (max-width: 900px) {
       .home-video-section { padding: 4rem 0; }
       .home-video-inner { padding: 0 1.5rem; }
+      .home-split { grid-template-columns: 1fr; }
+      .home-split-img { min-height: 280px; }
+      .home-split-text { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--gray-light); }
+      .info-list li { grid-template-columns: 80px 1fr; }
     }
 
   </style>
@@ -359,20 +399,59 @@
     </p>
   </div>
 
+  <!-- ── 핵심 지표 스트립 ── -->
+  <div class="home-stat-strip">
+    <div class="home-stat-item">
+      <div class="home-stat-num">261개</div>
+      <div class="home-stat-label">인쇄 사업체 수</div>
+      <div class="home-stat-desc">성수동 4개 행정동 내 집적된 인쇄·출판 관련 사업체로, 성동구 전체의 87.9%를 차지합니다.</div>
+    </div>
+    <div class="home-stat-item">
+      <div class="home-stat-num">500m</div>
+      <div class="home-stat-label">공정 네트워크 반경</div>
+      <div class="home-stat-desc">기획·출력·후가공·제본까지 전 공정이 반경 500m 이내에 집적된 살아있는 도심 제조 생태계입니다.</div>
+    </div>
+    <div class="home-stat-item">
+      <div class="home-stat-num">78%</div>
+      <div class="home-stat-label">보도 미확보 구간</div>
+      <div class="home-stat-desc">대상 가로의 78%에서 보행 기준 폭이 미달하거나 조업 차량에 의해 완전히 차단됩니다.</div>
+    </div>
+  </div>
+
   <!-- ── 레드프린팅 소개 ── -->
   <div class="home-split">
     <div class="home-split-img">
-      <img src="images/site-main.png" alt="레드프린팅 성수 본사 전경">
+      <img src="images/site-building.jpg" alt="성수동 인쇄공장 전경">
     </div>
     <div class="home-split-text">
       <span class="label">CORE INDUSTRIAL ANCHOR</span>
       <h2>가로의 중심,<br>레드프린팅(Red Printing)</h2>
-      <p>
-        성수동 북측 인쇄 가로의 물리적·산업적 중심에는 '레드프린팅(Red Printing)'이 자리하고 있습니다. 소규모 다품종 수주형 디지털 프린팅 시스템을 선도적으로 구축한 핵심 기업으로, 기획부터 최종 포장 배송까지 일괄 처리하는 현대적 공급망을 가로 내에 안착시켰습니다.
-      </p>
-      <p>
-        이 거대한 공장 전면부는 가로 전체 유동 동선에 지대한 영향을 미치는 핵심 랜드마크이자, 향후 보행 오픈 스페이스 제안 마스터플랜의 가장 중요한 입체적 연계 거점입니다.
-      </p>
+      <ul class="info-list">
+        <li>
+          <span class="info-key">주소</span>
+          <span class="info-val">서울특별시 성동구 아차산로 11길 30, 성수동 2가</span>
+        </li>
+        <li>
+          <span class="info-key">용도 지역</span>
+          <span class="info-val">준공업</span>
+        </li>
+        <li>
+          <span class="info-key">대지 면적</span>
+          <span class="info-val">2,099.2㎡</span>
+        </li>
+        <li>
+          <span class="info-key">공시지가</span>
+          <span class="info-val">9,605,000원/㎡</span>
+        </li>
+        <li>
+          <span class="info-key">접근성</span>
+          <span class="info-val">2호선 성수역 2번 출구에서 도보 5~6분</span>
+        </li>
+        <li>
+          <span class="info-key">주변 환경</span>
+          <span class="info-val">청송소공원, 인쇄 산업 공장, 팝업 스토어</span>
+        </li>
+      </ul>
       <a href="status.html" class="btn btn-dark">현황 자세히 보기 →</a>
     </div>
   </div>
