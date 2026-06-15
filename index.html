@@ -5,6 +5,152 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>남겨진 공장, 열린 거리</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── 홈 전용 추가 스타일 ── */
+
+    /* 레드프린팅 소개 스플릿 */
+    .home-split {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      padding: 7rem 3rem;
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .home-split-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+    }
+    .home-split-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .home-split-img:hover img { transform: scale(1.03); }
+
+    .home-split-text .label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #C05A46; margin-bottom: 1rem;
+      display: block;
+    }
+    .home-split-text h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.2; font-weight: normal;
+      margin-bottom: 1.5rem; color: var(--black);
+    }
+    .home-split-text p {
+      font-size: 0.97rem; color: var(--gray-dark);
+      line-height: 1.85; text-align: justify; margin-bottom: 2rem;
+    }
+
+    /* 핵심 지표 스트립 (홈용) */
+    .home-stat-strip {
+      background: var(--black); color: var(--white);
+      display: grid; grid-template-columns: repeat(3, 1fr);
+    }
+    .home-stat-item {
+      padding: 3.5rem 2.5rem;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      transition: background 0.2s;
+    }
+    .home-stat-item:last-child { border-right: none; }
+    .home-stat-item:hover { background: rgba(255,255,255,0.04); }
+    .home-stat-num {
+      font-family: var(--font-display);
+      font-size: 3rem; line-height: 1; margin-bottom: 0.5rem;
+      color: #e28774; font-weight: normal;
+    }
+    .home-stat-label {
+      font-size: 0.82rem; color: rgba(255,255,255,0.45);
+      letter-spacing: 0.05em; margin-bottom: 0.5rem;
+      text-transform: uppercase; font-weight: 600;
+    }
+    .home-stat-desc {
+      font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.65;
+    }
+
+    /* 페이지 네비게이션 카드 (현황/분석/사례/제안) */
+    .nav-card-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--gray-light);
+      margin: 0;
+    }
+    .nav-card {
+      position: relative; overflow: hidden;
+      border-right: 1px solid var(--gray-light);
+      text-decoration: none; color: var(--black);
+      display: flex; flex-direction: column;
+      transition: background 0.2s;
+      padding: 2.5rem 2rem;
+    }
+    .nav-card:last-child { border-right: none; }
+    .nav-card:hover { background: var(--gray-bg); }
+    .nav-card-num {
+      font-family: var(--font-display); font-size: 0.9rem;
+      color: #C05A46; margin-bottom: 0.75rem; display: block;
+    }
+    .nav-card-title {
+      font-family: var(--font-display); font-size: 1.4rem;
+      margin-bottom: 0.75rem; line-height: 1.2; font-weight: normal;
+      flex-grow: 1;
+    }
+    .nav-card-desc {
+      font-size: 0.85rem; color: var(--gray-dark); line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .nav-card-link {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--black);
+      display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+    .nav-card-link::after { content: '→'; transition: transform 0.2s; }
+    .nav-card:hover .nav-card-link::after { transform: translateX(4px); }
+    .nav-card-img {
+      width: 100%; aspect-ratio: 16/10; overflow: hidden;
+      border-radius: 8px; margin-bottom: 1.5rem;
+      background: var(--gray-bg);
+    }
+    .nav-card-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .nav-card:hover .nav-card-img img { transform: scale(1.04); }
+
+    /* 인트로 섹션 */
+    .home-intro {
+      max-width: 800px;
+      text-align: center;
+      padding: 7rem 3rem;
+      margin: 0 auto;
+    }
+    .home-intro h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      margin-bottom: 2rem; font-weight: normal; line-height: 1.4;
+    }
+    .home-intro p {
+      font-size: 1rem; color: var(--gray-dark);
+      line-height: 1.9; text-align: justify; max-width: 640px; margin: 0 auto;
+    }
+
+    @media (max-width: 900px) {
+      .home-split { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.5rem; }
+      .home-stat-strip { grid-template-columns: 1fr; }
+      .home-stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .nav-card-grid { grid-template-columns: 1fr 1fr; }
+      .nav-card { border-right: none; border-bottom: 1px solid var(--gray-light); }
+      .home-intro { padding: 4rem 1.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-card-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
@@ -19,29 +165,109 @@
     </ul>
   </nav>
 
+  <!-- ── 히어로 ── -->
   <header class="hero">
     <div class="hero-bg">
       <img src="images/hero.jpg" alt="성수동 인쇄공장 가로 전경" />
     </div>
     <div class="hero-content">
-      <p class="hero-subtitle">도시설계 스튜디오 2026</p>
+      <p class="hero-tag">도시설계 스튜디오 2026</p>
       <h1 class="hero-title">남겨진 공장,<br />열린 거리</h1>
       <p class="hero-desc">성수동 북측 인쇄 산업 가로의 정체성 회복과 보행 네트워크 재생 구상</p>
-      <a href="status.html" class="btn btn-primary">프로젝트 시작하기 →</a>
+      <div class="hero-actions">
+        <a href="status.html" class="btn">프로젝트 시작하기 →</a>
+      </div>
     </div>
+    <div class="hero-scroll">SCROLL</div>
   </header>
 
-  <main class="section">
-    <div class="container" style="max-width: 800px; text-align: center; padding: 4rem 0;">
-      <p class="section-label" style="justify-content: center;">INTRODUCTION</p>
-      <h2 style="font-family: var(--font-display); font-size: 2.2rem; margin-bottom: 2rem; font-weight: normal; line-height: 1.4;">
-        성수동의 가장 깊은 골목,<br />그곳의 이야기를 다시 쓰다.
-      </h2>
-      <p class="section-desc" style="max-width: 100%; text-align: justify;">
+  <!-- ── 인트로 ── -->
+  <div style="border-bottom: 1px solid var(--gray-light);">
+    <div class="home-intro">
+      <p class="section-label" style="justify-content:center; display:flex;">INTRODUCTION</p>
+      <h2>성수동의 가장 깊은 골목,<br />그곳의 이야기를 다시 쓰다.</h2>
+      <p>
         붉은 벽돌과 철제 셔터문, 밤낮없이 돌아가는 윤전기 소리. 성수동 북측의 인쇄 골목은 오랜 시간 동안 도시의 보이지 않는 생산 엔진 역할을 해왔습니다. 하지만 급격한 주변부 개발과 세련된 상업화의 물결 속에서, 이 소중한 산업 생태계와 골목 가로는 점차 단절되고 고립되고 있습니다. 본 프로젝트는 성수동 고유의 인쇄 인프라를 보존하는 동시에, 시민의 보행과 문화적 크리에이티브를 수용하는 열린 거리로의 재생 마스터플랜을 제안합니다.
       </p>
     </div>
-  </main>
+  </div>
+
+  <!-- ── 핵심 지표 스트립 ── -->
+  <div class="home-stat-strip">
+    <div class="home-stat-item">
+      <div class="home-stat-num">261개</div>
+      <div class="home-stat-label">인쇄 사업체 수</div>
+      <div class="home-stat-desc">성수동 4개 행정동 내 집적된 인쇄·출판 관련 사업체로, 성동구 전체의 87.9%를 차지합니다.</div>
+    </div>
+    <div class="home-stat-item">
+      <div class="home-stat-num">500m</div>
+      <div class="home-stat-label">공정 네트워크 반경</div>
+      <div class="home-stat-desc">기획·출력·후가공·제본까지 전 공정이 반경 500m 이내에 집적된 살아있는 도심 제조 생태계입니다.</div>
+    </div>
+    <div class="home-stat-item">
+      <div class="home-stat-num">78%</div>
+      <div class="home-stat-label">보도 미확보 구간</div>
+      <div class="home-stat-desc">대상 가로의 78%에서 보행 기준 폭이 미달하거나 조업 차량에 의해 완전히 차단됩니다.</div>
+    </div>
+  </div>
+
+  <!-- ── 레드프린팅 소개 ── -->
+  <div class="home-split">
+    <div class="home-split-img">
+      <img src="images/wall.jpg" alt="레드프린팅 성수 본사 전경">
+    </div>
+    <div class="home-split-text">
+      <span class="label">CORE INDUSTRIAL ANCHOR</span>
+      <h2>가로의 중심,<br>레드프린팅(Red Printing)</h2>
+      <p>
+        성수동 북측 인쇄 가로의 물리적·산업적 중심에는 '레드프린팅(Red Printing)'이 자리하고 있습니다. 소규모 다품종 수주형 디지털 프린팅 시스템을 선도적으로 구축한 핵심 기업으로, 기획부터 최종 포장 배송까지 일괄 처리하는 현대적 공급망을 가로 내에 안착시켰습니다.
+      </p>
+      <p>
+        이 거대한 공장 전면부는 가로 전체 유동 동선에 지대한 영향을 미치는 핵심 랜드마크이자, 향후 보행 오픈 스페이스 제안 마스터플랜의 가장 중요한 입체적 연계 거점입니다.
+      </p>
+      <a href="status.html" class="btn btn-dark">현황 자세히 보기 →</a>
+    </div>
+  </div>
+
+  <!-- ── 페이지 네비게이션 카드 ── -->
+  <div class="nav-card-grid">
+    <a href="status.html" class="nav-card">
+      <div class="nav-card-img">
+        <img src="images/second.jpg" alt="현황">
+      </div>
+      <span class="nav-card-num">01</span>
+      <div class="nav-card-title">대상지 현황</div>
+      <p class="nav-card-desc">성수동 북측 인쇄 단지의 공간 구조와 산업 생태계를 현장 조사 데이터로 진단합니다.</p>
+      <span class="nav-card-link">현황 보기</span>
+    </a>
+    <a href="analysis.html" class="nav-card">
+      <div class="nav-card-img">
+        <img src="images/site-building.jpg" alt="분석">
+      </div>
+      <span class="nav-card-num">02</span>
+      <div class="nav-card-title">데이터 분석</div>
+      <p class="nav-card-desc">가로 물리 환경 실측 데이터, 산업 분포도, 보행 장애 요인을 정량적으로 시각화합니다.</p>
+      <span class="nav-card-link">분석 보기</span>
+    </a>
+    <a href="case.html" class="nav-card">
+      <div class="nav-card-img">
+        <img src="images/sumida.png" alt="사례">
+      </div>
+      <span class="nav-card-num">03</span>
+      <div class="nav-card-title">국내외 사례</div>
+      <p class="nav-card-desc">제조 공간을 열린 거리로 전환한 독일·일본·한국의 선진 사례를 인터랙티브 탭으로 살펴봅니다.</p>
+      <span class="nav-card-link">사례 보기</span>
+    </a>
+    <a href="proposal.html" class="nav-card">
+      <div class="nav-card-img">
+        <img src="images/proposal1.jpg" alt="제안">
+      </div>
+      <span class="nav-card-num">04</span>
+      <div class="nav-card-title">설계 제안</div>
+      <p class="nav-card-desc">체험거리 활성화·창작 네트워크·거리 브랜딩 3대 핵심 전략과 공간별 가로 제안을 제시합니다.</p>
+      <span class="nav-card-link">제안 보기</span>
+    </a>
+  </div>
 
   <footer>
     <span>성수동 프로젝트 &nbsp;·&nbsp; 도시설계 스튜디오 2026</span>
@@ -49,7 +275,6 @@
   </footer>
 
   <script>
-    // 스크롤 연동 헤더 바 배경 전환 효과
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       if (window.scrollY < 60) nav.classList.remove('scrolled');
