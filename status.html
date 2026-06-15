@@ -50,7 +50,7 @@
       transform: scale(1.01);
     }
 
-    /* ── 📊 이관 파트 1: 왜 이곳인가? 그리드 스타일 ── */
+    /* ── 📊 왜 이곳인가? 그리드 스타일 ── */
     .site-reason-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -76,7 +76,7 @@
     .reason-text-content { padding: 2rem; flex-grow: 1; }
     .reason-num { font-family: var(--font-display); font-size: 1.3rem; color: #C05A46; font-weight: bold; display: block; margin-bottom: 0.6rem; }
 
-    /* ── 🛠️ 이관 파트 2: 사이트 분석 3대 도면 전용 그리드 스타일 (사진 보호 구조) ── */
+    /* ── 🛠️ 사이트 분석 3대 도면 전용 그리드 스타일 ── */
     .site-analysis-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -94,15 +94,15 @@
       width: 100%;
       aspect-ratio: 4/3;
       overflow: hidden;
-      background-color: #ededed; /* 부재 시 플레이스홀더 컬러링 */
+      background-color: #ededed;
     }
     .analysis-img-box img { width: 100%; height: 100%; object-fit: cover; }
     .analysis-card-body { padding: 1.5rem 1.8rem; }
 
-    /* 기존 가로 변화 스플릿 */
+    /* 과거 가로 변화 스플릿 */
     .status-split {
       display: grid;
-      grid-template-columns: 1.2 fr 1fr;
+      grid-template-columns: 1.2fr 1fr;
       gap: 4rem;
       align-items: center;
       margin: 4.5rem 0;
@@ -149,7 +149,7 @@
 
       <div class="site-reason-grid">
         <div class="site-reason-card">
-          <div class="reason-img-wrapper"><img src="images/status1.jpg" alt="독보적인 산업 생태계"></div>
+          <div class="reason-img-wrapper"><img src="images/wall.jpg" alt="독보적인 산업 생태계"></div>
           <div class="reason-text-content">
             <span class="reason-num">01</span>
             <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">독보적인 산업 생태계</h3>
@@ -157,7 +157,7 @@
           </div>
         </div>
         <div class="site-reason-card">
-          <div class="reason-img-wrapper"><img src="images/status2.jpg" alt="주변 상업 중심과의 단절"></div>
+          <div class="reason-img-wrapper"><img src="images/second.jpg" alt="주변 상업 중심과의 단절"></div>
           <div class="reason-text-content">
             <span class="reason-num">02</span>
             <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">주변 상업 중심과의 단절</h3>
@@ -165,7 +165,7 @@
           </div>
         </div>
         <div class="site-reason-card">
-          <div class="reason-img-wrapper"><img src="images/status3.jpg" alt="보행 친화적 잠재력"></div>
+          <div class="reason-img-wrapper"><img src="images/trash.jpg" alt="보행 친화적 잠재력"></div>
           <div class="reason-text-content">
             <span class="reason-num">03</span>
             <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">보행 친화적 잠재력</h3>
@@ -183,7 +183,7 @@
       <div class="site-analysis-grid">
         <div class="analysis-photo-card">
           <div class="analysis-img-box">
-            <img src="images/site-main.jpg" alt="종합 대상지 마스터 지도">
+            <img src="images/site-main.png" alt="종합 대상지 마스터 지도">
           </div>
           <div class="analysis-card-body">
             <h4 style="font-size:1.15rem; font-weight:normal; margin-bottom:0.5rem; color:var(--black);">종합 대상지 도면</h4>
@@ -192,7 +192,7 @@
         </div>
         <div class="analysis-photo-card">
           <div class="analysis-img-box">
-            <img src="images/site-building.jpg" alt="건물 및 건축물 분석 도면">
+            <img src="images/site-parking.jpg" alt="건물 및 건축물 분석 도면">
           </div>
           <div class="analysis-card-body">
             <h4 style="font-size:1.15rem; font-weight:normal; margin-bottom:0.5rem; color:var(--black);">건물 필지 현황도</h4>
@@ -201,7 +201,7 @@
         </div>
         <div class="analysis-photo-card">
           <div class="analysis-img-box">
-            <img src="images/site-entrance.jpg" alt="가로 진입구 분석 도면">
+            <img src="images/site-building.jpg" alt="가로 진입구 분석 도면">
           </div>
           <div class="analysis-card-body">
             <h4 style="font-size:1.15rem; font-weight:normal; margin-bottom:0.5rem; color:var(--black);">진입로 동선 분석</h4>
@@ -269,7 +269,6 @@
       else nav.classList.add('scrolled');
     });
 
-    // ✨ 모달 등작 애니메이션 고도화 스크립트
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
 
