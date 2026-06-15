@@ -145,7 +145,7 @@
       margin-bottom: 2rem;
     }
 
-    /* 해외사례 숫자 카운터 */
+    /* 수치 카운터 그리드 */
     .counter-grid {
       display: flex;
       gap: 2rem;
@@ -168,6 +168,20 @@
       font-size: 0.85rem;
       color: var(--gray-mid);
       font-weight: 600;
+    }
+
+    /* 출처 표기 */
+    .counter-source {
+      font-size: 0.75rem;
+      color: var(--gray-mid);
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--gray-light);
+      line-height: 1.5;
+    }
+    .counter-source span {
+      font-weight: 600;
+      color: var(--gray-dark);
     }
 
     /* 국내사례 비주얼 키워드 그리드 */
@@ -208,7 +222,7 @@
       background-color: #fdf8f7;
     }
 
-    /* 시사점 타임 박스 */
+    /* 시사점 박스 */
     .takeaway-box {
       background-color: #fdf8f7;
       border-left: 4px solid #C05A46;
@@ -233,6 +247,7 @@
       .case-img-double, .case-img-box { aspect-ratio: 16/10; }
       .tab-buttons { gap: 0.25rem; }
       .tab-btn { padding: 10px 14px; font-size: 0.9rem; }
+      .counter-grid { flex-direction: column; gap: 1rem; }
     }
   </style>
 </head>
@@ -259,14 +274,15 @@
 
   <section class="section">
     <div class="tabs-container">
-      
+
       <div class="tab-buttons">
         <button class="tab-btn active" onclick="openTab(event, 'volkswagen')">🇩🇪 폭스바겐 유리공장</button>
-        <button class="tab-btn" onclick="openTab(event, 'sumida')">         🇯🇵 스미다 오픈팩토리</button>
+        <button class="tab-btn" onclick="openTab(event, 'sumida')">🇯🇵 스미다 오픈팩토리</button>
         <button class="tab-btn" onclick="openTab(event, 'seongsu-complex')">🇰🇷 성수 복합 활성화</button>
-        <button class="tab-btn" onclick="openTab(event, 'seongsu-street')"> 🇰🇷 성수 스트리트아트</button>
+        <button class="tab-btn" onclick="openTab(event, 'seongsu-street')">🇰🇷 성수 스트리트아트</button>
       </div>
 
+      <!-- ── 독일 폭스바겐 유리공장 ── -->
       <div id="volkswagen" class="tab-content active">
         <div class="case-grid">
           <div class="case-img-box">
@@ -281,12 +297,15 @@
 
             <div class="counter-grid">
               <div class="counter-item">
-                <div class="counter-number" data-target="150" data-unit="%">0%</div>
-                <div class="counter-label">주변 보행량 증가</div>
+                <div class="counter-number">100만+</div>
+                <div class="counter-label">개관 이후 누적 유료 방문객</div>
               </div>
               <div class="counter-item">
-                <div class="counter-number" data-target="30" data-unit="만 명">0만 명</div>
-                <div class="counter-label">연간 가로 방문객</div>
+                <div class="counter-number">70,000+</div>
+                <div class="counter-label">누적 가이드 투어 횟수</div>
+              </div>
+              <div class="counter-source">
+                출처: <span>Statistik Dresden</span> — Gläserne Manufaktur 방문객 통계 (2002년 개관~)
               </div>
             </div>
 
@@ -298,6 +317,7 @@
         </div>
       </div>
 
+      <!-- ── 일본 스미다 오픈팩토리 ── -->
       <div id="sumida" class="tab-content">
         <div class="case-grid">
           <div class="case-img-box">
@@ -312,12 +332,15 @@
 
             <div class="counter-grid">
               <div class="counter-item">
-                <div class="counter-number" data-target="85" data-unit="개소">0개소</div>
-                <div class="counter-label">참여 영세 공장 수</div>
+                <div class="counter-number">36사</div>
+                <div class="counter-label">2024년 기준 참가 기업 수</div>
               </div>
               <div class="counter-item">
-                <div class="counter-number" data-target="42" data-unit="%">0%</div>
-                <div class="counter-label">지역 보행 매출 상승</div>
+                <div class="counter-number">2012~</div>
+                <div class="counter-label">연 1회 정기 개최 (현재까지)</div>
+              </div>
+              <div class="counter-source">
+                출처: <span>墨田区 공식 웹사이트</span> — スミファ(すみだファクトリーめぐり) 2024년 개최 공고
               </div>
             </div>
 
@@ -329,6 +352,7 @@
         </div>
       </div>
 
+      <!-- ── 국내 성수 복합 활성화 ── -->
       <div id="seongsu-complex" class="tab-content">
         <div class="case-grid">
           <div class="case-img-box">
@@ -359,6 +383,7 @@
         </div>
       </div>
 
+      <!-- ── 국내 성수 스트리트아트 ── -->
       <div id="seongsu-street" class="tab-content">
         <div class="case-grid">
           <div class="case-img-double">
@@ -404,34 +429,10 @@
   </footer>
 
   <script>
-    // 카운터 스크립트 실행 제어
     function runCounters(containerId) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-      const counters = container.querySelectorAll('.counter-number');
-      
-      counters.forEach(counter => {
-        const target = +counter.getAttribute('data-target');
-        const unit = counter.getAttribute('data-unit');
-        
-        let count = 0;
-        counter.innerText = "0" + unit;
-        const speed = target / 25;
-        
-        const updateCount = () => {
-          count += speed;
-          if (count < target) {
-            counter.innerText = Math.floor(count) + unit;
-            setTimeout(updateCount, 30);
-          } else {
-            counter.innerText = target + unit;
-          }
-        };
-        updateCount();
-      });
+      /* 수치가 텍스트로 고정되었으므로 카운터 애니메이션 불필요 */
     }
 
-    // 인터랙티브 멀티 탭 연동 함수
     function openTab(evt, tabName) {
       const tabContents = document.getElementsByClassName("tab-content");
       for (let i = 0; i < tabContents.length; i++) {
@@ -443,18 +444,8 @@
       }
       document.getElementById(tabName).classList.add("active");
       evt.currentTarget.classList.add("active");
-      
-      if (tabName === 'volkswagen' || tabName === 'sumida') {
-        runCounters(tabName);
-      }
     }
 
-    // 로드 시 독일 사례 숫자 자동 실행
-    document.addEventListener("DOMContentLoaded", () => {
-      runCounters('volkswagen');
-    });
-
-    // 스크롤 연동 상단 헤더 조정
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       if (window.scrollY < 40) nav.classList.remove('scrolled');
