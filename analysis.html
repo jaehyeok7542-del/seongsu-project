@@ -6,175 +6,233 @@
   <title>분석 — 남겨진 공장, 열린 거리</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ── 🔍 라이트박스 애니메이션 모달 (부드러운 원본 크게보기) ── */
+    /* ── 라이트박스 모달 ── */
     .modal {
-      display: none;
-      position: fixed;
-      z-index: 10000;
-      padding-top: 30px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.94);
-      cursor: zoom-out;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      display: none; position: fixed; z-index: 10000;
+      padding-top: 30px; left: 0; top: 0; width: 100%; height: 100%;
+      overflow: auto; background-color: rgba(0,0,0,0.94);
+      cursor: zoom-out; opacity: 0; transition: opacity 0.3s ease;
     }
-    .modal.show {
-      display: block;
-      opacity: 1;
-    }
+    .modal.show { display: block; opacity: 1; }
     .modal-content {
-      margin: auto;
-      display: block;
-      max-width: 92%;
-      max-height: 88vh;
-      object-fit: contain;
-      border-radius: 8px;
-      transform: scale(0.95);
-      transition: transform 0.3s ease;
+      margin: auto; display: block;
+      max-width: 92%; max-height: 88vh; object-fit: contain;
+      border-radius: 8px; transform: scale(0.95); transition: transform 0.3s ease;
     }
-    .modal.show .modal-content {
-      transform: scale(1);
+    .modal.show .modal-content { transform: scale(1); }
+    .section img, .analysis-split img, .chart-card img {
+      cursor: zoom-in; transition: all 0.3s ease;
     }
-    
-    /* 이미지 호버 효과 */
-    .section img, .analysis-grid img, .chart-wrapper img {
-      cursor: zoom-in;
-      transition: all 0.3s ease;
-    }
-    .section img:hover, .analysis-grid img:hover, .chart-wrapper img:hover {
-      opacity: 0.88;
-      transform: scale(1.01);
+    .section img:hover, .analysis-split img:hover, .chart-card img:hover {
+      opacity: 0.88; transform: scale(1.01);
     }
 
-    /* 데이터 분석 그리드 레이아웃 */
-    .analysis-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 3rem;
-      margin: 3rem 0;
-      align-items: center;
-    }
-    .analysis-image-frame {
-      width: 100%;
-      aspect-ratio: 4/3;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-      background: var(--gray-bg);
-    }
-    .analysis-image-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* 통계 지표 카드 */
-    .stat-container {
+    /* ── 통계 대시보드 뱃지 그리드 ── */
+    .metric-dashboard {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
-      margin-top: 2rem;
+      margin-bottom: 4rem;
     }
-    .stat-card {
-      background: var(--gray-bg);
-      padding: 2rem;
-      border-radius: 12px;
+    .metric-card {
+      background: var(--white);
       border: 1px solid var(--gray-light);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    .stat-value {
-      font-size: 2.2rem;
-      color: #C05A46;
-      font-weight: bold;
-      display: block;
+    .metric-card-accent {
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: #C05A46;
+    }
+    .metric-card-title {
+      font-size: 0.85rem;
+      color: var(--gray-dark);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+    .metric-card-number {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      color: var(--black);
+      font-weight: normal;
+      line-height: 1.1;
       margin-bottom: 0.5rem;
     }
-    .stat-label {
-      font-size: 0.88rem;
-      color: var(--gray-dark);
+    .metric-card-sub {
+      font-size: 0.82rem;
+      color: var(--gray-mid);
+      line-height: 1.4;
     }
 
-    /* ── 📈 복구 파트 1: 정량 데이터 분석 표(Table) 스타일 ── */
-    .analysis-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 2rem 0;
-      font-size: 0.95rem;
-      text-align: left;
+    /* ── 프리미엄 데이터 레이아웃 스플릿 ── */
+    .analysis-split {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 4rem;
+      align-items: flex-start;
+      margin: 4.5rem 0;
     }
-    .analysis-table th {
-      background-color: var(--black);
-      color: var(--white);
-      padding: 12px 16px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-    }
-    .analysis-table td {
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--gray-light);
-      color: var(--gray-dark);
-    }
-    .analysis-table tr:hover {
-      background-color: rgba(192, 90, 70, 0.03);
-    }
-    .analysis-table td strong {
-      color: #C05A46;
-    }
-
-    /* ── 📊 복구 파트 2: 인터랙티브 웹 통계 그래프(Bar Chart) 스타일 ── */
-    .chart-dashboard {
-      background: #fafafa;
+    .analysis-chart-zone {
+      background: var(--white);
       border: 1px solid var(--gray-light);
       border-radius: 16px;
       padding: 2.5rem;
-      margin: 2.5rem 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+    }
+    .chart-zone-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--black);
+      margin-bottom: 2rem;
+      font-weight: normal;
+      border-left: 3px solid #C05A46;
+      padding-left: 0.75rem;
+    }
+
+    /* ── 순수 CSS 가로형 막대그래프 엔진 ── */
+    .css-bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
     }
     .chart-row {
       display: flex;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      gap: 1.5rem;
+      flex-direction: column;
+      gap: 0.4rem;
     }
-    .chart-row:last-child { margin-bottom: 0; }
-    .chart-label {
-      width: 140px;
-      font-size: 0.9rem;
+    .chart-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
       color: var(--black);
-      font-weight: 600;
     }
-    .chart-bar-bg {
-      flex-grow: 1;
-      height: 24px;
-      background: #eee;
-      border-radius: 4px;
-      overflow: hidden;
-      position: relative;
-    }
-    .chart-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #e28774, #C05A46);
-      border-radius: 4px;
-      width: 0; /* 자바스크립트로 부드럽게 차오르는 애니메이션 처리 */
-      transition: width 1.2s cubic-bezier(0.1, 0.8, 0.3, 1);
-    }
-    .chart-value {
-      width: 60px;
-      text-align: right;
-      font-size: 0.95rem;
+    .chart-label-row .rank-num {
       font-weight: bold;
       color: #C05A46;
+      margin-right: 0.4rem;
+    }
+    .bar-track {
+      width: 100%;
+      height: 12px;
+      background: var(--gray-bg);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gray-dark), #888);
+      border-radius: 6px;
+      transition: width 1s ease;
+    }
+    .bar-fill.highlight {
+      background: linear-gradient(90deg, #C05A46, #e28774);
     }
 
+    /* ── 서브 그리드 및 카드 ── */
+    .sub-data-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .sub-data-card {
+      background: var(--gray-bg);
+      border: 1px solid var(--gray-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .sub-data-card h4 {
+      font-size: 0.9rem;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+    }
+    .sub-data-card p {
+      font-size: 0.85rem;
+      color: var(--gray-dark);
+      line-height: 1.5;
+    }
+
+    /* ── 교통/물류 모순성 진단 카드 ── */
+    .paradox-box {
+      background: #fdf8f7;
+      border: 1px solid #f0c0b8;
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin: 4rem 0;
+    }
+    .paradox-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: #C05A46;
+      margin-bottom: 1rem;
+      font-weight: normal;
+    }
+    .paradox-desc {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--gray-dark);
+      text-align: justify;
+    }
+
+    /* ── 로드 다이어트 제안 구역 ── */
+    .diet-banner {
+      background: #111;
+      color: #fff;
+      border-radius: 20px;
+      padding: 4rem 3.5rem;
+      margin-top: 4rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+    }
+    .diet-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .diet-tag {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em;
+      color: #e28774; text-transform: uppercase; margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+    .diet-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+      font-weight: normal; line-height: 1.3; margin-bottom: 1.5rem;
+    }
+    .diet-text {
+      font-size: 0.92rem; line-height: 1.8; color: #aaa; text-align: justify;
+    }
+    .diet-specs {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background: #1e1e1e;
+      padding: 1.8rem;
+      border-radius: 12px;
+      border: 1px solid #333;
+    }
+    .spec-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      border-bottom: 1px solid #333;
+      padding-bottom: 0.75rem;
+    }
+    .spec-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .spec-label { color: #888; }
+    .spec-val { color: #fff; font-weight: 600; }
+    .spec-val.highlight { color: #e28774; }
+
     @media (max-width: 900px) {
-      .analysis-grid, .stat-container { grid-template-columns: 1fr; gap: 2rem; }
-      .chart-row { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-      .chart-label { width: 100%; }
-      .chart-bar-bg { width: 100%; }
-      .chart-value { width: 100%; text-align: left; }
+      .metric-dashboard { grid-template-columns: 1fr; gap: 1rem; }
+      .analysis-split { grid-template-columns: 1fr; gap: 2.5rem; }
+      .diet-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .diet-banner { padding: 2.5rem 1.5rem; }
+      .sub-data-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -193,145 +251,203 @@
 
   <div class="page-header">
     <p class="section-label">DATA ANALYSIS</p>
-    <h1>현황 데이터 정밀 분석</h1>
-    <p class="page-header-desc">대상지 가로 환경에서 도출된 다양한 공간·물리 데이터와 소공인 실태 조사 결과를 종합적으로 시각화합니다.</p>
+    <h1>인쇄 산업 및 가로 정밀 분석</h1>
+    <p class="page-header-desc">공공 통계자료와 도심 물류 실측 데이터를 기반으로 대상지 일대의 정체성을 정량 진단합니다.</p>
   </div>
 
   <div class="container">
-    
-    <section class="section" style="padding-top: 4rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
-      <p class="section-label">QUANTITATIVE DATA</p>
-      <h2 class="section-title">구간별 가로 물리 환경 실측 데이터</h2>
-      <p class="section-desc">성수동 북측 인쇄 골목 주요 가로 섹션의 보도 폭, 조업 점유율, 보행 장애 요인을 실측 정량화한 통계 표입니다.</p>
 
-      <table class="analysis-table">
-        <thead>
-          <tr>
-            <th>분석 구간 (가로 축)</th>
-            <th>전체 폭원</th>
-            <th>유효 보도 폭</th>
-            <th>조업차량 점유율</th>
-            <th>주요 보행 장애 요인</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>구간 A (○○길 연결부)</td>
-            <td>5.4m</td>
-            <td><strong>0.8m (미달)</strong></td>
-            <td>72.5%</td>
-            <td>지게차 상하차 및 인쇄 용지 파레트 적치</td>
-          </tr>
-          <tr>
-            <td>구간 B (○○로 연결부)</td>
-            <td>6.1m</td>
-            <td><strong>1.1m (위험)</strong></td>
-            <td>64.0%</td>
-            <td>조업 화물차량 불법 정차 및 필로티 진입 간섭</td>
-          </tr>
-          <tr>
-            <td>구간 C (△△길 연결부)</td>
-            <td>4.8m</td>
-            <td><strong>0.5m (단절)</strong></td>
-            <td>85.2%</td>
-            <td>건축물 전면 공지 사유화 및 쓰레기 적치</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+    <section class="section" style="padding-top: 1rem; border-bottom: 1px solid var(--gray-light); padding-bottom: 2rem;">
+      <p class="section-label">CLUSTER METRICS</p>
+      <h2 class="section-title">성수동 인쇄업 밀집도 현황 지표</h2>
+      <p class="section-desc">성수동 준공업 가로망이 서울의 핵심 인쇄 산업 생태계를 지탱하는 중추 거점임을 증명하는 기초 통계 데이터입니다.</p>
 
-    <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
-      <p class="section-label">INDUSTRIAL RATIO</p>
-      <h2 class="section-title">대상지 내 인쇄 공정별 산업 분포도</h2>
-      <p class="section-desc">현재 대상지 내에 집적된 소공인 제조업체들의 주 공정별 구성 비율을 시각화한 대시보드 그래프입니다.</p>
-
-      <div class="chart-dashboard">
-        <div class="chart-row">
-          <div class="chart-label">옵셋 및 기획·출력</div>
-          <div class="chart-bar-bg">
-            <div class="chart-bar-fill" data-percent="42.5"></div>
-          </div>
-          <div class="chart-value">42.5%</div>
+      <div class="metric-dashboard">
+        <div class="metric-card">
+          <div class="metric-card-accent"></div>
+          <p class="metric-card-title">성수동 4개 행정동 사업체 합산</p>
+          <p class="metric-card-number">261개소</p>
+          <p class="metric-card-sub">성동구 전체 인쇄업 사업체(297개) 중<br><strong>87.9%</strong>의 압도적 비중 기록</p>
         </div>
-        <div class="chart-row">
-          <div class="chart-label">후가공 (접지/코팅)</div>
-          <div class="chart-bar-bg">
-            <div class="chart-bar-fill" data-percent="28.0"></div>
-          </div>
-          <div class="chart-value">28.0%</div>
+        <div class="metric-card">
+          <div class="metric-card-accent"></div>
+          <p class="metric-card-title">인쇄 가로 고용 창출 효과</p>
+          <p class="metric-card-number">2,521명</p>
+          <p class="metric-card-sub">성수동 4개 행정동 인쇄 제조 기반<br>종사자 수 총계 (지역 경제의 중추 역할)</p>
         </div>
-        <div class="chart-row">
-          <div class="chart-label">제본 및 패키징</div>
-          <div class="chart-bar-bg">
-            <div class="chart-bar-fill" data-percent="15.5"></div>
-          </div>
-          <div class="chart-value">15.5%</div>
-        </div>
-        <div class="chart-row">
-          <div class="chart-label">나염 및 특수 인쇄</div>
-          <div class="chart-bar-bg">
-            <div class="chart-bar-fill" data-percent="9.0"></div>
-          </div>
-          <div class="chart-value">9.0%</div>
-        </div>
-        <div class="chart-row">
-          <div class="chart-label">기타 제조 공방</div>
-          <div class="chart-bar-bg">
-            <div class="chart-bar-fill" data-percent="5.0"></div>
-          </div>
-          <div class="chart-value">5.0%</div>
+        <div class="metric-card">
+          <div class="metric-card-accent"></div>
+          <p class="metric-card-title">성수2가3동 고용 집중도</p>
+          <p class="metric-card-number">84%</p>
+          <p class="metric-card-sub">성동구 전체 인쇄업 종사자 중<br><strong>2,190명</strong>이 단 하나의 행정동에 밀집</p>
         </div>
       </div>
     </section>
 
     <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
-      <p class="section-label">PHYSICAL DIMENSIONS</p>
-      <h2 class="section-title">가로 섹션 및 보행 장애 요인 분석</h2>
-      <p class="section-desc">성수동 북측 인쇄 가로의 평균 단면 구조를 분석하여 보행자와 조업 차량 간의 물리적 충돌 원인을 규명합니다.</p>
-
-      <div class="analysis-grid">
-        <div class="analysis-image-frame">
-          <img src="images/site-building.jpg" alt="가로 단면 분석 도면">
+      <p class="section-label">REGIONAL CONTEXT</p>
+      <h2 class="section-title">지역적 맥락 분석</h2>
+      
+      <div class="analysis-split">
+        <div class="analysis-chart-zone">
+          <h3 class="chart-zone-title">서울 주요 구별 인쇄업 사업체 수 비교</h3>
+          <div class="css-bar-chart">
+            <div class="chart-row">
+              <div class="chart-label-row">
+                <span><span class="rank-num">1</span>중구</span>
+                <span>3,500개 이상</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label-row">
+                <span><span class="rank-num">2</span>영등포구</span>
+                <span>약 350개</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width: 12%;"></div></div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label-row" style="font-weight: bold; color: #C05A46;">
+                <span><span class="rank-num" style="color: #C05A46;">3</span>성동구 (대상지)</span>
+                <span>297개</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill highlight" style="width: 10%;"></div></div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label-row">
+                <span><span class="rank-num">4</span>금천구</span>
+                <span>약 200개</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width: 7%;"></div></div>
+            </div>
+          </div>
         </div>
-        <div class="analysis-text-content">
-          <p class="card-tag">SPATIAL CONFLICT</p>
-          <h3 style="font-size:1.5rem; font-weight:normal; margin-bottom:1rem;">보차 분리 부재와 전면 공지 점유</h3>
-          <p style="font-size:0.95rem; color:var(--gray-dark); line-height: 1.75; text-align: justify;">
-            실측 결과, 타겟 가로의 유효 폭원은 5.5m 내외이나 양측 건축물의 필로티 주차장 및 불법 적치물로 인해 실제 보행자가 확보할 수 있는 통로는 1.2m 미만으로 축소됩니다. 특히, 하루 평균 45회 이상 발생하는 대형 인쇄 종이 상하차 작업 시간에는 보행자가 차도의 중앙으로 밀려나 차량 및 지게차 위험에 직면하는 구조적 한계가 존재합니다.
+
+        <div class="analysis-text-zone" style="display: flex; flex-direction: column; justify-content: center;">
+          <h3 style="font-size:1.4rem; font-weight:normal; margin-bottom:1.25rem; color:var(--black);">성동구의 위상과 성수동의 집중도</h3>
+          <p class="section-desc" style="max-width:100%; text-align:justify; line-height:1.75; font-size:0.95rem; margin-bottom:1.5rem;">
+            성동구는 서울 전체 자치구 중 중구, 영등포구에 이어 인쇄업 사업체 수 3위를 차지하는 핵심 산업 거점입니다. 특히 성수동 일대의 밀집도를 분석해보면, 성수동 내에서도 <strong>성수2가3동</strong>에 인쇄 산업 핵심 인프라가 초집중되어 있는 분석 결과가 도출됩니다.
           </p>
-          <div class="stat-container">
-            <div class="stat-card">
-              <span class="stat-value">5.5m</span>
-              <span class="stat-label">평균 가로 폭원</span>
+          <div class="sub-data-grid">
+            <div class="sub-data-card">
+              <h4>성수2가3동 사업체 수</h4>
+              <p style="font-size:1.15rem; color:#C05A46; font-weight:600; margin-bottom:0.25rem;">159개 개소</p>
+              <p>성수동 전체 인쇄 사업체의 과반수 이상을 단독으로 차지합니다.</p>
             </div>
-            <div class="stat-card">
-              <span class="stat-value">78%</span>
-              <span class="stat-label">보도 미확보 구간</span>
+            <div class="sub-data-card">
+              <h4>성수2가3동 종사자 수</h4>
+              <p style="font-size:1.15rem; color:#C05A46; font-weight:600; margin-bottom:0.25rem;">2,190명</p>
+              <p>성동구 전체 인쇄업 종사자의 무려 84%가 이 하나의 행정동에 집중됩니다.</p>
             </div>
-            <div class="stat-card">
-              <span class="stat-value">45회</span>
-              <span class="stat-label">일평균 조업 상하차</span>
-            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-desc" style="max-width:100%; text-align:justify; margin-top:2rem; font-size:0.95rem; line-height:1.7;">
+        💡 <strong>분석 시사점:</strong> 통계 수치가 입증하듯 이 일대의 물류 및 교통 접근성을 개선하는 것은 단순히 도로를 정비하는 차원을 넘어, 서울의 주요 제조 유산이자 성수동 인쇄 산업 생태계를 보존하고 발전시키기 위한 최우선 필수 맥락입니다.
+      </p>
+    </section>
+
+    <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
+      <p class="section-label">TRAFFIC CONDITIONS</p>
+      <h2 class="section-title">대상지 교통 여건 분석</h2>
+      <p class="section-desc">지리 정보 체계(GIS) 도면 분석 결과, 대상지는 광역적인 대중교통 인프라 접근성 측면에서 매우 우수한 지표를 나타내고 있습니다.</p>
+
+      <div class="analysis-split" style="margin-top: 3rem; margin-bottom: 2rem;">
+        <div class="analysis-text-zone" style="display: flex; flex-direction: column; justify-content: center;">
+          <h3 style="font-size:1.3rem; font-weight:normal; margin-bottom:1.25rem; color:var(--black);">광역 교통 근접성 분석</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 1.25rem;">
+            <li style="border-left: 3px solid var(--gray-mid); padding-left: 1rem;">
+              <strong style="display:block; font-size:0.95rem; margin-bottom:0.2rem; color:var(--black);">지하철역 접근 반경</strong>
+              <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.6;">대상지는 대중교통 인프라 핵심 축인 지하철 2호선 성수역 반경 250m 내에 밀접하게 위치하고 있습니다.</p>
+            </li>
+            <li style="border-left: 3px solid var(--gray-mid); padding-left: 1rem;">
+              <strong style="display:block; font-size:0.95rem; margin-bottom:0.2rem; color:var(--black);">버스 노선 연계성</strong>
+              <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.6;">대상지 경계 반경 200m 이내에 복수의 시내버스 정류장이 조밀하게 밀집해 있어, 대중교통망 네트워크 자체는 매우 뛰어납니다.</p>
+            </li>
+          </ul>
+        </div>
+        <div class="analysis-chart-zone" style="padding: 1.5rem; background: var(--gray-bg);">
+          <div style="width:100%; aspect-ratio: 4/3; border-radius:10px; overflow:hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.04); background:#eee;">
+            <img src="images/site-traffic-map.png" alt="대상지 교통 여건 GIS 도면 분석 (성수역 반경 250m 및 버스정류장 반경 200m 구역 매핑)" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <p style="font-size:0.78rem; color:var(--gray-mid); text-align:center; margin-top:0.75rem; margin-bottom:0;">[도면 1] 대상지 주변 광역 교통 인프라 반경 중첩 매핑 (OpenStreetMap)</p>
+        </div>
+      </div>
+
+      <div class="paradox-box">
+        <h3 class="paradox-title">⚠️ 데이터와 현장의 모순: 물리적 접근성의 한계</h3>
+        <p class="paradox-desc">
+          대중교통 노선과의 절대적인 선형 거리는 가깝지만, 대상지 내부 골목 및 주변 도로의 구조적 여건으로 인해 <strong>차량과 보행자의 실질적인 내부 '접근성'은 상대적으로 크게 떨어지는 극심한 공간적 모순 상황</strong>이 발생하고 있습니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
+      <p class="section-label">CAUSAL ANALYSIS</p>
+      <h2 class="section-title">현장 접근성 저하 원인 분석 (문제점)</h2>
+      <p class="section-desc">현장 실측 및 가로 조사를 통해 도출된, 물류 연속성과 보행 안전성을 저해하는 2가지 핵심 파괴 요인입니다.</p>
+
+      <div class="analysis-split" style="margin-top: 3rem;">
+        <div class="analysis-chart-zone" style="padding: 0; overflow:hidden; border-radius:14px;">
+          <div style="width:100%; aspect-ratio: 16/11; background:#ddd;">
+            <img src="images/cargo-truck.jpg" alt="1톤 화물 탑차 상하차 조업 및 골목 병목 현상 현장 사진" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <div style="padding: 2rem;">
+            <span style="font-size:0.75rem; font-weight:bold; color:#C05A46; letter-spacing:1px; display:block; margin-bottom:0.5rem;">LOGISTICS BOTTLENECK</span>
+            <h3 style="font-size:1.2rem; font-weight:normal; margin-bottom:0.75rem; color:var(--black);">01. 화물 차량 통행 애로 및 물류 마비</h3>
+            <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.65; text-align:justify; margin-bottom:0;">
+              현장 조사 결과, 가로 내부에는 인쇄 가공품 및 종이 원자재를 운반하는 <strong>1톤 화물 탑차(기아 봉고, 현대 포터 등)가 상시 통행</strong>하고 있습니다. 그러나 극도로 협소한 도로 폭과 무분별한 불법 주정차 차량이 중첩되면서 차량 간 교행이 완전히 불가능한 상태입니다. 이로 인해 물류 상하차 작업 발생 시 골목 전체에 극심한 병목 현상이 발생하고 있습니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="analysis-chart-zone" style="padding: 0; overflow:hidden; border-radius:14px;">
+          <div style="width:100%; aspect-ratio: 16/11; background:#ddd;">
+            <img src="images/pedestrian-danger.jpg" alt="보차분리 부재로 인한 협소 골목길 보행 위협 현장 사진" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <div style="padding: 2rem;">
+            <span style="font-size:0.75rem; font-weight:bold; color:#C05A46; letter-spacing:1px; display:block; margin-bottom:0.5rem;">PEDESTRIAN VULNERABILITY</span>
+            <h3 style="font-size:1.2rem; font-weight:normal; margin-bottom:0.75rem; color:var(--black);">02. 보행 환경 취약 및 안전 단절</h3>
+            <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.65; text-align:justify; margin-bottom:0;">
+              대상지 내부 가로 구조상 <strong>도로 내 보행 공간과 차도의 물리적 분리가 모호</strong>합니다. 보행자를 위한 최소한의 전용 인도가 확보되지 않아, 거대한 인쇄 화물 차량 및 조업 장비가 수시로 통행할 때마다 보행자의 신체적 안전이 심각하게 위협받고 있으며, 연속적인 보행 동선 흐름이 끊어지는 고질적 문제가 반복되고 있습니다.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" style="padding-top: 5rem; padding-bottom: 4rem;">
-      <p class="section-label">INDUSTRIAL NETWORK</p>
-      <h2 class="section-title">출판·인쇄 협업 생태계 실태 분석</h2>
-      <p class="section-desc">영세 인쇄 공장들의 공정별 상호 의존도와 도심 클러스터로서의 가치를 정량적으로 파악합니다.</p>
-
-      <div class="analysis-grid" style="grid-template-columns: 1fr 1.2fr;">
-        <div class="analysis-text-content">
-          <p class="card-tag">ECOLOGICAL VALUE</p>
-          <h3 style="font-size:1.5rem; font-weight:normal; margin-bottom:1rem;">반경 300m 이내의 분업망 체계</h3>
-          <p style="font-size:0.95rem; color:var(--gray-dark); line-height: 1.75; text-align: justify;">
-            설문 조사 결과, 대상지 내 소공인의 82%가 별도의 물류 차량 없이 '도보' 또는 '손수레'와 '지게차'만으로 공정 간 제품을 주고받는 것으로 확인되었습니다. 출력, 코팅, 접지, 제본 등으로 촘꼼히 엮인 이 물리적 네트워크는 성수동 인쇄 가로가 단순한 노후 가로가 아닌, 대체 불가능한 도심 고유의 생산 생태계임을 방증합니다. 따라서 전면적인 철거 방식의 개발은 이 생태계의 파괴를 야기하므로 가로 공간의 점진적 조정을 통한 상생 모델이 필수적입니다.
-          </p>
-        </div>
-        <div class="analysis-image-frame">
-          <img src="images/site-entrance.jpg" alt="산업 생태계 및 네트워크 매핑">
+    <section class="section" style="padding-top: 5rem; padding-bottom: 2rem;">
+      <p class="section-label">SPATIAL SOLUTION CLUE</p>
+      <h2 class="section-title">공간 개선을 위한 데이터적 단서</h2>
+      
+      <div class="diet-banner">
+        <div class="diet-grid">
+          <div>
+            <span class="diet-tag">PROPOSAL DIRECTION</span>
+            <h3 class="diet-title">로드 다이어트(Road Diet)를 통한 일방통행 전환의 당위성</h3>
+            <p class="diet-text">
+              진단된 문제점을 공간적으로 해결하기 위한 핵심 단서는 도로 다이어트 공법의 적용입니다. 물리적 실측 결과 분석을 바탕으로 기존 가로 구조의 차도 폭을 과감히 줄이고, 확보된 여백을 온전히 보행자 중심 환경으로 재구성하는 마스터플랜의 공학적 토대를 마련합니다.
+            </p>
+          </div>
+          <div class="diet-specs">
+            <div class="spec-item">
+              <span class="spec-label">기존 가로 전체 도로 폭</span>
+              <span class="spec-val">7.5m</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">차도 폭 축소 규모 (양측 공통)</span>
+              <span class="spec-val">각각 2.5m씩 감축</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">조정 후 차도 운영 방식</span>
+              <span class="spec-val highlight">1차선 일방통행 (교행 갈등 차단)</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">확보된 여유 공간 환원 계획</span>
+              <span class="spec-val highlight">줄인 폭만큼 안전 보행로 전면 조성</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -344,7 +460,7 @@
 
   <div class="page-nav">
     <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
-    <a href="case.html" class="btn btn-dark">국내외 우수 가로 재생 사례 보기 →</a>
+    <a href="case.html" class="btn btn-dark">국내외 선진 가로 재생 사례 보기 →</a>
   </div>
 
   <footer>
@@ -353,25 +469,16 @@
   </footer>
 
   <script>
+    /* 상단 내비게이션 바 스크롤 최적화 스크립트 */
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       if (window.scrollY < 40) nav.classList.remove('scrolled');
       else nav.classList.add('scrolled');
     });
 
-    // 💡 인터랙티브 그래프 애니메이션 스크립트 (페이지 로드 시 바 그래프가 부드럽게 상승)
-    document.addEventListener("DOMContentLoaded", () => {
-      setTimeout(() => {
-        document.querySelectorAll('.chart-bar-fill').forEach(bar => {
-          const percent = bar.getAttribute('data-percent');
-          bar.style.width = percent + '%';
-        });
-      }, 200);
-    });
-
+    /* 이미지 클릭 시 라이트박스 팝업 모달 연동 스크립트 */
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
-
     document.querySelectorAll('img').forEach(img => {
       if (!img.classList.contains('nav-logo')) {
         img.addEventListener('click', function() {
@@ -381,7 +488,6 @@
         });
       }
     });
-
     function closeModal() {
       modal.classList.remove('show');
       setTimeout(() => { modal.style.display = "none"; }, 300);
