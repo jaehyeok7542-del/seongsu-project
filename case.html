@@ -13,7 +13,7 @@
       padding: 0 1rem;
     }
 
-    /* 탭 버튼 디자인 (기존 스타일 복원) */
+    /* 탭 버튼 디자인 */
     .tab-buttons {
       display: flex;
       justify-content: center;
@@ -178,11 +178,11 @@
     </ul>
   </nav>
 
-  <header class="hero-sub" style="padding-top: 140px; padding-bottom: 40px; background-color: var(--gray-bg, #f9f9fb); border-bottom: 1px solid #e5e5e5;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+  <header style="padding: 140px 0 60px 0; background-color: var(--gray-bg, #f9f9fb); border-bottom: 1px solid #e5e5e5; width: 100%;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 1rem; box-sizing: border-box; width: 100%;">
       <p class="section-label" style="color: #C05A46; font-weight: 600; margin-bottom: 0.5rem; letter-spacing: 1px;">CASE STUDY</p>
-      <h2 class="section-title" style="font-size: 2.5rem; font-weight: 800; color: #111; margin-bottom: 1rem;">글로벌 쇼팩토리(Show-Factory) 사례</h2>
-      <p class="section-desc" style="font-size: 1.1rem; color: #666; max-width: 800px; line-height: 1.6;">제조 공정이 훌륭한 도시 콘텐츠이자 보행의 목적지가 된 해외 선진 사례를 분석합니다.</p>
+      <h1 style="font-size: 2.5rem; font-weight: 800; color: #111; margin: 0 0 1rem 0; line-height: 1.2;">글로벌 쇼팩토리(Show-Factory) 사례</h1>
+      <p style="font-size: 1.1rem; color: #666; max-width: 800px; line-height: 1.6; margin: 0;">제조 공정이 훌륭한 도시 콘텐츠이자 보행의 목적지가 된 해외 선진 사례를 분석합니다.</p>
     </div>
   </header>
 
@@ -258,7 +258,6 @@
   </div>
 
   <script>
-    // 숫자를 올리는 함수
     function runCounters(containerId) {
       const container = document.getElementById(containerId);
       const counters = container.querySelectorAll('.counter-number');
@@ -268,9 +267,9 @@
         const unit = counter.getAttribute('data-unit');
         
         let count = 0;
-        counter.innerText = "0" + unit; // 시작할 때 초기화
+        counter.innerText = "0" + unit;
         
-        const speed = target / 30; // 숫자가 올라가는 속도 조절
+        const speed = target / 30;
         
         const updateCount = () => {
           count += speed;
@@ -285,29 +284,20 @@
       });
     }
 
-    // 탭 전환 함수
     function openTab(evt, tabName) {
-      // 1. 모든 탭 숨기기
       const tabContents = document.getElementsByClassName("tab-content");
       for (let i = 0; i < tabContents.length; i++) {
         tabContents[i].classList.remove("active");
       }
-
-      // 2. 모든 버튼 활성화 해제
       const tabButtons = document.getElementsByClassName("tab-btn");
       for (let i = 0; i < tabButtons.length; i++) {
         tabButtons[i].classList.remove("active");
       }
-
-      // 3. 선택한 탭 열기
       document.getElementById(tabName).classList.add("active");
       evt.currentTarget.classList.add("active");
-
-      // 4. 활성화된 탭 내부의 카운터 숫자를 0부터 다시 실행!
       runCounters(tabName);
     }
 
-    // 처음 페이지가 로드되었을 때 첫 번째 탭(폭스바겐) 숫자 애니메이션 자동 실행
     document.addEventListener("DOMContentLoaded", () => {
       runCounters('volkswagen');
     });
