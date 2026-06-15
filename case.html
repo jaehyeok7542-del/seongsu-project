@@ -63,7 +63,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* 사례 내부 레이아웃 (Z-Layout 스타일 split) */
+    /* 사례 내부 레이아웃 */
     .case-grid {
       display: grid;
       grid-template-columns: 1fr 1.2fr;
@@ -110,7 +110,7 @@
       margin-bottom: 2rem;
     }
 
-    /* 핵심 시사점 (Takeaway) 박스 */
+    /* 핵심 시사점 박스 */
     .takeaway-box {
       background-color: #fdf8f7;
       border-left: 4px solid #C05A46;
@@ -133,7 +133,7 @@
 </head>
 <body>
 
-  <nav id="nav">
+  <nav id="nav" class="scrolled">
     <a class="nav-logo" href="index.html">남겨진 공장, 열린 거리</a>
     <ul>
       <li><a href="index.html">홈</a></li>
@@ -144,11 +144,13 @@
     </ul>
   </nav>
 
-  <section class="section" style="padding-bottom: 0;">
-    <p class="section-label">CASE STUDY</p>
-    <h2 class="section-title">글로벌 쇼팩토리(Show-Factory) 사례</h2>
-    <p class="section-desc">제조 공정이 훌륭한 도시 콘텐츠이자 보행의 목적지가 된 해외 선진 사례를 분석합니다.</p>
-  </section>
+  <header class="section" style="padding-top: 140px; padding-bottom: 40px; background-color: var(--gray-bg, #f9f9fb); border-bottom: 1px solid #e5e5e5;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+      <p class="section-label" style="color: #C05A46; font-weight: 600; margin-bottom: 0.5rem;">CASE STUDY</p>
+      <h2 class="section-title" style="font-size: 2.5rem; font-weight: 800; color: #111; margin-bottom: 1rem;">글로벌 쇼팩토리(Show-Factory) 사례</h2>
+      <p class="section-desc" style="font-size: 1.1rem; color: #666; max-width: 800px; line-height: 1.6;">제조 공정이 훌륭한 도시 콘텐츠이자 보행의 목적지가 된 해외 선진 사례를 분석합니다.</p>
+    </div>
+  </header>
 
   <div class="tabs-container">
     
@@ -198,19 +200,14 @@
   </div>
   <script>
     function openTab(evt, tabName) {
-      // 1. 모든 탭 콘텐츠 숨기기
       const tabContents = document.getElementsByClassName("tab-content");
       for (let i = 0; i < tabContents.length; i++) {
         tabContents[i].classList.remove("active");
       }
-
-      // 2. 모든 탭 버튼 활성화 해제
       const tabButtons = document.getElementsByClassName("tab-btn");
       for (let i = 0; i < tabButtons.length; i++) {
         tabButtons[i].classList.remove("active");
       }
-
-      // 3. 선택된 탭 콘텐츠 및 버튼 활성화
       document.getElementById(tabName).classList.add("active");
       evt.currentTarget.classList.add("active");
     }
