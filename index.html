@@ -5,50 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>남겨진 공장, 열린 거리</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    /* ── 🔍 라이트박스 모달 팝업 스타일 (메인 비주얼 확대용) ── */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 10000;
-      padding-top: 60px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.92);
-      cursor: zoom-out;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .modal.show {
-      display: block;
-      opacity: 1;
-    }
-    .modal-content {
-      margin: auto;
-      display: block;
-      max-width: 90%;
-      max-height: 85vh;
-      object-fit: contain;
-      border-radius: 6px;
-      transform: scale(0.95);
-      transition: transform 0.3s ease;
-    }
-    .modal.show .modal-content {
-      transform: scale(1);
-    }
-    
-    /* 본문 내 확대 가능한 이미지 커서 스타일 */
-    .hero img, .section img {
-      cursor: zoom-in;
-      transition: opacity 0.3s ease;
-    }
-    .hero img:hover, .section img:hover {
-      opacity: 0.95;
-    }
-  </style>
 </head>
 <body>
 
@@ -87,45 +43,17 @@
     </div>
   </main>
 
-  <div id="imageModal" class="modal" onclick="closeModal()">
-    <img class="modal-content" id="modalImg" />
-  </div>
-
   <footer>
     <span>성수동 프로젝트 &nbsp;·&nbsp; 도시설계 스튜디오 2026</span>
     <a href="status.html">다음 단계: 가로 현황 보기 →</a>
   </footer>
 
   <script>
-    // 스크롤 연동 헤더 바 배경 전환 효과 (홈 화면 전용 투명 -> 불투명 조절)
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       if (window.scrollY < 60) nav.classList.remove('scrolled');
       else nav.classList.add('scrolled');
     });
-
-    // 💡 부드러운 이미지 원본 확대(애니메이션 모달) 스크립트 모듈
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImg');
-
-    document.querySelectorAll('img').forEach(img => {
-      if (!img.classList.contains('nav-logo')) {
-        img.addEventListener('click', function() {
-          modal.style.display = "block";
-          setTimeout(() => {
-            modal.classList.add('show');
-          }, 10);
-          modalImg.src = this.src;
-        });
-      }
-    });
-
-    function closeModal() {
-      modal.classList.remove('show');
-      setTimeout(() => {
-        modal.style.display = "none";
-      }, 300);
-    }
   </script>
 </body>
 </html>
