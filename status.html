@@ -6,224 +6,185 @@
   <title>현황 — 남겨진 공장, 열린 거리</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ── 🔍 라이트박스 애니메이션 모달 (부드러운 원본 크게보기) ── */
+    /* ── 라이트박스 모달 ── */
     .modal {
-      display: none;
-      position: fixed;
-      z-index: 10000;
-      padding-top: 30px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.94);
-      cursor: zoom-out;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      display: none; position: fixed; z-index: 10000;
+      padding-top: 30px; left: 0; top: 0; width: 100%; height: 100%;
+      overflow: auto; background-color: rgba(0,0,0,0.94);
+      cursor: zoom-out; opacity: 0; transition: opacity 0.3s ease;
     }
-    .modal.show {
-      display: block;
-      opacity: 1;
-    }
+    .modal.show { display: block; opacity: 1; }
     .modal-content {
-      margin: auto;
-      display: block;
-      max-width: 92%;
-      max-height: 88vh;
-      object-fit: contain;
-      border-radius: 8px;
-      transform: scale(0.95);
-      transition: transform 0.3s ease;
+      margin: auto; display: block;
+      max-width: 92%; max-height: 88vh; object-fit: contain;
+      border-radius: 8px; transform: scale(0.95); transition: transform 0.3s ease;
     }
-    .modal.show .modal-content {
-      transform: scale(1);
-    }
-    
-    /* 본문 확대 가능 이미지들의 기본 커서 및 호버 모션 */
+    .modal.show .modal-content { transform: scale(1); }
     .section img, .status-split img, .site-analysis-grid img, .reason-img-wrapper img {
-      cursor: zoom-in;
-      transition: all 0.3s ease;
+      cursor: zoom-in; transition: all 0.3s ease;
     }
     .section img:hover, .status-split img:hover, .site-analysis-grid img:hover, .reason-img-wrapper img:hover {
-      opacity: 0.88;
-      transform: scale(1.01);
+      opacity: 0.88; transform: scale(1.01);
     }
 
-    /* ── 📊 왜 이곳인가? 그리드 스타일 ── */
-    .site-reason-grid {
+    /* ── 레드프린팅 히어로 섹션 ── */
+    .red-hero {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      overflow: hidden;
+    }
+    .red-hero-img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+      filter: brightness(0.45);
+      transition: transform 0.6s ease;
+    }
+    .red-hero:hover .red-hero-img { transform: scale(1.02); }
+    .red-hero-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .red-hero-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: #e28774;
+      margin-bottom: 1rem;
+    }
+    .red-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      color: #fff; font-weight: normal;
+      line-height: 1.25; margin-bottom: 1rem;
+    }
+    .red-hero-sub {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.12em;
+    }
+
+    /* ── 3개 특징 카드 ── */
+    .red-cards-wrap {
+      background: var(--gray-bg);
+      padding: 4rem 3rem;
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .red-cards-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin: 3rem 0 0 0;
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    .site-reason-card {
+    .red-card {
       background: var(--white);
       border: 1px solid var(--gray-light);
       border-radius: 16px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      padding: 2.5rem 2rem;
+      position: relative;
       overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .red-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(192,90,70,0.1);
+      border-color: #C05A46;
+    }
+    .red-card-accent {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #C05A46, #e28774);
+    }
+    .red-card-icon {
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+    .red-card-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: normal;
+      color: #C05A46;
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+    .red-card-desc {
+      font-size: 0.88rem;
+      color: var(--gray-dark);
+      line-height: 1.78;
+    }
+    .red-card-tags {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
     }
-    .reason-img-wrapper {
-      width: 100%;
-      aspect-ratio: 16/10;
-      overflow: hidden;
-      background-color: var(--gray-bg);
+    .red-tag {
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      background: #fdf8f7;
+      border: 1px solid #f0c0b8;
+      color: #C05A46;
+      border-radius: 30px;
+      font-weight: 600;
     }
+
+    /* ── 기존 스타일들 ── */
+    .site-reason-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; margin: 3rem 0 0 0;
+    }
+    .site-reason-card {
+      background: var(--white); border: 1px solid var(--gray-light);
+      border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      overflow: hidden; display: flex; flex-direction: column;
+    }
+    .reason-img-wrapper { width: 100%; aspect-ratio: 16/10; overflow: hidden; background-color: var(--gray-bg); }
     .reason-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
     .reason-text-content { padding: 2rem; flex-grow: 1; }
     .reason-num { font-family: var(--font-display); font-size: 1.3rem; color: #C05A46; font-weight: bold; display: block; margin-bottom: 0.6rem; }
-
-    /* ── 🛠️ 사이트 분석 3대 도면 전용 그리드 스타일 ── */
-    .site-analysis-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-    .analysis-photo-card {
-      background: var(--white);
-      border: 1px solid var(--gray-light);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.03);
-    }
-    .analysis-img-box {
-      width: 100%;
-      aspect-ratio: 4/3;
-      overflow: hidden;
-      background-color: #ededed;
-    }
+    .site-analysis-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+    .analysis-photo-card { background: var(--white); border: 1px solid var(--gray-light); border-radius: 14px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
+    .analysis-img-box { width: 100%; aspect-ratio: 4/3; overflow: hidden; background-color: #ededed; }
     .analysis-img-box img { width: 100%; height: 100%; object-fit: cover; }
     .analysis-card-body { padding: 1.5rem 1.8rem; }
-
-    /* 과거 가로 변화 및 레드 프린팅 스플릿 레이아웃 공통 */
-    .status-split {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 4rem;
-      align-items: center;
-      margin: 4.5rem 0;
-    }
+    .status-split { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center; margin: 4.5rem 0; }
     .status-img-frame { width: 100%; aspect-ratio: 16/10; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
     .status-img-frame img { width: 100%; height: 100%; object-fit: cover; }
-
-    /* 기존 진단 지표 */
     .status-meta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; margin-top: 4rem; }
     .meta-box { background-color: var(--gray-bg); padding: 2.5rem; border-radius: 16px; border: 1px solid var(--gray-light); }
     .meta-box h3 { font-size: 1.25rem; font-weight: normal; color: var(--black); margin-bottom: 1rem; border-left: 3px solid #C05A46; padding-left: 0.75rem; }
     .meta-box p { font-size: 0.94rem; line-height: 1.75; color: var(--gray-dark); }
-
-    /* ── 🌍 대상지 주변 산업현황 인터랙티브 GIS 대시보드 스타일 ── */
-    .gis-dashboard {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 2rem;
-      background: #111;
-      color: #fff;
-      padding: 2rem;
-      border-radius: 20px;
-      margin-top: 3rem;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-    }
-    .gis-control-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      background: #1e1e1e;
-      padding: 1.5rem;
-      border-radius: 14px;
-      border: 1px solid #333;
-    }
-    .gis-panel-title {
-      font-size: 0.9rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #C05A46;
-      border-bottom: 1px solid #333;
-      padding-bottom: 0.5rem;
-    }
-    .layer-btn {
-      width: 100%;
-      padding: 12px 16px;
-      background: #2a2a2a;
-      border: 1px solid #444;
-      color: #ccc;
-      text-align: left;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      line-height: 1.4;
-    }
-    .layer-btn::before {
-      content: '';
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #666;
-      flex-shrink: 0;
-    }
-    .layer-btn.active[data-layer="1"] { background: rgba(220, 53, 69, 0.15); border-color: #dc3545; color: #ff6b6b; }
+    .gis-dashboard { display: grid; grid-template-columns: 320px 1fr; gap: 2rem; background: #111; color: #fff; padding: 2rem; border-radius: 20px; margin-top: 3rem; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+    .gis-control-panel { display: flex; flex-direction: column; gap: 1.5rem; background: #1e1e1e; padding: 1.5rem; border-radius: 14px; border: 1px solid #333; }
+    .gis-panel-title { font-size: 0.9rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #C05A46; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
+    .layer-btn { width: 100%; padding: 12px 16px; background: #2a2a2a; border: 1px solid #444; color: #ccc; text-align: left; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.2s ease; display: flex; align-items: center; gap: 10px; line-height: 1.4; }
+    .layer-btn::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #666; flex-shrink: 0; }
+    .layer-btn.active[data-layer="1"] { background: rgba(220,53,69,0.15); border-color: #dc3545; color: #ff6b6b; }
     .layer-btn.active[data-layer="1"]::before { background: #dc3545; box-shadow: 0 0 8px #dc3545; }
-    
-    .layer-btn.active[data-layer="2"] { background: rgba(0, 123, 255, 0.15); border-color: #007bff; color: #74b9ff; }
+    .layer-btn.active[data-layer="2"] { background: rgba(0,123,255,0.15); border-color: #007bff; color: #74b9ff; }
     .layer-btn.active[data-layer="2"]::before { background: #007bff; box-shadow: 0 0 8px #007bff; }
-    
-    .layer-btn.active[data-layer="3"] { background: rgba(40, 167, 69, 0.15); border-color: #28a745; color: #55efc4; }
+    .layer-btn.active[data-layer="3"] { background: rgba(40,167,69,0.15); border-color: #28a745; color: #55efc4; }
     .layer-btn.active[data-layer="3"]::before { background: #28a745; box-shadow: 0 0 8px #28a745; }
-    
-    .layer-btn.active[data-layer="4"] { background: rgba(23, 162, 184, 0.15); border-color: #17a2b8; color: #81ecec; }
+    .layer-btn.active[data-layer="4"] { background: rgba(23,162,184,0.15); border-color: #17a2b8; color: #81ecec; }
     .layer-btn.active[data-layer="4"]::before { background: #17a2b8; box-shadow: 0 0 8px #17a2b8; }
-    
-    .layer-btn.active[data-layer="5"] { background: rgba(255, 193, 7, 0.15); border-color: #ffc107; color: #ffeaa7; }
+    .layer-btn.active[data-layer="5"] { background: rgba(255,193,7,0.15); border-color: #ffc107; color: #ffeaa7; }
     .layer-btn.active[data-layer="5"]::before { background: #ffc107; box-shadow: 0 0 8px #ffc107; }
-
-    /* 지도 스크린 캔버스 */
-    .gis-map-canvas {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16/10;
-      background: #151515;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid #333;
-    }
-    .gis-layer-img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-    }
-    .gis-layer-img.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .gis-map-tip {
-      position: absolute;
-      bottom: 1rem;
-      right: 1rem;
-      background: rgba(0,0,0,0.6);
-      padding: 6px 12px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      color: #aaa;
-      z-index: 10;
-    }
+    .gis-map-canvas { position: relative; width: 100%; aspect-ratio: 16/10; background: #151515; border-radius: 14px; overflow: hidden; border: 1px solid #333; }
+    .gis-layer-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+    .gis-layer-img.active { opacity: 1; pointer-events: auto; }
+    .gis-map-tip { position: absolute; bottom: 1rem; right: 1rem; background: rgba(0,0,0,0.6); padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; color: #aaa; z-index: 10; }
 
     @media (max-width: 900px) {
+      .red-cards-grid { grid-template-columns: 1fr; }
+      .red-cards-wrap { padding: 3rem 1.5rem; }
+      .red-hero { height: 320px; }
       .site-reason-grid, .site-analysis-grid, .status-split, .status-meta-grid, .gis-dashboard { grid-template-columns: 1fr; gap: 2rem; }
       .gis-dashboard { padding: 1rem; }
     }
@@ -248,12 +209,60 @@
     <p class="page-header-desc">성수동 북측 인쇄 단지가 지닌 독특한 공간 구조와 골목 환경을 종합적으로 진단합니다.</p>
   </div>
 
+  <!-- ── 레드프린팅 히어로 이미지 ── -->
+  <div class="red-hero">
+    <img src="images/site-main.png" alt="레드프린팅 성수 전경" class="red-hero-img">
+    <div class="red-hero-overlay">
+      <p class="red-hero-label">CORE INDUSTRIAL ANCHOR</p>
+      <h2 class="red-hero-title">인쇄 패러다임을 바꾼 스마트 팩토리,<br>'레드프린팅 앤 프레스'</h2>
+      <p class="red-hero-sub">최소 수량 / 자동화 / 소재의 무한 확장</p>
+    </div>
+  </div>
+
+  <!-- ── 3개 특징 카드 ── -->
+  <div class="red-cards-wrap">
+    <div class="red-cards-grid">
+      <div class="red-card">
+        <div class="red-card-accent"></div>
+        <span class="red-card-icon">🎁</span>
+        <div class="red-card-title">굿즈 제작의 성지</div>
+        <p class="red-card-desc">아이돌·캐릭터 굿즈, 아크릴 키링, 스티커, 스마트폰 케이스 등 MZ세대 기업이 타깃인 커스텀 상품 제조. 모양대로 칼선을 따주는 '도송(톰슨) 공정'과 UV 인쇄의 독보적 기술력을 보유합니다.</p>
+        <div class="red-card-tags">
+          <span class="red-tag">커스텀 상품</span>
+          <span class="red-tag">도송 공정</span>
+          <span class="red-tag">UV 인쇄</span>
+        </div>
+      </div>
+      <div class="red-card">
+        <div class="red-card-accent"></div>
+        <span class="red-card-icon">⚡</span>
+        <div class="red-card-title">디지털 인쇄의 혁신</div>
+        <p class="red-card-desc">전통적인 대량 인쇄(오프셋) 방식을 벗어나, 데이터만 있으면 1장의 인쇄물도 즉시 생산 가능한 시스템 구축. 명함, 리플렛, 포스터 등 비즈니스 인쇄물 초고속 맞춤 생산이 가능합니다.</p>
+        <div class="red-card-tags">
+          <span class="red-tag">소량 인쇄</span>
+          <span class="red-tag">즉시 생산</span>
+          <span class="red-tag">초고속 맞춤</span>
+        </div>
+      </div>
+      <div class="red-card">
+        <div class="red-card-accent"></div>
+        <span class="red-card-icon">🔗</span>
+        <div class="red-card-title">시스템 연동 생산</div>
+        <p class="red-card-desc">자체 웹사이트뿐만 아니라 다양한 커머스 플랫폼과 API를 연동하여 주문부터 배송까지 자동화된 공정 제공. 주문 접수 → 자동 검수 → 스마트 생산 → 자동 분류 → 배송 출고 → 방문 수령.</p>
+        <div class="red-card-tags">
+          <span class="red-tag">API 연동</span>
+          <span class="red-tag">전공정 자동화</span>
+          <span class="red-tag">방문 수령</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
-    
+
     <section class="section" style="padding-top: 4rem; padding-bottom: 4rem; border-bottom: 1px solid var(--gray-light);">
       <p class="section-label">ANCHOR INDUSTRY</p>
       <h2 class="section-title">가로의 중심 축: 레드 프린팅(Red Printing)</h2>
-      
       <div class="status-split" style="margin: 3rem 0 0 0;">
         <div class="status-img-frame">
           <img src="images/wall.jpg" alt="레드프린팅앤페이먼트 성수 본사 전경">
@@ -267,12 +276,11 @@
         </div>
       </div>
     </section>
-    
+
     <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
       <p class="section-label">SELECTION REASON</p>
       <h2 class="section-title">왜 성수동 북측 인쇄 가로인가?</h2>
       <p class="section-desc">성수2가 1동 및 성수동 북측 준공업지역 일대는 성수동의 중심부와 상업지구 이면에 숨겨진 가장 밀도 높은 독자적 산업 공간입니다.</p>
-
       <div class="site-reason-grid">
         <div class="site-reason-card">
           <div class="reason-img-wrapper"><img src="images/wall.jpg" alt="독보적인 산업 생태계"></div>
@@ -305,7 +313,6 @@
       <p class="section-label">SITE OBJECTIVES</p>
       <h2 class="section-title">대상지 공간 범위 구획</h2>
       <p class="section-desc">본 마스터플랜 프로젝트가 다루는 구체적인 공간 분석 및 설계 사이트의 물리적 범위 매핑 도면입니다.</p>
-
       <div class="site-analysis-grid">
         <div class="analysis-photo-card">
           <div class="analysis-img-box"><img src="images/site-main.png" alt="종합 대상지 마스터 지도"></div>
@@ -335,7 +342,6 @@
       <p class="section-label">INDUSTRIAL GEOGRAPHY</p>
       <h2 class="section-title">대상지 주변 산업현황 데이터 맵</h2>
       <p class="section-desc">성수동 북측 인쇄지구 일대의 용도 분포, 사업체 밀집도, 유동 동선을 다각도로 중첩 분석한 인구·산업 지리 정보 레이어입니다. 좌측의 제안 장치를 클릭하여 입체적으로 비교 분석해 보세요.</p>
-
       <div class="gis-dashboard">
         <div class="gis-control-panel">
           <div class="gis-panel-title">데이터 레이어 토글</div>
@@ -345,13 +351,12 @@
           <button class="layer-btn" data-layer="4" onclick="toggleGisLayer(4)">소량 홍보물 & 오피스형 출력 기업</button>
           <button class="layer-btn" data-layer="5" onclick="toggleGisLayer(5)">산업용 마킹 & 장비 명판 공장</button>
         </div>
-
         <div class="gis-map-canvas">
           <img src="images/population1.png" id="gis-img-1" class="gis-layer-img active" alt="통합 분석 레이어">
-          <img src="images/population2.png" id="gis-img-2" class="gis-layer-img" alt="스티커 라벨 & 아크릴 가공 공장 레이어">
-          <img src="images/population3.png" id="gis-img-3" class="gis-layer-img" alt="종합 대형 & 특수 패키징 기업 레이어">
-          <img src="images/population4.png" id="gis-img-4" class="gis-layer-img" alt="소량 홍보물 & 오피스형 출력 기업 레이어">
-          <img src="images/population5.png" id="gis-img-5" class="gis-layer-img" alt="산업용 마킹 & 장비 명판 공장 레이어">
+          <img src="images/population2.png" id="gis-img-2" class="gis-layer-img" alt="스티커 라벨 레이어">
+          <img src="images/population3.png" id="gis-img-3" class="gis-layer-img" alt="패키징 기업 레이어">
+          <img src="images/population4.png" id="gis-img-4" class="gis-layer-img" alt="출력 기업 레이어">
+          <img src="images/population5.png" id="gis-img-5" class="gis-layer-img" alt="명판 공장 레이어">
           <div class="gis-map-tip">💡 활성화된 도면을 클릭하면 원본 크기로 팝업 확대됩니다</div>
         </div>
       </div>
@@ -360,7 +365,6 @@
     <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
       <p class="section-label">STREETSCAPE ANALYSIS</p>
       <h2 class="section-title">과거와 현재의 공간 구조 변화</h2>
-      
       <div class="status-split">
         <div class="status-img-frame">
           <img src="images/past1.gif" alt="성수동 가로 조직 과거 역사 지도 레이어">
@@ -379,7 +383,6 @@
       <p class="section-label">DETAILED INDICATORS</p>
       <h2 class="section-title">가로 현황 및 환경 진단</h2>
       <p class="section-desc">현재 성수동 북측 대상지가 처한 구체적인 물리적 한계점과 산업적 특수성을 정량·정성적으로 분류한 진단 지표입니다.</p>
-
       <div class="status-meta-grid">
         <div class="meta-box">
           <h3>물리적 보행 환경의 한계</h3>
@@ -416,20 +419,14 @@
     });
 
     function toggleGisLayer(layerNum) {
-      document.querySelectorAll('.layer-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      document.querySelectorAll('.gis-layer-img').forEach(img => {
-        img.classList.remove('active');
-      });
-
+      document.querySelectorAll('.layer-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.gis-layer-img').forEach(img => img.classList.remove('active'));
       document.querySelector(`.layer-btn[data-layer="${layerNum}"]`).classList.add('active');
       document.getElementById(`gis-img-${layerNum}`).classList.add('active');
     }
 
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
-
     document.querySelectorAll('img').forEach(img => {
       if (!img.classList.contains('nav-logo')) {
         img.addEventListener('click', function() {
@@ -439,7 +436,6 @@
         });
       }
     });
-
     function closeModal() {
       modal.classList.remove('show');
       setTimeout(() => { modal.style.display = "none"; }, 300);
