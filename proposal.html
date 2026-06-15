@@ -40,7 +40,7 @@
       transform: scale(1);
     }
     
-    /* 본문 내 확대 가능한 이미지 스타일 및 호버 효과 */
+    /* 본문 이미지 호버 효과 */
     .section img, .proposal-split img, .proposal-grid img {
       cursor: zoom-in;
       transition: all 0.3s ease;
@@ -50,7 +50,7 @@
       transform: scale(1.01);
     }
 
-    /* 제안 페이지용 스플릿 레이아웃 */
+    /* 제안 레이아웃 스플릿 */
     .proposal-split {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -64,6 +64,7 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      background: var(--gray-bg);
     }
     .proposal-img-frame img {
       width: 100%;
@@ -71,8 +72,32 @@
       object-fit: cover;
     }
 
+    /* 3대 가로 설계 가이드라인 그리드 */
+    .proposal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .proposal-card {
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+      overflow: hidden;
+    }
+    .proposal-card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+    .proposal-card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .proposal-card-body { padding: 2rem; }
+    .proposal-card-body h3 { font-size: 1.25rem; font-weight: normal; margin-bottom: 0.75rem; color: var(--black); }
+    .proposal-card-body p { font-size: 0.9rem; color: var(--gray-dark); line-height: 1.65; text-align: justify; }
+
     @media (max-width: 900px) {
-      .proposal-split {
+      .proposal-split, .proposal-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
       }
@@ -111,7 +136,7 @@
         <div class="proposal-text-content">
           <p class="card-tag">HISTORICAL VALUE</p>
           <h3 style="font-size:1.6rem; font-weight:normal; margin-bottom:1rem;">산업 유산의 가치를 담은 아카이빙</h3>
-          <p class="section-desc" style="max-width: 100%; font-size:0.95rem; text-align:justify; margin-bottom:0; line-height: 1.8;">
+          <p class="section-desc" style="max-width: 100%; font-size:0.95rem; text-align:justify; margin-bottom:0; line-height: 1.8; color: var(--gray-dark);">
             단순한 철거와 전면 재개발 방식에서 벗어나, 수십 년간 축적된 소공인들의 기술력과 인쇄 장비의 아날로그적 매력을 공간의 핵심 자산으로 삼습니다. 옛 윤전기 부품과 타이포그래피 요소를 가로 시설물 및 파사드 디자인에 녹여내고, 닫힌 공장 전면부를 개방형 쇼윈도 형태로 전환하여 거리 자체가 하나의 '살아있는 인쇄 박물관'으로 기능하도록 유도합니다.
           </p>
         </div>
@@ -121,9 +146,32 @@
     <section class="section" style="padding-top: 5rem; padding-bottom: 4rem;">
       <p class="section-label">FUTURE VISION</p>
       <h2 class="section-title">종합 재생 마스터플랜 제안</h2>
-      <p class="section-desc">보행로 확보, 가로 조도 개선, 공유 커뮤니티 거점 구축을 통해 인쇄 가로가 나아갈 미래 청사진을 제시합니다.</p>
+      <p class="section-desc">물리적 가로 구조 개편, 스마트 조업 환경 도입, 입면 개방화를 통한 보행 활성화 디자인 전략입니다.</p>
       
-      </section>
+      <div class="proposal-grid">
+        <div class="proposal-card">
+          <div class="proposal-card-img"><img src="images/proposal1.jpg" alt="보차혼용 공유형 도로 설계"></div>
+          <div class="proposal-card-body">
+            <h3>01. 공유형 가로 디자인</h3>
+            <p>보도와 차도의 단차를 제거하고 벤치 및 포장 패턴을 활용해 차량의 서행을 유도하는 'Woonerf' 개념의 보행 안전 공간을 실현합니다.</p>
+          </div>
+        </div>
+        <div class="proposal-card">
+          <div class="proposal-card-img"><img src="images/proposal2.jpg" alt="인포켓 조업 정차 공간 공간"></div>
+          <div class="proposal-card-body">
+            <h3>02. 스마트 인포켓 조업 공간</h3>
+            <p>필지별 유휴 전면공지를 수렴하여 지정된 구역에 조업 차량용 인포켓(In-pocket) 베이를 구축, 상하차 시 보행 단절을 방지합니다.</p>
+          </div>
+        </div>
+        <div class="proposal-card">
+          <div class="proposal-card-img"><img src="images/proposal3.jpg" alt="파사드 셔터 개방화 구상"></div>
+          <div class="proposal-card-body">
+            <h3>03. 열린 파사드 가이드라인</h3>
+            <p>폐쇄적인 철제 셔터를 반투명 매쉬 및 야간 경관 조명 셔터로 교체하여 인쇄 가로 내부의 기계 움직임이 보행자의 시각적 재미 요소로 전환되도록 유도합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </div>
 
@@ -137,14 +185,12 @@
   </footer>
 
   <script>
-    // 네비게이션 스크롤 효과
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       if (window.scrollY < 40) nav.classList.remove('scrolled');
       else nav.classList.add('scrolled');
     });
 
-    // 💡 이미지 원본 확대 및 라이트박스 부드러운 애니메이션 연동 스크립트
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
 
@@ -152,9 +198,7 @@
       if (!img.classList.contains('nav-logo')) {
         img.addEventListener('click', function() {
           modal.style.display = "block";
-          setTimeout(() => {
-            modal.classList.add('show');
-          }, 15);
+          setTimeout(() => { modal.classList.add('show'); }, 15);
           modalImg.src = this.src;
         });
       }
@@ -162,9 +206,7 @@
 
     function closeModal() {
       modal.classList.remove('show');
-      setTimeout(() => {
-        modal.style.display = "none";
-      }, 300);
+      setTimeout(() => { modal.style.display = "none"; }, 300);
     }
   </script>
 </body>
