@@ -6,56 +6,80 @@
   <title>현황 — 남겨진 공장, 열린 거리</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ── 라이트박스 모달 팝업 스타일 (사진 원본 크게 보기) ── */
+    /* ── 🔍 라이트박스 모달 팝업 스타일 (사진 원본 부드럽게 크게 보기) ── */
     .modal {
       display: none;
       position: fixed;
       z-index: 10000;
-      padding-top: 60px;
+      padding-top: 40px;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: rgba(0, 0, 0, 0.92);
       cursor: zoom-out;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .modal.show {
+      display: block;
+      opacity: 1;
     }
     .modal-content {
       margin: auto;
       display: block;
-      max-width: 90%;
-      max-height: 85vh;
+      max-width: 92%;
+      max-height: 88vh;
       object-fit: contain;
-      border-radius: 6px;
-      animation: zoom 0.3s ease;
+      border-radius: 8px;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
     }
-    @keyframes zoom {
-      from { transform: scale(0.95); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+    .modal.show .modal-content {
+      transform: scale(1);
     }
     
-    /* 본문 내 확대 가능한 모든 이미지에 커서 스타일 및 호버 효과 부여 */
-    .section img, .status-split img, .grid img {
+    /* 본문 내 클릭 가능한 모든 이미지 디자인 및 호버 효과 */
+    .section img, .status-split img, .reason-img-wrapper img {
       cursor: zoom-in;
-      transition: opacity 0.3s ease;
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
-    .section img:hover, .status-split img:hover {
-      opacity: 0.92;
+    .section img:hover, .status-split img:hover, .reason-img-wrapper img:hover {
+      opacity: 0.9;
+      transform: scale(1.01);
     }
 
-    /* ── 이관된 '왜 이곳인가' 전용 카드 디자인 ── */
+    /* ── 📊 이관된 '왜 이곳인가' 이미지 포함 카드 레이아웃 ── */
     .site-reason-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
-      margin: 2.5rem 0 0 0;
+      margin: 3rem 0 0 0;
     }
     .site-reason-card {
       background: var(--white);
-      padding: 2.5rem;
       border: 1px solid var(--gray-light);
       border-radius: 16px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.02);
+      overflow: hidden; /* 이미지가 카드 모서리에 맞게 깎이도록 설정 */
+      display: flex;
+      flex-direction: column;
+    }
+    .reason-img-wrapper {
+      width: 100%;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background-color: var(--gray-bg);
+    }
+    .reason-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .reason-text-content {
+      padding: 2rem;
+      flex-grow: 1;
     }
     .reason-num {
       font-family: var(--font-display);
@@ -63,10 +87,10 @@
       color: #C05A46;
       font-weight: bold;
       display: block;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.6rem;
     }
 
-    /* ── 기존 가로 현황용 스플릿 및 텍스트 프레임 구조 원형 보존 ── */
+    /* ── 기존 가로 현황용 스플릿 및 텍스트 구조 ── */
     .status-split {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -87,7 +111,7 @@
       object-fit: cover;
     }
 
-    /* 하단 다이어그램 및 정량 지표용 그리드 레이아웃 */
+    /* 하단 정량 진단 지표용 그리드 */
     .status-meta-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -152,19 +176,36 @@
 
       <div class="site-reason-grid">
         <div class="site-reason-card">
-          <span class="reason-num">01</span>
-          <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">독보적인 산업 생태계</h3>
-          <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark);">기획, 디자인, 출력, 후가공까지 전 공정이 반경 500m 이내에 긴밀한 물리적 네트워크로 집적되어 있는 살아있는 준공업 도심 제조 유산입니다.</p>
+          <div class="reason-img-wrapper">
+            <img src="images/status1.jpg" alt="성수동 인쇄공장 내부 기계 설비 생태계">
+          </div>
+          <div class="reason-text-content">
+            <span class="reason-num">01</span>
+            <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">독보적인 산업 생태계</h3>
+            <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark); line-height: 1.65;">기획, 디자인, 출력, 후가공까지 전 공정이 반경 500m 이내에 긴밀한 물리적 네트워크로 집적되어 있는 살아있는 준공업 도심 제조 유산입니다.</p>
+          </div>
         </div>
+
         <div class="site-reason-card">
-          <span class="reason-num">02</span>
-          <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">주변 상업 중심과의 단절</h3>
-          <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark);">성수역 남측 연무장길이나 카페거리의 급격한 젠트리피케이션 및 트렌디한 상업화 흐름과 대조적으로, 북측 블록은 물리적·인지적으로 고립되어 있어 재생이 시급합니다.</p>
+          <div class="reason-img-wrapper">
+            <img src="images/status2.jpg" alt="철제 셔터문으로 단절된 성수동 북측 가로">
+          </div>
+          <div class="reason-text-content">
+            <span class="reason-num">02</span>
+            <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">주변 상업 중심과의 단절</h3>
+            <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark); line-height: 1.65;">성수역 남측 연무장길이나 카페거리의 급격한 상업화 흐름과 대조적으로, 북측 블록은 물리적·인지적으로 고립되어 있어 재생이 시급합니다.</p>
+          </div>
         </div>
+
         <div class="site-reason-card">
-          <span class="reason-num">03</span>
-          <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">보행 친화적 잠재력</h3>
-          <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark);">낮은 스카이라인과 옛 격자형 골목 조직을 원형 그대로 유지하고 있어, 필로티와 닫힌 공장 전면부를 조정하면 매력적인 문화적 보행 통로로 전환 가능합니다.</p>
+          <div class="reason-img-wrapper">
+            <img src="images/status3.jpg" alt="낮은 층고와 격자형 골목 조직">
+          </div>
+          <div class="reason-text-content">
+            <span class="reason-num">03</span>
+            <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">보행 친화적 잠재력</h3>
+            <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark); line-height: 1.65;">낮은 스카이라인과 옛 격자형 골목 조직을 원형 그대로 유지하고 있어, 필로티와 닫힌 공장 전면부를 조정하면 매력적인 문화적 보행 통로로 전환 가능합니다.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -226,27 +267,35 @@
   </footer>
 
   <script>
-    // 상단 네비게이션 스크롤 효과
+    // 네비게이션 스크롤 온오프
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       if (window.scrollY < 40) nav.classList.remove('scrolled');
       else nav.classList.add('scrolled');
     });
 
-    // 💡 페이지 내의 모든 이미지 요소에 라이트박스 확대 클릭 이벤트 매핑
+    // 💡 부드러운 이미지 원본 확대(애니메이션 모달) 스크립트 모듈
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+
     document.querySelectorAll('img').forEach(img => {
-      // 내비게이션 로고 등은 확대 대상에서 제외하기 위한 예외 처리
       if (!img.classList.contains('nav-logo')) {
         img.addEventListener('click', function() {
-          document.getElementById('imageModal').style.display = "block";
-          document.getElementById('modalImg').src = this.src;
+          modal.style.display = "block";
+          // 브라우저가 display 변경을 인식한 후 클래스를 붙여 부드럽게 Fade-in 되도록 유도
+          setTimeout(() => {
+            modal.classList.add('show');
+          }, 10);
+          modalImg.src = this.src;
         });
       }
     });
 
-    // 확대 창 닫기 함수
     function closeModal() {
-      document.getElementById('imageModal').style.display = "none";
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = "none";
+      }, 300); // CSS 트랜지션 애니메이션 시간(0.3초)과 매칭
     }
   </script>
 </body>
