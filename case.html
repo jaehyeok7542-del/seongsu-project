@@ -3,114 +3,218 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>사례 — 성수동 프로젝트</title>
+  <title>남겨진 공장, 열린 거리 — 해외사례</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── 해외사례 인터랙티브 탭 전용 스타일 ── */
+    .tabs-container {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    /* 탭 버튼 디자인 */
+    .tab-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      border-bottom: 2px solid var(--gray-light, #e5e5e5);
+      padding-bottom: 1rem;
+    }
+
+    .tab-btn {
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: none;
+      border: none;
+      color: var(--gray-mid, #888888);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    /* 활성화된 탭 버튼 스타일 (성수동 벽돌색 포인트) */
+    .tab-btn.active {
+      color: #C05A46;
+    }
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -18px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #C05A46;
+    }
+
+    /* 탭 콘텐츠 기본 숨김 처리 및 애니메이션 */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 사례 내부 레이아웃 (Z-Layout 스타일 split) */
+    .case-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .case-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+
+    .case-img-box {
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .case-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .case-info h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--black, #111);
+      margin-bottom: 0.5rem;
+    }
+    .case-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background-color: #f0f0f4;
+      color: #C05A46;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+    }
+    .case-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--gray-dark, #444);
+      margin-bottom: 2rem;
+    }
+
+    /* 핵심 시사점 (Takeaway) 박스 */
+    .takeaway-box {
+      background-color: #fdf8f7;
+      border-left: 4px solid #C05A46;
+      padding: 1.5rem;
+      border-radius: 0 8px 8px 0;
+    }
+    .takeaway-box h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #C05A46;
+      margin-bottom: 0.5rem;
+    }
+    .takeaway-box p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #555;
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
 
-<nav id="nav" class="scrolled">
-  <a class="nav-logo" href="index.html">성수동 프로젝트</a>
-  <ul class="nav-links">
-    <li><a href="index.html">홈</a></li>
-    <li><a href="status.html">현황</a></li>
-    <li><a href="analysis.html">분석</a></li>
-    <li><a href="case.html" class="active">사례</a></li>
-    <li><a href="proposal.html">제안</a></li>
-  </ul>
-</nav>
+  <nav id="nav">
+    <a class="nav-logo" href="index.html">남겨진 공장, 열린 거리</a>
+    <ul>
+      <li><a href="index.html">홈</a></li>
+      <li><a href="status.html">현황</a></li>
+      <li><a href="analysis.html">분석</a></li>
+      <li><a href="case.html" class="active">사례</a></li>
+      <li><a href="proposal.html">제안</a></li>
+    </ul>
+  </nav>
 
-<div class="page-header">
-  <p class="section-label">사례</p>
-  <h1>국내외<br>사례 연구</h1>
-  <p class="page-header-desc">
-    산업과 도시가 공존하는 국내외 사례를 살펴봅니다.
-  </p>
-</div>
+  <section class="section" style="padding-bottom: 0;">
+    <p class="section-label">CASE STUDY</p>
+    <h2 class="section-title">글로벌 쇼팩토리(Show-Factory) 사례</h2>
+    <p class="section-desc">제조 공정이 훌륭한 도시 콘텐츠이자 보행의 목적지가 된 해외 선진 사례를 분석합니다.</p>
+  </section>
 
-<!-- ── 해외 사례 ── -->
-<section class="section">
-  <p class="section-label">01 — 해외 사례</p>
-  <h2 class="section-title">해외 사례</h2>
-  <p class="section-desc">내용을 입력하세요.</p>
+  <div class="tabs-container">
+    
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="openTab(event, 'volkswagen')">🇩🇪 폭스바겐 투명유리공장</button>
+      <button class="tab-btn" onclick="openTab(event, 'sumida')">🇯🇵 도쿄 스미다 오픈팩토리</button>
+    </div>
 
-  <div class="card-grid">
-    <div class="card">
-      <div class="card-img-box">이미지</div>
-      <div class="card-body">
-        <p class="card-tag">해외</p>
-        <h3 class="card-title">사례 제목</h3>
-        <p class="card-text">사례 설명을 입력하세요.</p>
+    <div id="volkswagen" class="tab-content active">
+      <div class="case-grid">
+        <div class="case-img-box">
+          <img src="images/volkswagen.jpg" alt="폭스바겐 투명유리공장 전경">
+        </div>
+        <div class="case-info">
+          <span class="case-tag">독일 드레스덴 — 대기업 제조 공정의 시각적 개방</span>
+          <h3>글레제르네 마누팍투어 (Gläserne Manufaktur)</h3>
+          <p class="case-text">
+            독일 드레스덴 도심 한복판에 위치한 폭스바겐의 친환경 생산 기지입니다. 전체 외벽의 상당 부분을 투명한 유리로 마감하여, 외부 보행자가 공장 내부에서 자동차가 조립되는 전 과정을 시각적으로 관람할 수 있도록 설계되었습니다. 제조 공간이 혐오시설이 아닌 도시의 핵심 랜드마크이자 복합 문화 공간으로 기능할 수 있음을 증명한 대표적인 쇼팩토리 사례입니다.
+          </p>
+          <div class="takeaway-box">
+            <h4>성수동 프로젝트 시사점</h4>
+            <p>공장의 제조 공정 자체를 투명하게 노출(시각적 개방)함으로써, 닫혀 있던 성수동 인쇄 공장들의 전면부를 가로변 보행자에게 매력적인 '시각적 콘텐츠'로 전환할 수 있는 논리를 제공합니다.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-img-box">이미지</div>
-      <div class="card-body">
-        <p class="card-tag">해외</p>
-        <h3 class="card-title">사례 제목</h3>
-        <p class="card-text">사례 설명을 입력하세요.</p>
+
+    <div id="sumida" class="tab-content">
+      <div class="case-grid">
+        <div class="case-img-box">
+          <img src="images/sumida.png" alt="도쿄 스미다 워드 오픈팩토리">
+        </div>
+        <div class="case-info">
+          <span class="case-tag">일본 도쿄 — 골목길 인쇄·제조 산업과 보행의 결합</span>
+          <h3>스미다구 오픈팩토리 (Sumida Open Factory)</h3>
+          <p class="case-text">
+            도쿄의 대표적인 노후 준공업지역인 스미다구 일대에서 진행되는 지역 산업 재생 프로그램입니다. 영세한 소규모 인쇄소, 금속 가공 공장들이 특정 기간 동안 내부 작업 공간을 전면 개방하고, 방문객들이 골목길을 걸으며 직접 인쇄 장비를 체험하고 디자이너와 협업할 수 있도록 네트워크를 구축했습니다. 단절되었던 산업 블록에 보행 유동인구를 유입시킨 성공적인 거버넌스형 모델입니다.
+          </p>
+          <div class="takeaway-box">
+            <h4>성수동 프로젝트 시사점</h4>
+            <p>성수동 북측의 영세 인쇄 단지가 대규모 개발 없이도 '보행 통로 확보'와 '체험 프로그램 연계'를 통해 소외된 골목길 산업 지대를 활성화하는 물리적·소프트웨어적 해법이 될 수 있습니다.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-img-box">이미지</div>
-      <div class="card-body">
-        <p class="card-tag">해외</p>
-        <h3 class="card-title">사례 제목</h3>
-        <p class="card-text">사례 설명을 입력하세요.</p>
-      </div>
-    </div>
+
   </div>
-</section>
+  <script>
+    function openTab(evt, tabName) {
+      // 1. 모든 탭 콘텐츠 숨기기
+      const tabContents = document.getElementsByClassName("tab-content");
+      for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove("active");
+      }
 
-<!-- ── 국내 사례 ── -->
-<section class="section section-alt">
-  <p class="section-label">02 — 국내 사례</p>
-  <h2 class="section-title">국내 사례</h2>
-  <p class="section-desc">내용을 입력하세요.</p>
+      // 2. 모든 탭 버튼 활성화 해제
+      const tabButtons = document.getElementsByClassName("tab-btn");
+      for (let i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].classList.remove("active");
+      }
 
-  <div class="card-grid">
-    <div class="card">
-      <div class="card-img-box">이미지</div>
-      <div class="card-body">
-        <p class="card-tag">국내</p>
-        <h3 class="card-title">사례 제목</h3>
-        <p class="card-text">사례 설명을 입력하세요.</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img-box">이미지</div>
-      <div class="card-body">
-        <p class="card-tag">국내</p>
-        <h3 class="card-title">사례 제목</h3>
-        <p class="card-text">사례 설명을 입력하세요.</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img-box">이미지</div>
-      <div class="card-body">
-        <p class="card-tag">국내</p>
-        <h3 class="card-title">사례 제목</h3>
-        <p class="card-text">사례 설명을 입력하세요.</p>
-      </div>
-    </div>
-  </div>
-</section>
+      // 3. 선택된 탭 콘텐츠 및 버튼 활성화
+      document.getElementById(tabName).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+  </script>
 
-<div class="page-nav">
-  <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
-  <a href="proposal.html" class="btn btn-dark">제안 보기 →</a>
-</div>
-
-<footer>
-  <span>성수동 프로젝트 &nbsp;·&nbsp; 도시설계 스튜디오 2025</span>
-  <a href="index.html">← 홈으로</a>
-</footer>
-
-<script>
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY < 40) nav.classList.remove('scrolled');
-  else nav.classList.add('scrolled');
-});
-</script>
 </body>
 </html>
