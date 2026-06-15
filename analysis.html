@@ -3,377 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>분석 — 성수동 프로젝트</title>
+  <title>분석 — 남겨진 공장, 열린 거리</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 </head>
 <body>
 
-<nav id="nav" class="scrolled">
-  <a class="nav-logo" href="index.html">성수동 프로젝트</a>
-  <ul class="nav-links">
-    <li><a href="index.html">홈</a></li>
-    <li><a href="status.html">현황</a></li>
-    <li><a href="analysis.html" class="active">분석</a></li>
-    <li><a href="case.html">사례</a></li>
-    <li><a href="proposal.html">제안</a></li>
-  </ul>
-</nav>
+  <nav id="nav" class="scrolled">
+    <a class="nav-logo" href="index.html">남겨진 공장, 열린 거리</a>
+    <ul class="nav-links">
+      <li><a href="index.html">홈</a></li>
+      <li><a href="status.html">현황</a></li>
+      <li><a href="analysis.html" class="active">분석</a></li>
+      <li><a href="case.html">사례</a></li>
+      <li><a href="proposal.html">제안</a></li>
+    </ul>
+  </nav>
 
-<div class="page-header">
-  <p class="section-label">현황 분석</p>
-  <h1>성수동 공간 구조<br>읽기</h1>
-  <p class="page-header-desc">
-    보행 접근성, 개발 격차, 산업 블록 내부 구조를 체계적으로 분석합니다.
-  </p>
-</div>
-
-<!-- ── 01 보행 접근성 ── -->
-<section class="section">
-  <p class="section-label">01 — 보행 접근성</p>
-  <h2 class="section-title">보행 네트워크 현황</h2>
-  <p class="section-desc">
-    산업 블록의 폐쇄적 구조로 인해 보행 접근성이 낮은 구간을 파악합니다.
-    지하철역 반경 내 보행 단절 지점을 중심으로 분석합니다.
-  </p>
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
-    <div>
-      <div class="split-img" style="aspect-ratio:4/3; font-size:0.72rem;"><img src="images/walk-network.jpg" alt="보행 네트워크 다이어그램" style="width:100%;height:100%;object-fit:cover;"></div>
-      <p style="font-size:0.78rem; color:var(--gray-mid); margin-top:0.6rem; letter-spacing:0.04em;">보행 접근성 분석도</p>
-    </div>
-    <div>
-      <div class="split-img" style="aspect-ratio:4/3; font-size:0.72rem;"><img src="images/walk-break.jpg" alt="보행 단절 구간 지도" style="width:100%;height:100%;object-fit:cover;"></div>
-      <p style="font-size:0.78rem; color:var(--gray-mid); margin-top:0.6rem; letter-spacing:0.04em;">보행 단절 구간</p>
-    </div>
-  </div>
-</section>
-
-<!-- ── FULL BAND ── -->
-<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px; width:100%; margin:0;">
-  <div style="overflow:hidden; aspect-ratio:3/4;">
-    <img src="images/site-entrance.jpg" alt="대상지 입구" style="width:100%; height:100%; object-fit:cover;">
-  </div>
-  <div style="overflow:hidden; aspect-ratio:3/4;">
-    <img src="images/site-parking.jpg" alt="대상지 주차장" style="width:100%; height:100%; object-fit:cover;">
-  </div>
-  <div style="overflow:hidden; aspect-ratio:3/4;">
-    <img src="images/site-building.jpg" alt="대상지 건물 전경" style="width:100%; height:100%; object-fit:cover;">
-  </div>
-</div>
-
-<!-- ── 02 개발 격차 ── -->
-<section class="section section-alt">
-  <p class="section-label">02 — 개발 격차</p>
-  <h2 class="section-title">개발 격차의<br>공간적 분포</h2>
-  <p class="section-desc">
-    성수동 내 고밀 개발 지역과 노후 산업 공간이 혼재하는 양상을 분석합니다.
-    블록 단위의 용도·밀도 변화를 시각화합니다.
-  </p>
-  <div style="display:grid; grid-template-columns:2fr 1fr; gap:1.5rem; align-items:start;">
-    <div class="split-img" style="aspect-ratio:4/3; font-size:0.72rem;">개발 격차 분포 지도</div>
-    <div style="display:flex; flex-direction:column; gap:1.5rem;">
-      <div style="background:var(--white); border:1px solid var(--gray-light); padding:1.5rem;">
-        <div class="card-tag">고밀 구역</div>
-        <div style="font-family:var(--font-display); font-size:1.6rem; margin:0.3rem 0;">상업·업무</div>
-        <p style="font-size:0.85rem; color:var(--gray-dark); line-height:1.6;">급격한 개발 압력을 받는 구역</p>
-      </div>
-      <div style="background:var(--white); border:1px solid var(--gray-light); padding:1.5rem;">
-        <div class="card-tag">저밀 구역</div>
-        <div style="font-family:var(--font-display); font-size:1.6rem; margin:0.3rem 0;">노후 산업</div>
-        <p style="font-size:0.85rem; color:var(--gray-dark); line-height:1.6;">기존 산업 기능이 남아있는 구역</p>
-      </div>
-      <div style="background:var(--white); border:1px solid var(--gray-light); padding:1.5rem;">
-        <div class="card-tag">전이 구간</div>
-        <div style="font-family:var(--font-display); font-size:1.6rem; margin:0.3rem 0;">혼재</div>
-        <p style="font-size:0.85rem; color:var(--gray-dark); line-height:1.6;">개발과 산업이 공존하는 경계 구역</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── 03 블록 구조 ── -->
-<section class="section">
-  <p class="section-label">03 — 블록 구조</p>
-  <h2 class="section-title">산업 블록 내부 구조</h2>
-  <p class="section-desc">
-    블록 내부의 공간 구성, 공개공지 현황, 필로티 분포를 파악하고
-    개입 가능한 지점을 도출합니다.
-  </p>
-  <div class="card-grid">
-    <div class="card">
-      <div class="card-img-box">공개공지 현황</div>
-      <div class="card-body">
-        <p class="card-tag">공개공지</p>
-        <h3 class="card-title">공개공지 현황</h3>
-        <p class="card-text">블록 내 공개공지 위치 및 규모 분석. 보행 통로 연결 가능성 검토.</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img-box">필로티 분포</div>
-      <div class="card-body">
-        <p class="card-tag">필로티</p>
-        <h3 class="card-title">필로티 분포</h3>
-        <p class="card-text">기존 건축물 필로티 위치 및 보행 연속성 확보 가능 지점.</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img-box">종합 분석</div>
-      <div class="card-body">
-        <p class="card-tag">종합</p>
-        <h3 class="card-title">개입 지점 도출</h3>
-        <p class="card-text">분석을 종합한 개입 가능 구간 우선순위 설정.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── 04 대상지 산업분석 ── -->
-<section class="section section-alt">
-  <p class="section-label">04 — 대상지 산업분석</p>
-  <h2 class="section-title">성수동은<br>서울의 인쇄 산업 집적지입니다</h2>
-  <p class="section-desc">
-    서울시 공식 통계(2024)에 따르면 성수동 4개 행정동의 인쇄업 사업체 261개로,
-    성동구 전체 인쇄업의 88%가 이곳에 집중되어 있습니다.
-  </p>
-  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--gray-light); border:1px solid var(--gray-light); margin:2rem 0 2.5rem;">
-    <div style="background:#1D6B4A; padding:2rem 1.5rem;">
-      <p style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.8); margin-bottom:0.8rem;">성수동 인쇄업 사업체 수</p>
-      <div style="display:flex; align-items:baseline; gap:4px; margin-bottom:0.5rem;">
-        <span style="font-family:var(--font-display); font-size:2.8rem; font-weight:600; color:#fff; line-height:1;">261</span>
-        <span style="font-size:1.1rem; color:rgba(255,255,255,0.8);">개</span>
-      </div>
-      <p style="font-size:12px; color:rgba(255,255,255,0.7); line-height:1.6;">성수 4개 행정동 합산<br>성동구 전체의 87.9%</p>
-    </div>
-    <div style="background:var(--white); padding:2rem 1.5rem;">
-      <p style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.8rem;">인쇄업 종사자 수</p>
-      <div style="display:flex; align-items:baseline; gap:4px; margin-bottom:0.5rem;">
-        <span style="font-family:var(--font-display); font-size:2.8rem; font-weight:600; color:var(--black); line-height:1;">2,521</span>
-        <span style="font-size:1.1rem; color:var(--gray-dark);">명</span>
-      </div>
-      <p style="font-size:12px; color:var(--gray-mid); line-height:1.6;">인쇄업 + 인쇄관련산업<br>성수동 4개 행정동 합산</p>
-    </div>
-    <div style="background:var(--white); padding:2rem 1.5rem;">
-      <p style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.8rem;">서울시 자치구 순위</p>
-      <div style="display:flex; align-items:baseline; gap:4px; margin-bottom:0.5rem;">
-        <span style="font-family:var(--font-display); font-size:2.8rem; font-weight:600; color:var(--black); line-height:1;">3</span>
-        <span style="font-size:1.1rem; color:var(--gray-dark);">위</span>
-      </div>
-      <p style="font-size:12px; color:var(--gray-mid); line-height:1.6;">성동구 기준 (297개)<br>중구·영등포구에 이어</p>
-    </div>
-  </div>
-  <div style="margin-bottom:2.5rem;">
-    <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--gray-light); padding-bottom:0.8rem; margin-bottom:1.2rem;">
-      <p style="font-size:14px; font-weight:500;">성수동 행정동별 인쇄업 사업체 수</p>
-      <div style="display:flex; gap:16px; font-size:11px; color:var(--gray-mid);">
-        <span style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:12px; height:3px; background:#1D6B4A; border-radius:2px;"></span>인쇄업</span>
-        <span style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:12px; height:3px; background:#4DA07A; border-radius:2px;"></span>인쇄관련산업</span>
-      </div>
-    </div>
-    <div style="position:relative; height:220px;"><canvas id="chartDong"></canvas></div>
-  </div>
-  <div style="margin-bottom:2rem;">
-    <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--gray-light); padding-bottom:0.8rem; margin-bottom:1.2rem;">
-      <p style="font-size:14px; font-weight:500;">성수동 행정동별 인쇄업 종사자 수</p>
-      <div style="display:flex; gap:16px; font-size:11px; color:var(--gray-mid);">
-        <span style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:12px; height:3px; background:#1D6B4A; border-radius:2px;"></span>인쇄업 + 인쇄관련산업</span>
-      </div>
-    </div>
-    <div style="position:relative; height:220px;"><canvas id="chartWorker"></canvas></div>
-  </div>
-  <p style="font-size:11px; color:var(--gray-mid); border-top:1px solid var(--gray-light); padding-top:1rem; letter-spacing:0.03em;">
-    출처: 서울특별시, 「서울특별시 기본통계 — 출판·인쇄 및 기록매체 복제업」, 2024년 기준 / stat.eseoul.go.kr
-  </p>
-</section>
-
-<!-- ── 05 대상지 생활권 현황 ── -->
-<section class="section">
-  <p class="section-label">05 — 대상지 생활권 현황</p>
-  <h2 class="section-title">반경 0.5km 이내<br>생활권 통계</h2>
-  <p class="section-desc">
-    대상지 반경 0.5km 이내 인구·가구·주택 현황입니다.
-    총 면적 0.78km² 내 9,797명이 거주하며, 직주혼재 성격이 강한 지역입니다.
-  </p>
-
-  <!-- 지도 + 총인구 -->
-  <div style="display:grid; grid-template-columns:3fr 2fr; gap:1.5rem; margin-bottom:2.5rem; align-items:stretch;">
-    <div class="split-img" style="min-height:260px; font-size:0.72rem;">
-      <img src="images/sgis-map.png" alt="대상지 반경 0.5km 생활권 지도" style="width:100%;height:100%;object-fit:cover;">
-    </div>
-    <div style="display:flex; flex-direction:column; gap:1px; background:var(--gray-light); border:1px solid var(--gray-light);">
-      <div style="background:var(--black); padding:1.8rem 1.5rem; flex:1; display:flex; flex-direction:column; justify-content:center;">
-        <p style="font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent,#b89a5e); margin-bottom:0.6rem;">총 인구</p>
-        <div style="display:flex; align-items:baseline; gap:4px;">
-          <span style="font-family:var(--font-display); font-size:2.6rem; font-weight:600; color:#fff; line-height:1;">9,797</span>
-          <span style="font-size:1rem; color:rgba(255,255,255,0.5);">명</span>
-        </div>
-        <p style="font-size:11px; color:rgba(255,255,255,0.4); margin-top:0.4rem;">반경 0.5km · 총면적 0.78km²</p>
-      </div>
-      <div style="background:var(--white); padding:1.8rem 1.5rem; flex:1; display:flex; flex-direction:column; justify-content:center;">
-        <p style="font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--gray-mid); margin-bottom:0.6rem;">총 가구</p>
-        <div style="display:flex; align-items:baseline; gap:4px;">
-          <span style="font-family:var(--font-display); font-size:2.6rem; font-weight:600; color:var(--black); line-height:1;">4,501</span>
-          <span style="font-size:1rem; color:var(--gray-mid);">가구</span>
-        </div>
-        <p style="font-size:11px; color:var(--gray-mid); margin-top:0.4rem;">1인 가구 46.1% · 친족 가구 50.1%</p>
-      </div>
-    </div>
+  <div class="page-header">
+    <p class="section-label">DATA ANALYSIS</p>
+    <h1>가로 환경 빅데이터 분석</h1>
+    <p class="page-header-desc">정량적 현장 조사 데이터와 설문조사를 기초로 도출한 공간 문제점 통계 수치입니다.</p>
   </div>
 
-  <!-- 4개 차트 그리드 -->
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
-    <div style="border:1px solid var(--gray-light); padding:1.5rem;">
-      <div style="border-bottom:1px solid var(--gray-light); padding-bottom:0.7rem; margin-bottom:1.2rem;">
-        <p style="font-size:13px; font-weight:500;">인구 (연령대)</p>
-        <p style="font-size:11px; color:var(--gray-mid); margin-top:2px;">전체 9,797명</p>
+  <div class="container">
+    <section class="section" style="padding-top: 4rem; padding-bottom: 5rem;">
+      <p class="section-label">STATISTICS</p>
+      <h2 class="section-title">가로 이용 밀도 및 설문 데이터</h2>
+      <p class="section-desc">성수동 북측 인쇄 가로의 유동인구 패턴 및 마스터 소공인 환경 개선 니즈 스코어 데이터입니다.</p>
+      
+      <div style="background:var(--gray-bg); padding:3rem; border-radius:20px; border:1px solid var(--gray-light); margin-top:3rem;">
+        <h3 style="font-size:1.3rem; font-weight:normal; margin-bottom:1.5rem; color:var(--black);">📊 주요 정량적 분석 지표 요약</h3>
+        <ul style="line-height:2.1; color:var(--gray-dark); font-size:1rem; padding-left:1.2rem;">
+          <li>주중 평균 지게차 및 조업차량 불법 점유율: <strong style="color:#C05A46;">74.2%</strong></li>
+          <li>가로변 보행 인지 쾌적성 만족도 점수: <strong style="color:#C05A46;">1.8점 / 5.0점 만점</strong></li>
+          <li>기존 소공인-청년 디자이너 간 협업 플랫폼 개설 희망 여부: <strong style="color:#C05A46;">89.5% 찬성</strong></li>
+          <li>야간 가로 평균 조도: <strong style="color:#C05A46;">4.5 Lux</strong> (일반 주거 보행 기준 이하로 보행 환경 개선 시급)</li>
+        </ul>
       </div>
-      <div style="position:relative; height:200px;"><canvas id="chartAge"></canvas></div>
-    </div>
-    <div style="border:1px solid var(--gray-light); padding:1.5rem;">
-      <div style="border-bottom:1px solid var(--gray-light); padding-bottom:0.7rem; margin-bottom:1.2rem;">
-        <p style="font-size:13px; font-weight:500;">인구 (성별)</p>
-        <p style="font-size:11px; color:var(--gray-mid); margin-top:2px;">전체 9,797명</p>
-      </div>
-      <div style="position:relative; height:200px;"><canvas id="chartGender"></canvas></div>
-    </div>
-    <div style="border:1px solid var(--gray-light); padding:1.5rem;">
-      <div style="border-bottom:1px solid var(--gray-light); padding-bottom:0.7rem; margin-bottom:1.2rem;">
-        <p style="font-size:13px; font-weight:500;">가구 유형</p>
-        <p style="font-size:11px; color:var(--gray-mid); margin-top:2px;">전체 4,501가구</p>
-      </div>
-      <div style="position:relative; height:200px;"><canvas id="chartHousehold"></canvas></div>
-    </div>
-    <div style="border:1px solid var(--gray-light); padding:1.5rem;">
-      <div style="border-bottom:1px solid var(--gray-light); padding-bottom:0.7rem; margin-bottom:1.2rem;">
-        <p style="font-size:13px; font-weight:500;">주택 유형</p>
-        <p style="font-size:11px; color:var(--gray-mid); margin-top:2px;">전체 2,651호</p>
-      </div>
-      <div style="position:relative; height:200px;"><canvas id="chartHousing"></canvas></div>
-    </div>
+    </section>
   </div>
 
-  <p style="font-size:11px; color:var(--gray-mid); border-top:1px solid var(--gray-light); padding-top:1rem; letter-spacing:0.03em;">
-    출처: 통계지리정보서비스(SGIS), 생활권역 통계지도, 2024년 기준 / sgis.mods.go.kr
-  </p>
-</section>
+  <div class="page-nav">
+    <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
+    <a href="case.html" class="btn btn-dark">국내외 활성화 선진 사례 분석 보기 →</a>
+  </div>
 
-<div class="page-nav">
-  <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
-  <a href="proposal.html" class="btn btn-dark">설계 제안 보기 →</a>
-</div>
-
-<footer>
-  <span>성수동 프로젝트 &nbsp;·&nbsp; 도시설계 스튜디오 2025</span>
-  <a href="index.html">← 홈으로</a>
-</footer>
-
-<script>
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY < 40) nav.classList.remove('scrolled');
-  else nav.classList.add('scrolled');
-});
-
-const gridColor = 'rgba(26,26,24,0.07)';
-const textColor = '#6b6b64';
-Chart.defaults.color = textColor;
-Chart.defaults.font.family = "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif";
-Chart.defaults.font.size = 12;
-
-// 04 차트
-new Chart(document.getElementById('chartDong'), {
-  type: 'bar',
-  data: {
-    labels: ['성수1가1동', '성수1가2동', '성수2가1동', '성수2가3동'],
-    datasets: [
-      { label: '인쇄업', data: [22, 57, 23, 159], backgroundColor: '#1D6B4A', borderRadius: 2, barPercentage: 0.55 },
-      { label: '인쇄관련산업', data: [2, 7, 18, 41], backgroundColor: '#4DA07A', borderRadius: 2, barPercentage: 0.55 }
-    ]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}개` } } },
-    scales: {
-      x: { grid: { display: false } },
-      y: { grid: { color: gridColor }, border: { display: false }, ticks: { callback: v => v + '개' } }
-    }
-  }
-});
-
-new Chart(document.getElementById('chartWorker'), {
-  type: 'bar',
-  data: {
-    labels: ['성수1가1동', '성수1가2동', '성수2가1동', '성수2가3동'],
-    datasets: [{
-      data: [229, 284, 212, 2190],
-      backgroundColor: ['#c5c3bb','#c5c3bb','#c5c3bb','#1D6B4A'],
-      borderRadius: 2, barPercentage: 0.55
-    }]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y.toLocaleString()}명` } } },
-    scales: {
-      x: { grid: { display: false } },
-      y: { grid: { color: gridColor }, border: { display: false }, ticks: { callback: v => v.toLocaleString() + '명' } }
-    }
-  }
-});
-
-// 05 차트
-const accent = '#b89a5e';
-const accentDark = '#1a1a1e';
-const gray = '#c5c3bb';
-
-const donutOpts = (labels, data, colors) => ({
-  type: 'doughnut',
-  data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 0, hoverOffset: 4 }] },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    cutout: '62%',
-    plugins: {
-      legend: {
-        position: 'right',
-        labels: {
-          color: textColor, font: { size: 11 }, boxWidth: 10, padding: 10,
-          generateLabels: (chart) => {
-            const d = chart.data;
-            return d.labels.map((label, i) => ({
-              text: `${label}  ${d.datasets[0].data[i].toLocaleString()}`,
-              fillStyle: d.datasets[0].backgroundColor[i],
-              hidden: false, index: i
-            }));
-          }
-        }
-      },
-      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed.toLocaleString()}` } }
-    }
-  }
-});
-
-new Chart(document.getElementById('chartAge'), {
-  type: 'bar',
-  data: {
-    labels: ['0~9세', '10~19세', '20~29세', '30~39세', '40~49세', '50~59세', '60~69세', '70~79세', '80세↑'],
-    datasets: [{
-      data: [376, 448, 1714, 1745, 1308, 1451, 1423, 827, 499],
-      backgroundColor: ['#ddd','#ddd',accentDark,accent,'#c5b48a','#ddd','#ddd','#ddd','#ddd'],
-      borderRadius: 2, barPercentage: 0.65
-    }]
-  },
-  options: {
-    indexAxis: 'y',
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.x.toLocaleString()}명` } } },
-    scales: {
-      x: { grid: { color: gridColor }, border: { display: false }, ticks: { color: textColor, callback: v => v.toLocaleString() } },
-      y: { grid: { display: false }, ticks: { color: textColor, font: { size: 10 } } }
-    }
-  }
-});
-
-new Chart(document.getElementById('chartGender'), donutOpts(['남', '여'], [4804, 4991], [accentDark, accent]));
-new Chart(document.getElementById('chartHousehold'), donutOpts(['친족 가구', '1인 가구', '비친족 가구'], [2254, 2076, 172], [accentDark, accent, gray]));
-new Chart(document.getElementById('chartHousing'), donutOpts(['아파트', '다세대주택', '단독주택', '기타'], [1891, 420, 291, 49], [accentDark, accent, gray, '#e8e6df']));
-</script>
+  <footer>
+    <span>성수동 프로젝트 &nbsp;·&nbsp; 도시설계 스튜디오 2026</span>
+    <a href="status.html">← 전 단계로</a>
+  </footer>
 </body>
 </html>
