@@ -6,7 +6,7 @@
   <title>현황 — 남겨진 공장, 열린 거리</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* 라이트박스 모달 팝업 스타일 */
+    /* ── 라이트박스 모달 팝업 스타일 (사진 원본 크게 보기) ── */
     .modal {
       display: none;
       position: fixed;
@@ -33,21 +33,22 @@
       from { transform: scale(0.95); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
-    /* 본문 내 확대 가능한 이미지에 커서 스타일 추가 */
-    .section img {
+    
+    /* 본문 내 확대 가능한 모든 이미지에 커서 스타일 및 호버 효과 부여 */
+    .section img, .status-split img, .grid img {
       cursor: zoom-in;
-      transition: opacity 0.3s;
+      transition: opacity 0.3s ease;
     }
-    .section img:hover {
-      opacity: 0.95;
+    .section img:hover, .status-split img:hover {
+      opacity: 0.92;
     }
 
-    /* 이관된 대상지 선정 이유 전용 카드 디자인 */
+    /* ── 이관된 '왜 이곳인가' 전용 카드 디자인 ── */
     .site-reason-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
-      margin: 3rem 0;
+      margin: 2.5rem 0 0 0;
     }
     .site-reason-card {
       background: var(--white);
@@ -65,13 +66,13 @@
       margin-bottom: 0.8rem;
     }
 
-    /* 현황 투인원 스플릿 박스 조정 */
+    /* ── 기존 가로 현황용 스플릿 및 텍스트 프레임 구조 원형 보존 ── */
     .status-split {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
       gap: 4rem;
       align-items: center;
-      margin: 4rem 0;
+      margin: 4.5rem 0;
     }
     .status-img-frame {
       width: 100%;
@@ -80,10 +81,44 @@
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
-    .status-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .status-img-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* 하단 다이어그램 및 정량 지표용 그리드 레이아웃 */
+    .status-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+      margin-top: 4rem;
+    }
+    .meta-box {
+      background-color: var(--gray-bg);
+      padding: 2.5rem;
+      border-radius: 16px;
+      border: 1px solid var(--gray-light);
+    }
+    .meta-box h3 {
+      font-size: 1.25rem;
+      font-weight: normal;
+      color: var(--black);
+      margin-bottom: 1rem;
+      border-left: 3px solid #C05A46;
+      padding-left: 0.75rem;
+    }
+    .meta-box p {
+      font-size: 0.94rem;
+      line-height: 1.75;
+      color: var(--gray-dark);
+    }
 
     @media (max-width: 900px) {
-      .site-reason-grid, .status-split { grid-template-columns: 1fr; gap: 2rem; }
+      .site-reason-grid, .status-split, .status-meta-grid { 
+        grid-template-columns: 1fr; 
+        gap: 2rem; 
+      }
     }
   </style>
 </head>
@@ -103,12 +138,12 @@
   <div class="page-header">
     <p class="section-label">SITE STATUS</p>
     <h1>대상지 선정 및 가로 현황</h1>
-    <p class="page-header-desc">성수동 북측 인쇄 단지가 지닌 독특한 공간 구조와 골목 환경을 진단합니다.</p>
+    <p class="page-header-desc">성수동 북측 인쇄 단지가 지닌 독특한 공간 구조와 골목 환경을 종합적으로 진단합니다.</p>
   </div>
 
   <div class="container">
     
-    <section class="section" style="padding-top: 4rem; border-bottom: 1px solid var(--gray-light);">
+    <section class="section" style="padding-top: 4rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
       <p class="section-label">SELECTION REASON</p>
       <h2 class="section-title">왜 성수동 북측 인쇄 가로인가?</h2>
       <p class="section-desc">
@@ -134,7 +169,7 @@
       </div>
     </section>
 
-    <section class="section" style="padding-top: 5rem;">
+    <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
       <p class="section-label">STREETSCAPE ANALYSIS</p>
       <h2 class="section-title">과거와 현재의 공간 구조 변화</h2>
       
@@ -145,8 +180,30 @@
         <div class="status-text-frame">
           <p class="card-tag">HISTORICAL CONTEXT</p>
           <h3 style="font-size:1.6rem; font-weight:normal; margin-bottom:1rem;">준공업 가로 조직의 고착화</h3>
-          <p class="section-desc" style="max-width: 100%; font-size:0.95rem; text-align:justify;">
+          <p class="section-desc" style="max-width: 100%; font-size:0.95rem; text-align:justify; margin-bottom:0;">
             과거 공장 마스터플랜 지도를 복합적으로 대조해 보면, 성수동 북측 인쇄거리는 1970-80년대 형성된 소규모 필지 분할 구조를 오늘날까지 거의 그대로 보존하고 있습니다. 이로 인해 소규모 대형 장비를 다루는 소공인 인쇄 공장들이 끈끈하게 군집을 이룰 수 있었던 토대가 되었으나, 현대 도시가 요구하는 보행 인도 및 오픈 스페이스 여백은 턱없이 부족해지는 원인이 되기도 하였습니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 5rem; padding-bottom: 4rem;">
+      <p class="section-label">DETAILED INDICATORS</p>
+      <h2 class="section-title">가로 현황 및 환경 진단</h2>
+      <p class="section-desc">현재 성수동 북측 대상지가 처한 구체적인 물리적 한계점과 산업적 특수성을 정량·정성적으로 분류한 진단 지표입니다.</p>
+
+      <div class="status-meta-grid">
+        <div class="meta-box">
+          <h3>물리적 보행 환경의 한계</h3>
+          <p>
+            대상지 내부 골목길의 가로 폭은 대부분 4~6m 안팎으로 매우 협소하며, 별도의 보차분리(보도와 차도의 구분)가 전혀 이루어지지 않은 상태입니다. 인쇄 종이 적재 차량과 지게차의 잦은 상하차 작업으로 인해 일반 보행자의 유입이 심리적·물리적으로 전면 차단되는 단절 현상이 깊어지고 있습니다.
+          </p>
+        </div>
+
+        <div class="meta-box">
+          <h3>인구 및 인쇄 산업의 특수성</h3>
+          <p>
+            이 지역은 영세 소공인 비율이 80% 이상을 차지하는 순수 제조 기반 블록입니다. 마스터 엔지니어들의 숙련된 기술력과 도심 인접 출력이라는 강력한 공급망 인프라를 보유하고 있으나, 가로변 전면부가 철제 셔터와 불투명 창문으로 완전히 닫혀 있어 외부인과의 소통 접점이 전무합니다.
           </p>
         </div>
       </div>
@@ -169,20 +226,25 @@
   </footer>
 
   <script>
+    // 상단 네비게이션 스크롤 효과
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       if (window.scrollY < 40) nav.classList.remove('scrolled');
       else nav.classList.add('scrolled');
     });
 
-    // 💡 이미지 클릭 원본 확대 스크립트 모듈
-    document.querySelectorAll('.section img').forEach(img => {
-      img.addEventListener('click', function() {
-        document.getElementById('imageModal').style.display = "block";
-        document.getElementById('modalImg').src = this.src;
-      });
+    // 💡 페이지 내의 모든 이미지 요소에 라이트박스 확대 클릭 이벤트 매핑
+    document.querySelectorAll('img').forEach(img => {
+      // 내비게이션 로고 등은 확대 대상에서 제외하기 위한 예외 처리
+      if (!img.classList.contains('nav-logo')) {
+        img.addEventListener('click', function() {
+          document.getElementById('imageModal').style.display = "block";
+          document.getElementById('modalImg').src = this.src;
+        });
+      }
     });
 
+    // 확대 창 닫기 함수
     function closeModal() {
       document.getElementById('imageModal').style.display = "none";
     }
