@@ -306,7 +306,8 @@
       .home-split-text { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--gray-light); }
       .info-list li { grid-template-columns: 80px 1fr; }
     }
-/* ── 인쇄 산업 인식 VS 실제 역할 섹션 ── */
+
+    /* ── 인쇄 산업 인식 VS 실제 역할 섹션 ── */
     .perception-section {
       padding: 7rem 0;
       background: var(--white);
@@ -372,6 +373,92 @@
       .perception-container { padding: 0 1.5rem; }
       .perception-col { padding: 2.5rem 1.5rem; }
     }
+
+    /* ── 인쇄업 선정이유 섹션 ── */
+    .idx-reason-section {
+      padding: 7rem 0;
+      background: var(--gray-bg);
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .idx-reason-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+    .idx-reason-header {
+      text-align: center;
+      margin-bottom: 4.5rem;
+    }
+    .idx-reason-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: normal;
+      color: var(--black);
+    }
+    .idx-reason-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .idx-reason-card {
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .idx-reason-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(192,90,70,0.08);
+    }
+    .idx-reason-img-box {
+      width: 100%;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background-color: var(--gray-bg);
+    }
+    .idx-reason-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .idx-reason-card:hover .idx-reason-img-box img {
+      transform: scale(1.04);
+    }
+    .idx-reason-content {
+      padding: 2rem;
+      flex-grow: 1;
+    }
+    .idx-reason-number {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: #C05A46;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .idx-reason-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: normal;
+      color: var(--black);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+    .idx-reason-content p {
+      font-size: 0.88rem;
+      color: var(--gray-dark);
+      line-height: 1.75;
+      text-align: justify;
+    }
+    @media (max-width: 900px) {
+      .idx-reason-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .idx-reason-container { padding: 0 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -387,7 +474,6 @@
     </ul>
   </nav>
 
-  <!-- ── 히어로 ── -->
   <header class="hero">
     <div class="hero-bg">
       <img src="images/hero.jpg" alt="성수동 인쇄공장 가로 전경" />
@@ -403,7 +489,6 @@
     <div class="hero-scroll">SCROLL</div>
   </header>
 
-  <!-- ── 인트로 (키워드 시각화) ── -->
   <div class="home-intro-wrap">
     <div class="home-intro-top">
       <p class="section-label">INTRODUCTION</p>
@@ -433,9 +518,7 @@
         <div class="kw-bar"></div>
       </div>
     </div>
-
-  <!-- ── 레드프린팅 소개 ── -->
-  <div class="home-split">
+  </div> <div class="home-split">
     <div class="home-split-img">
       <img src="images/site-building.jpg" alt="성수동 인쇄공장 전경">
     </div>
@@ -471,7 +554,7 @@
       <a href="status.html" class="btn btn-dark">현황 자세히 보기 →</a>
     </div>
   </div>
-  <!-- ── 성수동 인쇄 역사 영상 ── -->
+
   <div class="home-video-section">
     <div class="home-video-inner">
       <p class="section-label">PRINT HISTORY</p>
@@ -484,7 +567,8 @@
       </div>
     </div>
   </div>
-    <section class="perception-section">
+
+  <section class="perception-section">
     <div class="perception-container">
       <div class="perception-header">
         <p class="section-label" style="justify-content: center;">INDUSTRY PERSPECTIVE</p>
@@ -531,7 +615,50 @@
     </div>
   </section>
 
-  <!-- ── 페이지 네비게이션 카드 ── -->
+  <section class="idx-reason-section">
+    <div class="idx-reason-container">
+      <div class="idx-reason-header">
+        <p class="section-label" style="justify-content: center;">WHY PRINTING</p>
+        <h2>인쇄업 선정이유</h2>
+      </div>
+      
+      <div class="idx-reason-grid">
+        <div class="idx-reason-card">
+          <div class="idx-reason-img-box">
+            <img src="images/reason1.png" alt="화려한 남측 핫플레이스와의 대비">
+          </div>
+          <div class="idx-reason-content">
+            <span class="idx-reason-number">01</span>
+            <h3>화려한 남측 핫플레이스와의 대비</h3>
+            <p>성수동 3대 준공업 중 가장 큰 비율을 차지하는 북측 인쇄 지대는 성수동의 급격한 성장 속에서 홀로 소외되어 있다.</p>
+          </div>
+        </div>
+        
+        <div class="idx-reason-card">
+          <div class="idx-reason-img-box">
+            <img src="images/reason2.jpg" alt="트렌드를 완성하는 숨은 주역">
+          </div>
+          <div class="idx-reason-content">
+            <span class="idx-reason-number">02</span>
+            <h3>트렌드를 완성하는 숨은 주역</h3>
+            <p>성수동의 트렌디한 패션, 디자인 스타트업, 팝업스토어의 수많은 아이디어를 눈앞의 물질로 구현해 주는 가장 가까운 공생적 파트너이다.</p>
+          </div>
+        </div>
+        
+        <div class="idx-reason-card">
+          <div class="idx-reason-img-box">
+            <img src="images/reason3.jpg" alt="디자인과 결합한 시각 문화 사업">
+          </div>
+          <div class="idx-reason-content">
+            <span class="idx-reason-number">03</span>
+            <h3>디자인과 결합한 시각 문화 사업</h3>
+            <p>단순한 종이 인쇄를 넘어, 성수동 고유의 감성과 디자인이 결합한 고부가가치 시각 문화 산업으로 진화할 수 있다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <div class="nav-card-grid">
     <a href="status.html" class="nav-card">
       <div class="nav-card-img">
