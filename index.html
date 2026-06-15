@@ -3,8 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>남겨진 공장, 열린 거리</title>
+  <title>남겨진 공장, 열린 거리 — 성수동 인쇄골목 마스터플랜</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* 홈 페이지 전용 추가 스타일 */
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('images/wall.jpg') no-repeat center center/cover;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      padding: 0 1rem;
+    }
+    .hero h1 { font-size: 3.5rem; font-weight: normal; margin-bottom: 1rem; letter-spacing: -1px; }
+    .hero p { font-size: 1.25rem; max-width: 600px; line-height: 1.6; color: #ddd; margin-bottom: 2rem; }
+    
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: center;
+      padding: 6rem 0;
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .intro-img-box {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .intro-img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── [복구 완료] 레드 프린팅 전용 스플릿 섹션 스타일 ── */
+    .anchor-section {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      padding: 6rem 0;
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .anchor-img-box {
+      width: 100%;
+      aspect-ratio: 16/10;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .anchor-img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .intro-grid, .anchor-section { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+  </style>
 </head>
 <body>
 
@@ -20,38 +76,80 @@
   </nav>
 
   <header class="hero">
-    <div class="hero-bg">
-      <img src="images/hero.jpg" alt="성수동 인쇄공장 가로 전경" />
-    </div>
-    <div class="hero-content">
-      <p class="hero-subtitle">도시설계 스튜디오 2026</p>
-      <h1 class="hero-title">남겨진 공장,<br />열린 거리</h1>
-      <p class="hero-desc">성수동 북측 인쇄 산업 가로의 정체성 회복과 보행 네트워크 재생 구상</p>
-      <a href="status.html" class="btn btn-primary">프로젝트 시작하기 →</a>
-    </div>
+    <h1>남겨진 공장, 열린 거리</h1>
+    <p>성수동 북측 인쇄 단지의 도심 제조 유산과 골목길 조직을 보존하며, 지속 가능한 보행 친화형 문화 가로로 전환하는 도시설계 마스터플랜입니다.</p>
+    <a href="status.html" class="btn btn-primary">프로젝트 시작하기</a>
   </header>
 
-  <main class="section">
-    <div class="container" style="max-width: 800px; text-align: center; padding: 5rem 0 7rem 0;">
-      <p class="section-label" style="justify-content: center;">INTRODUCTION</p>
-      <h2 style="font-family: var(--font-display); font-size: 2.3rem; margin-bottom: 2rem; font-weight: normal; line-height: 1.45; color: var(--black);">
-        성수동의 가장 깊은 골목,<br />그곳의 이야기를 다시 쓰다.
-      </h2>
-      <p class="section-desc" style="max-width: 100%; text-align: justify; line-height: 1.9; font-size: 1.02rem;">
-        붉은 벽돌과 철제 셔터문, 밤낮없이 돌아가는 윤전기 소리. 성수동 북측의 인쇄 골목은 오랜 시간 동안 도시의 보이지 않는 생산 엔진 역할을 해왔습니다. 하지만 급격한 주변부 개발과 세련된 상업화의 물결 속에서, 이 소중한 산업 생태계와 골목 가로는 점차 단절되고 고립되고 있습니다. 본 프로젝트는 성수동 고유의 인쇄 인프라를 보존하는 동시에, 시민의 보행과 문화적 크리에이티브를 수용하는 열린 거리로의 재생 마스터플랜을 제안합니다.
-      </p>
-    </div>
-  </main>
+  <div class="container">
+    
+    <section class="intro-grid">
+      <div class="intro-img-box">
+        <img src="images/trash.jpg" alt="성수동 북측 골목길 현황">
+      </div>
+      <div>
+        <p class="section-label">PROJECT OVERVIEW</p>
+        <h2 class="section-title" style="margin-bottom: 1.5rem;">생산의 공간에서<br>경험의 가로로</h2>
+        <p class="section-desc" style="max-width: 100%; text-align: justify; line-height: 1.75;">
+          성수동은 급격한 젠트리피케이션과 상업화로 인해 본연의 색채를 잃어가고 있습니다. 특히 성수역 북측의 인쇄 단지는 옛 골목의 형태와 소공인 중심의 긴밀한 생산 네트워크를 그대로 유지하고 있는 소중한 도심 제조 유산입니다.<br><br>
+          본 프로젝트는 공장의 닫힌 전면부(Facade)를 가로로 개방하고, 차량 중심의 협소한 도로를 보행자 중심의 '열린 가로'로 재구조화하여 생산과 문화가 공존하는 새로운 도시 모델을 제안합니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="anchor-section">
+      <div>
+        <p class="section-label" style="color: #C05A46;">CORE INDUSTRIAL ANCHOR</p>
+        <h2 class="section-title" style="margin-bottom: 1.5rem;">대상지의 핵심 동력:<br>레드 프린팅(Red Printing)</h2>
+        <p class="section-desc" style="max-width: 100%; text-align: justify; line-height: 1.75;">
+          대상지 가로 환경을 이해하는 데 있어 가장 중요한 산업 앵커는 바로 **'레드프린팅앤페이먼트(Red Printing)'**입니다. 전통적인 인쇄 방식에 머무르지 않고, 디지털 기반의 소량 다품종 생산 시스템을 성공적으로 혁신하여 성수동 인쇄 생태계를 이끌어가는 핵심 기업입니다.<br><br>
+          기획, 디자인, 출력, 후가공 및 배송 시스템까지 이어지는 전 과정이 이 블록 내부에서 긴밀하게 상호작용하고 있습니다. 레드 프린팅 공장 전면부는 가로의 유동 유입을 좌우하는 물리적 중심점이자, 본 마스터플랜에서 공장 벽면을 허물고 보행자 오픈 스페이스 및 문화 거점으로 연계할 가장 핵심적인 타겟 구역입니다.
+        </p>
+      </div>
+      <div class="anchor-img-box">
+        <img src="images/second.jpg" alt="레드프린팅 주변 성수동 제조 산업 시설">
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 6rem; padding-bottom: 4rem;">
+      <p class="section-label" style="text-align: center;">PROJECT ARCHITECTURE</p>
+      <h2 class="section-title" style="text-align: center; margin-bottom: 3.5rem;">마스터플랜 프로젝트 구성</h2>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+        <a href="status.html" class="btn" style="background:var(--gray-bg); border:1px solid var(--gray-light); padding:2rem; border-radius:12px; text-align:left; color:var(--black); height:100%;">
+          <span style="font-size:1.5rem; display:block; margin-bottom:1rem;">01</span>
+          <h4 style="font-size:1.1rem; font-weight:normal; margin-bottom:0.5rem;">대상지 현황</h4>
+          <p style="font-size:0.85rem; color:var(--gray-mid); line-height:1.5;">왜 성수동 북측 가로인가? 범위 구획 및 산업 데이터 시각화 맵</p>
+        </a>
+        <a href="analysis.html" class="btn" style="background:var(--gray-bg); border:1px solid var(--gray-light); padding:2rem; border-radius:12px; text-align:left; color:var(--black); height:100%;">
+          <span style="font-size:1.5rem; display:block; margin-bottom:1rem;">02</span>
+          <h4 style="font-size:1.1rem; font-weight:normal; margin-bottom:0.5rem;">정밀 분석</h4>
+          <p style="font-size:0.85rem; color:var(--gray-mid); line-height:1.5;">건축물 노후도, 필지 규모, 보행 지장물 등 현황 레이어 정밀 분석 데이터</p>
+        </a>
+        <a href="case.html" class="btn" style="background:var(--gray-bg); border:1px solid var(--gray-light); padding:2rem; border-radius:12px; text-align:left; color:var(--black); height:100%;">
+          <span style="font-size:1.5rem; display:block; margin-bottom:1rem;">03</span>
+          <h4 style="font-size:1.1rem; font-weight:normal; margin-bottom:0.5rem;">국내외 사례</h4>
+          <p style="font-size:0.85rem; color:var(--gray-mid); line-height:1.5;">도심 준공업 지역 및 인쇄·제조 골목길 재생의 선진 해외 아카이브 분석</p>
+        </a>
+        <a href="proposal.html" class="btn" style="background:var(--gray-bg); border:1px solid var(--gray-light); padding:2rem; border-radius:12px; text-align:left; color:var(--black); height:100%;">
+          <span style="font-size:1.5rem; display:block; margin-bottom:1rem;">04</span>
+          <h4 style="font-size:1.1rem; font-weight:normal; margin-bottom:0.5rem;">종합 제안</h4>
+          <p style="font-size:0.85rem; color:var(--gray-mid); line-height:1.5;">가로 재구조화 가이드라인, 단면 계획 및 공공공지 오픈 스페이스 디자인</p>
+        </a>
+      </div>
+    </section>
+
+  </div>
 
   <footer>
     <span>성수동 프로젝트 &nbsp;·&nbsp; 도시설계 스튜디오 2026</span>
-    <a href="status.html">다음 단계: 가로 현황 보기 →</a>
+    <p style="font-size:0.8rem; color:var(--gray-mid); margin-top:0.5rem;">본 사이트는 Chrome 환경에 최적화되어 있습니다.</p>
   </footer>
 
   <script>
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-      if (window.scrollY < 60) nav.classList.remove('scrolled');
+      if (window.scrollY < 40) nav.classList.remove('scrolled');
       else nav.classList.add('scrolled');
     });
   </script>
