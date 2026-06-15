@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>분석 — 남겨진 공장, 열린 거리</title>
+  <title>분석 — 성수동 프로젝트</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
   <style>
     /* ── 라이트박스 모달 ── */
     .modal {
@@ -20,52 +21,11 @@
       border-radius: 8px; transform: scale(0.95); transition: transform 0.3s ease;
     }
     .modal.show .modal-content { transform: scale(1); }
-    .section img, .analysis-split img, .chart-card img {
+    .section img, .analysis-split img {
       cursor: zoom-in; transition: all 0.3s ease;
     }
-    .section img:hover, .analysis-split img:hover, .chart-card img:hover {
+    .section img:hover, .analysis-split img:hover {
       opacity: 0.88; transform: scale(1.01);
-    }
-
-    /* ── 통계 대시보드 뱃지 그리드 ── */
-    .metric-dashboard {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 4rem;
-    }
-    .metric-card {
-      background: var(--white);
-      border: 1px solid var(--gray-light);
-      border-radius: 16px;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .metric-card-accent {
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 4px;
-      background: #C05A46;
-    }
-    .metric-card-title {
-      font-size: 0.85rem;
-      color: var(--gray-dark);
-      letter-spacing: 0.05em;
-      margin-bottom: 0.75rem;
-    }
-    .metric-card-number {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      color: var(--black);
-      font-weight: normal;
-      line-height: 1.1;
-      margin-bottom: 0.5rem;
-    }
-    .metric-card-sub {
-      font-size: 0.82rem;
-      color: var(--gray-mid);
-      line-height: 1.4;
     }
 
     /* ── 프리미엄 데이터 레이아웃 스플릿 ── */
@@ -93,7 +53,7 @@
       padding-left: 0.75rem;
     }
 
-    /* ── 순수 CSS 가로형 막대그래프 엔진 ── */
+    /* ── 순수 CSS 가로형 막대그래프 ── */
     .css-bar-chart {
       display: flex;
       flex-direction: column;
@@ -126,10 +86,9 @@
       height: 100%;
       background: linear-gradient(90deg, var(--gray-dark), #888);
       border-radius: 6px;
-      transition: width 1s ease;
     }
     .bar-fill.highlight {
-      background: linear-gradient(90deg, #C05A46, #e28774);
+      background: linear-gradient(90deg, #1D6B4A, #4DA07A);
     }
 
     /* ── 서브 그리드 및 카드 ── */
@@ -150,13 +109,8 @@
       color: var(--black);
       margin-bottom: 0.5rem;
     }
-    .sub-data-card p {
-      font-size: 0.85rem;
-      color: var(--gray-dark);
-      line-height: 1.5;
-    }
 
-    /* ── 교통/물류 모순성 진단 카드 ── */
+    /* ── 모순성 진단 하이라이트 박스 ── */
     .paradox-box {
       background: #fdf8f7;
       border: 1px solid #f0c0b8;
@@ -227,12 +181,67 @@
     .spec-val { color: #fff; font-weight: 600; }
     .spec-val.highlight { color: #e28774; }
 
+    /* ── 그래프형 인디케이터 대시보드 전용 스타일 ── */
+    .metric-visual-dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 2.5rem 0 3.5rem;
+    }
+    .metric-chart-card {
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: 16px;
+      padding: 2.2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    }
+    .metric-chart-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin-bottom: 1.5rem;
+    }
+    .metric-chart-center-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: var(--font-display);
+    }
+    .metric-chart-center-text .main-num {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--black);
+      line-height: 1.1;
+    }
+    .metric-chart-center-text .sub-unit {
+      font-size: 0.8rem;
+      color: var(--gray-mid);
+      margin-top: 0.1rem;
+    }
+    .metric-meta-title {
+      font-size: 0.88rem;
+      font-weight: bold;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+    }
+    .metric-meta-desc {
+      font-size: 0.8rem;
+      color: var(--gray-mid);
+      line-height: 1.5;
+    }
+
     @media (max-width: 900px) {
-      .metric-dashboard { grid-template-columns: 1fr; gap: 1rem; }
-      .analysis-split { grid-template-columns: 1fr; gap: 2.5rem; }
-      .diet-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .diet-banner { padding: 2.5rem 1.5rem; }
+      .analysis-split, .diet-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .metric-visual-dashboard { grid-template-columns: 1fr; gap: 1.5rem; }
       .sub-data-grid { grid-template-columns: 1fr; }
+      .diet-banner { padding: 2.5rem 1.5rem; }
     }
   </style>
 </head>
@@ -257,59 +266,72 @@
 
   <div class="container">
 
-    <section class="section" style="padding-top: 1rem; border-bottom: 1px solid var(--gray-light); padding-bottom: 2rem;">
+    <section class="section" style="padding-top: 1rem; border-bottom: 1px solid var(--gray-light); padding-bottom: 4rem;">
       <p class="section-label">CLUSTER METRICS</p>
       <h2 class="section-title">성수동 인쇄업 밀집도 현황 지표</h2>
-      <p class="section-desc">성수동 준공업 가로망이 서울의 핵심 인쇄 산업 생태계를 지탱하는 중추 거점임을 증명하는 기초 통계 데이터입니다.</p>
+      <p class="section-desc">성수동 준공업 가로망이 서울의 핵심 인쇄 산업 생태계를 지탱하는 중추 거점임을 증명하는 집적도 시각화 차트입니다.</p>
 
-      <div class="metric-dashboard">
-        <div class="metric-card">
-          <div class="metric-card-accent"></div>
-          <p class="metric-card-title">성수동 4개 행정동 사업체 합산</p>
-          <p class="metric-card-number">261개소</p>
-          <p class="metric-card-sub">성동구 전체 인쇄업 사업체(297개) 중<br><strong>87.9%</strong>의 압도적 비중 기록</p>
+      <div class="metric-visual-dashboard">
+        
+        <div class="metric-chart-card">
+          <div class="metric-chart-container">
+            <canvas id="metricRingChart1"></canvas>
+            <div class="metric-chart-center-text">
+              <span class="main-num" style="color: #1D6B4A;">87.9</span>
+              <span class="sub-unit">%</span>
+            </div>
+          </div>
+          <div class="metric-meta-title">성수동 4개동 사업체 비중</div>
+          <div class="metric-meta-desc">성동구 전체 인쇄업 297개소 중<br><strong>261개소</strong>가 성수동에 밀집 [cite: 26, 27]</div>
         </div>
-        <div class="metric-card">
-          <div class="metric-card-accent"></div>
-          <p class="metric-card-title">인쇄 가로 고용 창출 효과</p>
-          <p class="metric-card-number">2,521명</p>
-          <p class="metric-card-sub">성수동 4개 행정동 인쇄 제조 기반<br>종사자 수 총계 (지역 경제의 중추 역할)</p>
+
+        <div class="metric-chart-card" style="background: #fdfbfb; border-color: #cbd5e1;">
+          <div class="metric-chart-container" style="display:flex; justify-content:center; align-items:center; background:#f4f3ef; border-radius:50%; border:4px solid #1D6B4A; box-shadow: inset 0 0 15px rgba(29,107,74,0.06);">
+            <div style="font-family:var(--font-display); text-align:center;">
+              <span style="font-size:2rem; font-weight:bold; color:var(--black);">2,521</span>
+              <span style="font-size:0.85rem; color:var(--gray-dark); display:block; font-weight:bold; margin-top:-2px;">명</span>
+            </div>
+          </div>
+          <div class="metric-meta-title" style="color:#1D6B4A;">인쇄 가로 고용 창출 효과</div>
+          <div class="metric-meta-desc">인쇄 및 인쇄관련산업 합산<br>가로 기반 생태계 총 종사자 수 [cite: 28]</div>
         </div>
-        <div class="metric-card">
-          <div class="metric-card-accent"></div>
-          <p class="metric-card-title">성수2가3동 고용 집중도</p>
-          <p class="metric-card-number">84%</p>
-          <p class="metric-card-sub">성동구 전체 인쇄업 종사자 중<br><strong>2,190명</strong>이 단 하나의 행정동에 밀집</p>
+
+        <div class="metric-chart-card">
+          <div class="metric-chart-container">
+            <canvas id="metricRingChart3"></canvas>
+            <div class="metric-chart-center-text">
+              <span class="main-num" style="color: #C05A46;">84.0</span>
+              <span class="sub-unit">%</span>
+            </div>
+          </div>
+          <div class="metric-meta-title">성수2가3동 고용 집중도</div>
+          <div class="metric-meta-desc">성동구 전체 종사자 중 무려<br><strong>2,190명</strong>이 단 하나의 동에 집중 [cite: 32]</div>
         </div>
+
       </div>
-    </section>
 
-    <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
-      <p class="section-label">REGIONAL CONTEXT</p>
-      <h2 class="section-title">지역적 맥락 분석</h2>
-      
-      <div class="analysis-split">
+      <div class="analysis-split" style="margin-top: 4rem;">
         <div class="analysis-chart-zone">
           <h3 class="chart-zone-title">서울 주요 구별 인쇄업 사업체 수 비교</h3>
           <div class="css-bar-chart">
             <div class="chart-row">
               <div class="chart-label-row">
                 <span><span class="rank-num">1</span>중구</span>
-                <span>3,500개 이상</span>
+                <span>3,500개 이상 [cite: 26]</span>
               </div>
-              <div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div>
+              <div class="bar-track"><div class="bar-fill" style="width: 100%; background: #c5c3bb;"></div></div>
             </div>
             <div class="chart-row">
               <div class="chart-label-row">
                 <span><span class="rank-num">2</span>영등포구</span>
-                <span>약 350개</span>
+                <span>약 350개 [cite: 26]</span>
               </div>
-              <div class="bar-track"><div class="bar-fill" style="width: 12%;"></div></div>
+              <div class="bar-track"><div class="bar-fill" style="width: 12%; background: #c5c3bb;"></div></div>
             </div>
             <div class="chart-row">
-              <div class="chart-label-row" style="font-weight: bold; color: #C05A46;">
-                <span><span class="rank-num" style="color: #C05A46;">3</span>성동구 (대상지)</span>
-                <span>297개</span>
+              <div class="chart-label-row" style="font-weight: bold; color: #1D6B4A;">
+                <span><span class="rank-num" style="color: #1D6B4A;">3</span>성동구 (대상지)</span>
+                <span>297개 [cite: 26]</span>
               </div>
               <div class="bar-track"><div class="bar-fill highlight" style="width: 10%;"></div></div>
             </div>
@@ -318,7 +340,7 @@
                 <span><span class="rank-num">4</span>금천구</span>
                 <span>약 200개</span>
               </div>
-              <div class="bar-track"><div class="bar-fill" style="width: 7%;"></div></div>
+              <div class="bar-track"><div class="bar-fill" style="width: 7%; background: #c5c3bb;"></div></div>
             </div>
           </div>
         </div>
@@ -326,51 +348,77 @@
         <div class="analysis-text-zone" style="display: flex; flex-direction: column; justify-content: center;">
           <h3 style="font-size:1.4rem; font-weight:normal; margin-bottom:1.25rem; color:var(--black);">성동구의 위상과 성수동의 집중도</h3>
           <p class="section-desc" style="max-width:100%; text-align:justify; line-height:1.75; font-size:0.95rem; margin-bottom:1.5rem;">
-            성동구는 서울 전체 자치구 중 중구, 영등포구에 이어 인쇄업 사업체 수 3위를 차지하는 핵심 산업 거점입니다. 특히 성수동 일대의 밀집도를 분석해보면, 성수동 내에서도 <strong>성수2가3동</strong>에 인쇄 산업 핵심 인프라가 초집중되어 있는 분석 결과가 도출됩니다.
+            성동구는 서울 전체 자치구 중 중구, 영등포구에 이어 인쇄업 사업체 수 3위를 차지하는 핵심 산업 거점입니다[cite: 26]. 특히 성수동 내에서도 <strong>성수2가3동</strong>은 단독으로 인쇄 사업체 159개소(과반수 이상)와 종사자 2,190명을 보유하여 핵심 인프라가 초집중되어 있습니다[cite: 29, 30, 31].
           </p>
           <div class="sub-data-grid">
             <div class="sub-data-card">
-              <h4>성수2가3동 사업체 수</h4>
-              <p style="font-size:1.15rem; color:#C05A46; font-weight:600; margin-bottom:0.25rem;">159개 개소</p>
-              <p>성수동 전체 인쇄 사업체의 과반수 이상을 단독으로 차지합니다.</p>
+              <h4>성수동 세부 행정동별 사업체</h4>
+              <p style="font-size:0.82rem; color:var(--gray-dark); line-height:1.5; margin:0;">4개 행정동에 총 261개소가 분포하며, 성수2가3동이 핵심 엔진 역할을 담당합니다[cite: 27, 29].</p>
             </div>
             <div class="sub-data-card">
-              <h4>성수2가3동 종사자 수</h4>
-              <p style="font-size:1.15rem; color:#C05A46; font-weight:600; margin-bottom:0.25rem;">2,190명</p>
-              <p>성동구 전체 인쇄업 종사자의 무려 84%가 이 하나의 행정동에 집중됩니다.</p>
+              <h4>물류·교통 환경 개선의 필연성</h4>
+              <p style="font-size:0.82rem; color:var(--gray-dark); line-height:1.5; margin:0;">이 일대의 가로 접근성을 개선하는 것은 성수동 인쇄 산업 유산과 생태계를 보존하기 위한 최우선 과제입니다[cite: 33].</p>
             </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <p class="section-desc" style="max-width:100%; text-align:justify; margin-top:2rem; font-size:0.95rem; line-height:1.7;">
-        💡 <strong>분석 시사점:</strong> 통계 수치가 입증하듯 이 일대의 물류 및 교통 접근성을 개선하는 것은 단순히 도로를 정비하는 차원을 넘어, 서울의 주요 제조 유산이자 성수동 인쇄 산업 생태계를 보존하고 발전시키기 위한 최우선 필수 맥락입니다.
-      </p>
+    <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
+      <p class="section-label">DETAILED DISTRIBUTION</p>
+      <h2 class="section-title">성수동 행정동별 통계 정밀 분석</h2>
+      <p class="section-desc">성수동 내 4개 행정동간의 인쇄업 및 관련 산업 인프라 스케일을 비교 진단한 공공 통계 데이터 그래프입니다[cite: 27].</p>
+
+      <div style="margin-bottom:3.5rem; margin-top:3rem;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--gray-light); padding-bottom:0.8rem; margin-bottom:1.2rem;">
+          <p style="font-size:14px; font-weight:500; color:var(--black);">성수동 행정동별 인쇄업 사업체 수 현황</p>
+          <div style="display:flex; gap:16px; font-size:11px; color:var(--gray-mid);">
+            <span style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:12px; height:3px; background:#1D6B4A; border-radius:2px;"></span>인쇄업</span>
+            <span style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:12px; height:3px; background:#4DA07A; border-radius:2px;"></span>인쇄관련산업</span>
+          </div>
+        </div>
+        <div style="position:relative; height:240px;">
+          <canvas id="chartDong"></canvas>
+        </div>
+      </div>
+
+      <div style="margin-bottom:2rem;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--gray-light); padding-bottom:0.8rem; margin-bottom:1.2rem;">
+          <p style="font-size:14px; font-weight:500; color:var(--black);">성수동 행정동별 인쇄업 종사자 수 집중도</p>
+          <div style="display:flex; gap:16px; font-size:11px; color:var(--gray-mid);">
+            <span style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:12px; height:3px; background:#1D6B4A; border-radius:2px;"></span>인쇄업 + 인쇄관련산업 합산</span>
+          </div>
+        </div>
+        <div style="position:relative; height:240px;">
+          <canvas id="chartWorker"></canvas>
+        </div>
+      </div>
+      <p style="font-size:11px; color:var(--gray-mid); text-align:right; margin-top:1rem;">출처: 서울특별시, 「서울특별시 기본통계 - 출판·인쇄 및 기록매체 복제업」 </p>
     </section>
 
     <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
       <p class="section-label">TRAFFIC CONDITIONS</p>
       <h2 class="section-title">대상지 교통 여건 분석</h2>
-      <p class="section-desc">지리 정보 체계(GIS) 도면 분석 결과, 대상지는 광역적인 대중교통 인프라 접근성 측면에서 매우 우수한 지표를 나타내고 있습니다.</p>
+      <p class="section-desc">지리 정보 체계(GIS) 도면 분석 결과, 대상지는 광역적인 대중교통 인프라 접근성 측면에서 매우 우수한 지표를 나타내고 있습니다[cite: 14].</p>
 
       <div class="analysis-split" style="margin-top: 3rem; margin-bottom: 2rem;">
         <div class="analysis-text-zone" style="display: flex; flex-direction: column; justify-content: center;">
           <h3 style="font-size:1.3rem; font-weight:normal; margin-bottom:1.25rem; color:var(--black);">광역 교통 근접성 분석</h3>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 1.25rem;">
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 1.25rem; padding:0;">
             <li style="border-left: 3px solid var(--gray-mid); padding-left: 1rem;">
               <strong style="display:block; font-size:0.95rem; margin-bottom:0.2rem; color:var(--black);">지하철역 접근 반경</strong>
-              <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.6;">대상지는 대중교통 인프라 핵심 축인 지하철 2호선 성수역 반경 250m 내에 밀접하게 위치하고 있습니다.</p>
+              <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.6;">대상지는 대중교통 인프라 핵심 축인 지하철 2호선 성수역 반경 250m 내에 밀접하게 위치하고 있습니다[cite: 14].</p>
             </li>
             <li style="border-left: 3px solid var(--gray-mid); padding-left: 1rem;">
               <strong style="display:block; font-size:0.95rem; margin-bottom:0.2rem; color:var(--black);">버스 노선 연계성</strong>
-              <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.6;">대상지 경계 반경 200m 이내에 복수의 시내버스 정류장이 조밀하게 밀집해 있어, 대중교통망 네트워크 자체는 매우 뛰어납니다.</p>
+              <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.6;">대상지 경계 반경 200m 이내에 복수의 시내버스 정류장이 조밀하게 밀집해 있어, 대중교통망 네트워크 자체는 매우 뛰어납니다[cite: 14].</p>
             </li>
           </ul>
         </div>
         <div class="analysis-chart-zone" style="padding: 1.5rem; background: var(--gray-bg);">
           <div style="width:100%; aspect-ratio: 4/3; border-radius:10px; overflow:hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.04); background:#fff; display:flex; justify-content:center; align-items:center;">
-  <img src="images/site-traffic-map.jpg" alt="대상지 교통 여건 GIS 도면 분석" style="width:100%; height:100%; object-fit:contain;">
-</div>
+            <img src="images/site-traffic-map.jpg" alt="대상지 교통 여건 GIS 도면 분석" style="width:100%; height:100%; object-fit:contain;">
+          </div>
           <p style="font-size:0.78rem; color:var(--gray-mid); text-align:center; margin-top:0.75rem; margin-bottom:0;">[도면 1] 대상지 주변 광역 교통 인프라 반경 중첩 매핑 (OpenStreetMap)</p>
         </div>
       </div>
@@ -378,7 +426,7 @@
       <div class="paradox-box">
         <h3 class="paradox-title">⚠️ 데이터와 현장의 모순: 물리적 접근성의 한계</h3>
         <p class="paradox-desc">
-          대중교통 노선과의 절대적인 선형 거리는 가깝지만, 대상지 내부 골목 및 주변 도로의 구조적 여건으로 인해 <strong>차량과 보행자의 실질적인 내부 '접근성'은 상대적으로 크게 떨어지는 극심한 공간적 모순 상황</strong>이 발생하고 있습니다.
+          대중교통 노선과의 절대적인 선형 거리는 가깝지만, 대상지 내부 골목 및 주변 도로의 구조적 여건으로 인해 <strong>차량과 보행자의 실질적인 내부 '접근성'은 상대적으로 크게 떨어지는 극심한 공간적 모순 상황</strong>이 발생하고 있습니다[cite: 15].
         </p>
       </div>
     </section>
@@ -386,31 +434,31 @@
     <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
       <p class="section-label">CAUSAL ANALYSIS</p>
       <h2 class="section-title">현장 접근성 저하 원인 분석 (문제점)</h2>
-      <p class="section-desc">현장 실측 및 가로 조사를 통해 도출된, 물류 연속성과 보행 안전성을 저해하는 2가지 핵심 파괴 요인입니다.</p>
+      <p class="section-desc">현장 실측 및 가로 조사를 통해 도출된, 물류 연속성과 보행 안전성을 저해하는 2가지 핵심 파괴 요인입니다[cite: 17].</p>
 
       <div class="analysis-split" style="margin-top: 3rem;">
         <div class="analysis-chart-zone" style="padding: 0; overflow:hidden; border-radius:14px;">
           <div style="width:100%; aspect-ratio: 16/11; background:#ddd;">
-            <img src="images/cargo-truck.jpg" alt="1톤 화물 탑차 상하차 조업 및 골목 병목 현상 현장 사진" style="width:100%; height:100%; object-fit:cover;">
+            <img src="images/cargo-truck.jpg" alt="1톤 화물 탑차 조업 현장 사진" style="width:100%; height:100%; object-fit:cover;">
           </div>
           <div style="padding: 2rem;">
             <span style="font-size:0.75rem; font-weight:bold; color:#C05A46; letter-spacing:1px; display:block; margin-bottom:0.5rem;">LOGISTICS BOTTLENECK</span>
             <h3 style="font-size:1.2rem; font-weight:normal; margin-bottom:0.75rem; color:var(--black);">01. 화물 차량 통행 애로 및 물류 마비</h3>
             <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.65; text-align:justify; margin-bottom:0;">
-              현장 조사 결과, 가로 내부에는 인쇄 가공품 및 종이 원자재를 운반하는 <strong>1톤 화물 탑차(기아 봉고, 현대 포터 등)가 상시 통행</strong>하고 있습니다. 그러나 극도로 협소한 도로 폭과 무분별한 불법 주정차 차량이 중첩되면서 차량 간 교행이 완전히 불가능한 상태입니다. 이로 인해 물류 상하차 작업 발생 시 골목 전체에 극심한 병목 현상이 발생하고 있습니다.
+              현장 조사 결과, 가로 내부에는 인쇄 가공품 및 종이 원자재를 운반하는 <strong>1톤 화물 탑차(기아 봉고, 현대 포터 등)가 상시 통행</strong>하고 있습니다[cite: 18]. 그러나 극도로 협소한 도로 폭과 무분별한 불법 주정차 차량이 중첩되면서 차량 간 교행이 완전히 불가능하며 물류 상하차 작업 발생 시 골목 전체에 극심한 병목 현상이 발생하고 있습니다[cite: 19].
             </p>
           </div>
         </div>
 
         <div class="analysis-chart-zone" style="padding: 0; overflow:hidden; border-radius:14px;">
           <div style="width:100%; aspect-ratio: 16/11; background:#ddd;">
-            <img src="images/pedestrian-danger.jpg" alt="보차분리 부재로 인한 협소 골목길 보행 위협 현장 사진" style="width:100%; height:100%; object-fit:cover;">
+            <img src="images/pedestrian-danger.jpg" alt="보차분리 부재 골목길 사진" style="width:100%; height:100%; object-fit:cover;">
           </div>
           <div style="padding: 2rem;">
             <span style="font-size:0.75rem; font-weight:bold; color:#C05A46; letter-spacing:1px; display:block; margin-bottom:0.5rem;">PEDESTRIAN VULNERABILITY</span>
             <h3 style="font-size:1.2rem; font-weight:normal; margin-bottom:0.75rem; color:var(--black);">02. 보행 환경 취약 및 안전 단절</h3>
             <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.65; text-align:justify; margin-bottom:0;">
-              대상지 내부 가로 구조상 <strong>도로 내 보행 공간과 차도의 물리적 분리가 모호</strong>합니다. 보행자를 위한 최소한의 전용 인도가 확보되지 않아, 거대한 인쇄 화물 차량 및 조업 장비가 수시로 통행할 때마다 보행자의 신체적 안전이 심각하게 위협받고 있으며, 연속적인 보행 동선 흐름이 끊어지는 고질적 문제가 반복되고 있습니다.
+              대상지 내부 가로 구조상 <strong>도로 내 보행 공간과 차도의 물리적 분리가 모호</strong>합니다[cite: 20]. 보행자를 위한 최소한의 전용 인도가 확보되지 않아, 거대한 인쇄 화물 차량 및 조업 장비가 수시로 통행할 때마다 보행자의 신체적 안전이 심각하게 위협받고 있으며, 연속적인 보행 동선 흐름이 끊어지는 고질적 문제가 반복되고 있습니다[cite: 20].
             </p>
           </div>
         </div>
@@ -427,25 +475,25 @@
             <span class="diet-tag">PROPOSAL DIRECTION</span>
             <h3 class="diet-title">로드 다이어트(Road Diet)를 통한 일방통행 전환의 당위성</h3>
             <p class="diet-text">
-              진단된 문제점을 공간적으로 해결하기 위한 핵심 단서는 도로 다이어트 공법의 적용입니다. 물리적 실측 결과 분석을 바탕으로 기존 가로 구조의 차도 폭을 과감히 줄이고, 확보된 여백을 온전히 보행자 중심 환경으로 재구성하는 마스터플랜의 공학적 토대를 마련합니다.
+              진단된 문제점을 공간적으로 해결하기 위한 핵심 단서는 도로 다이어트 공법의 적용입니다[cite: 22]. 물리적 실측 결과 분석을 바탕으로 기존 가로 구조의 차도 폭을 과감히 줄이고, 확보된 여백을 온전히 보행자 중심 환경으로 재구성하는 마스터플랜의 공학적 토대를 마련합니다[cite: 23].
             </p>
           </div>
           <div class="diet-specs">
             <div class="spec-item">
               <span class="spec-label">기존 가로 전체 도로 폭</span>
-              <span class="spec-val">7.5m</span>
+              <span class="spec-val">7.5m [cite: 23]</span>
             </div>
             <div class="spec-item">
               <span class="spec-label">차도 폭 축소 규모 (양측 공통)</span>
-              <span class="spec-val">각각 2.5m씩 감축</span>
+              <span class="spec-val">각각 2.5m씩 감축 [cite: 23]</span>
             </div>
             <div class="spec-item">
               <span class="spec-label">조정 후 차도 운영 방식</span>
-              <span class="spec-val highlight">1차선 일방통행 (교행 갈등 차단)</span>
+              <span class="spec-val highlight">1차선 일방통행 (교행 갈등 차단) [cite: 23]</span>
             </div>
             <div class="spec-item">
               <span class="spec-label">확보된 여유 공간 환원 계획</span>
-              <span class="spec-val highlight">줄인 폭만큼 안전 보행로 전면 조성</span>
+              <span class="spec-val highlight">줄인 폭만큼 안전 보행로 전면 조성 [cite: 23]</span>
             </div>
           </div>
         </div>
@@ -460,7 +508,7 @@
 
   <div class="page-nav">
     <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
-    <a href="case.html" class="btn btn-dark">국내외 선진 가로 재생 사례 보기 →</a>
+    <a href="proposal.html" class="btn btn-dark">설계 제안 보기 →</a>
   </div>
 
   <footer>
@@ -476,7 +524,7 @@
       else nav.classList.add('scrolled');
     });
 
-    /* 이미지 클릭 시 라이트박스 팝업 모달 연동 스크립트 */
+    /* 라이트박스 팝업 모달 연동 스크립트 */
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
     document.querySelectorAll('img').forEach(img => {
@@ -492,6 +540,86 @@
       modal.classList.remove('show');
       setTimeout(() => { modal.style.display = "none"; }, 300);
     }
+
+    /* 📊 Chart.js 라이브 그래프 엔진 구동부 */
+    const gridColor = 'rgba(26,26,24,0.07)';
+    const textColor = '#6b6b64';
+    Chart.defaults.color = textColor;
+    Chart.defaults.font.family = "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif";
+    Chart.defaults.font.size = 12;
+
+    // 🆕 신규 집적도 차트 1 : 성수동 사업체 지분율 (87.9%)
+    new Chart(document.getElementById('metricRingChart1'), {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [261, 36], // 성수 4개동(261) vs 나머지 성동구 구역(36)
+          backgroundColor: ['#1D6B4A', '#e2e8f0'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: '80%', responsive: true, maintainAspectRatio: false,
+        plugins: { tooltip: { enabled: false } }
+      }
+    });
+
+    // 🆕 신규 집적도 차트 3 : 성수2가3동 고용 집중도 (84.0%)
+    new Chart(document.getElementById('metricRingChart3'), {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [2190, 331], // 성수2가3동(2190명) vs 나머지 성동구 인쇄종사자(331명)
+          backgroundColor: ['#C05A46', '#e2e8f0'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: '80%', responsive: true, maintainAspectRatio: false,
+        plugins: { tooltip: { enabled: false } }
+      }
+    });
+
+    // 기존 행정동별 사업체 수 차트
+    new Chart(document.getElementById('chartDong'), {
+      type: 'bar',
+      data: {
+        labels: ['성수1가1동', '성수1가2동', '성수2가1동', '성수2가3동'],
+        datasets: [
+          { label: '인쇄업', data: [22, 57, 23, 159], backgroundColor: '#1D6B4A', borderRadius: 4, barPercentage: 0.5 },
+          { label: '인쇄관련산업', data: [2, 7, 18, 41], backgroundColor: '#4DA07A', borderRadius: 4, barPercentage: 0.5 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}개` } } },
+        scales: {
+          x: { grid: { display: false } },
+          y: { grid: { color: gridColor }, border: { display: false }, ticks: { callback: v => v + '개' } }
+        }
+      }
+    });
+
+    // 기존 행정동별 종사자 수 차트
+    new Chart(document.getElementById('chartWorker'), {
+      type: 'bar',
+      data: {
+        labels: ['성수1가1동', '성수1가2동', '성수2가1동', '성수2가3동'],
+        datasets: [{
+          data: [229, 284, 212, 2190],
+          backgroundColor: ['#cbd5e1','#cbd5e1','#cbd5e1','#C05A46'],
+          borderRadius: 4, barPercentage: 0.5
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y.toLocaleString()}명` } } },
+        scales: {
+          x: { grid: { display: false } },
+          y: { grid: { color: gridColor }, border: { display: false }, ticks: { callback: v => v.toLocaleString() + '명' } }
+        }
+      }
+    });
   </script>
 </body>
 </html>
