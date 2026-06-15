@@ -29,7 +29,112 @@
       opacity: 0.88; transform: scale(1.01);
     }
 
-    .proposal-container {
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* 상단 비전 슬롯 (컨셉 메인 박스) */
+    .vision-box {
+      background-color: var(--gray-bg);
+      padding: 4.5rem 4rem;
+      border-radius: 24px;
+      margin: 4rem auto;
+      border-left: 6px solid #C05A46;
+    }
+    .vision-quote {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      line-height: 1.35;
+      margin-bottom: 2rem;
+      color: var(--black);
+    }
+
+    /* 3가지 핵심전략 그리드 */
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .strategy-card {
+      background: var(--white);
+      padding: 2.5rem;
+      border: 1px solid var(--gray-light);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+    .strategy-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(192, 90, 70, 0.1);
+      border-color: #C05A46;
+    }
+    .strategy-num {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: #C05A46;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    /* 스케치업 투트랙 그리드 */
+    .sketchup-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2.5rem;
+      margin: 3rem 0;
+    }
+    .sketchup-box {
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.02확인했습니다. 사용자가 제공한 이미지를 통해 aggressive한 너비 확장(`85vw`)이 지도 이미지를 좌우로 과도하게 늘려 왜곡을 유발하는 문제를 파악했습니다.
+
+사용자의 피드백을 반영하여 레이아웃을 수정하겠습니다. **전체 스토리 흐름과 디자인 톤앤매너는 유지하되, 사용자 경험을 저해하는 агрессив한 스케일링을 수정**합니다.
+
+구체적인 수정 방향은 다음과 같습니다:
+
+1.  **`proposal.html` (프레임) 수정:** `85vw`라는 무리한 스위칭 너비를 버리고, 웹사이트의 표준 컨테이너 너비인 `1200px` 슬롯 안으로 뷰어 섹션을 되돌립니다. 이를 통해 도면의 왜곡을 방지합니다. 다만, 프리미엄급 느낌을 유지하기 위해 세로 높이는 기존의 웅장한 비율(`75vh`)을 유지합니다. 또한, 소개 문구를 무조건 화면 정중앙에 대칭 정렬하는 수정사항은 그대로 유지합니다.
+2.  **`standalone_viewer.html` (콘텐츠) 유지:** 이 파일 내부의 코드는 이미 박스 크기에 맞춰 지도 이미지를 빈틈없이 꽉 채우는 `object-fit: cover;` 정렬 방식과 핫스팟의 네온 링 효과가 완성된 형태입니다. 프레임(`proposal.html`의 iframe)이 `1200px` 너비로 줄어들더라도, 내부 콘텐츠는 그 줄어든 크기에 맞춰 여전히 검은 테두리 없이 완벽하게 차단된 형태로 작동하므로, 이 파일의 코드는 수정하지 않고 그대로 사용합니다.
+
+최종적으로, 두 파일을 각각 제자리에 통째로 덮어씌워 적용할 수 있는 완결형 전체 소스코드를 생성합니다.
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>제안 — 남겨진 공장, 열린 거리</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── 🔍 라이트박스 애니메이션 모달 (부드러운 원본 크게보기) ── */
+    .modal {
+      display: none; position: fixed; z-index: 10000;
+      padding-top: 30px; left: 0; top: 0; width: 100%; height: 100%;
+      overflow: auto; background-color: rgba(0, 0, 0, 0.94);
+      cursor: zoom-out; opacity: 0; transition: opacity 0.3s ease;
+    }
+    .modal.show { display: block; opacity: 1; }
+    .modal-content {
+      margin: auto; display: block;
+      max-width: 92%; max-height: 88vh; object-fit: contain;
+      border-radius: 8px; transform: scale(0.95); transition: transform 0.3s ease;
+    }
+    .modal.show .modal-content { transform: scale(1); }
+    
+    /* 본문 확대 가능 이미지들의 기본 커서 및 호버 모션 */
+    .section img, .space-row img, .strategy-card img, .gallery-item img, .sketchup-box img {
+      cursor: zoom-in; transition: all 0.3s ease;
+    }
+    .section img:hover, .space-row img:hover, .strategy-card img:hover, .gallery-item img:hover, .sketchup-box img:hover {
+      opacity: 0.88; transform: scale(1.01);
+    }
+
+    .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 2rem;
@@ -218,7 +323,7 @@
   </div>
 
   <section class="section">
-    <div class="proposal-container">
+    <div class="container">
       
       <div class="vision-box">
         <h2 class="vision-quote">
@@ -403,28 +508,20 @@
         </div>
       </div>
 
-    </div>
-  </section>
-
-  <section class="section" style="padding: 6rem 0; background: var(--gray-bg); border-top: 1px solid var(--gray-light); border-bottom: 1px solid var(--gray-light);">
-    <div style="width: 85vw; max-width: 1500px; margin: 0 auto; text-align: center;">
-      <p class="section-label" style="justify-content: center;">VIRTUAL IMMERSIVE VIEW</p>
-      <h2 class="section-title" style="text-align: center;">마스터플랜 공간 몰입형 인터랙티브 뷰어</h2>
-      
-      <p class="section-desc" style="text-align: center; margin: 0 auto 3.5rem auto; max-width: 720px; display: block; line-height: 1.8;">
-        아래 가상 뷰어 엔진 창을 통해, 설계 도면상의 주요 거점을 클릭하여 실시간 1인칭 현장 전경 데이터를 조감해보세요.
-      </p>
-      
-      <div style="width: 100%; height: 80vh; min-height: 650px; border-radius: 24px; overflow: hidden; box-shadow: 0 40px 90px rgba(0,0,0,0.12); border: 1px solid var(--gray-light); background: #141416;">
-        <iframe src="standalone_viewer.html" style="width: 100%; height: 100%; border: none;" allowfullscreen></iframe>
+      <div style="margin-top: 8rem; border-top: 1px solid var(--gray-light); padding-top: 6rem;">
+        <p class="section-label" style="justify-content: center;">VIRTUAL IMMERSIVE VIEW</p>
+        <h2 class="section-title" style="text-align: center;">마스터플랜 공간 몰입형 인터랙티브 뷰어</h2>
+        
+        <p class="section-desc" style="text-align: center; margin: 0 auto 3.5rem auto; max-width: 720px; display: block; line-height: 1.8;">
+          아래 가상 뷰어 엔진 창을 통해, 설계 도면상의 주요 거점을 클릭하여 실시간 1인칭 현장 전경 데이터를 조감해보세요.
+        </p>
+        
+        <div style="width: 100%; height: 75vh; min-height: 600px; border-radius: 20px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.1); border: 1px solid var(--gray-light); background: #141416;">
+          <iframe src="standalone_viewer.html" style="width: 100%; height: 100%; border: none;" allowfullscreen></iframe>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="proposal-container">
-
-      <div style="margin-top: 2rem;">
+      <div style="margin-top: 8rem;">
         <p class="section-label">EXPECTED EFFECTS</p>
         <h2 class="section-title">프로젝트의 기대효과</h2>
         
@@ -465,7 +562,7 @@
   </section>
 
   <section class="section" style="background:var(--black); padding: 8rem 0;">
-    <div class="proposal-container" style="max-width:1200px; margin:0 auto; padding:0 1rem;">
+    <div class="container" style="max-width:1200px; margin:0 auto; padding:0 1rem;">
       <h2 style="font-family:var(--font-display); font-size:2.5rem; color:#fff; margin-bottom:2rem; font-weight:normal;">레트로 인쇄 체험</h2>
       <div class="video-wrap">
         <video controls style="position:absolute;inset:0;width:100%;height:100%;">
