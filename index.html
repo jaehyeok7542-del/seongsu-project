@@ -306,7 +306,72 @@
       .home-split-text { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--gray-light); }
       .info-list li { grid-template-columns: 80px 1fr; }
     }
-
+/* ── 인쇄 산업 인식 VS 실제 역할 섹션 ── */
+    .perception-section {
+      padding: 7rem 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .perception-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+    .perception-header {
+      text-align: center;
+      margin-bottom: 4.5rem;
+    }
+    .perception-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: normal;
+      color: var(--black);
+    }
+    .perception-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .perception-col {
+      background: var(--gray-bg);
+      padding: 3.5rem 3rem;
+      border-radius: 16px;
+      border: 1px solid var(--gray-light);
+    }
+    .perception-col.right {
+      border-top: 3px solid #C05A46;
+    }
+    .perception-col h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: normal;
+      margin-bottom: 2.5rem;
+      line-height: 1.4;
+    }
+    .perception-col.left h3 { color: var(--gray-dark); }
+    .perception-col.right h3 { color: #C05A46; }
+    .perception-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .perception-item h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--black);
+    }
+    .perception-item p {
+      font-size: 0.88rem;
+      color: var(--gray-dark);
+      line-height: 1.7;
+    }
+    @media (max-width: 900px) {
+      .perception-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .perception-container { padding: 0 1.5rem; }
+      .perception-col { padding: 2.5rem 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -419,6 +484,52 @@
       </div>
     </div>
   </div>
+    <section class="perception-section">
+    <div class="perception-container">
+      <div class="perception-header">
+        <p class="section-label" style="justify-content: center;">INDUSTRY PERSPECTIVE</p>
+        <h2>현재 사람들이 갖고 있는 인쇄 산업의 인식 VS 실제 역할</h2>
+      </div>
+      
+      <div class="perception-grid">
+        <div class="perception-col left">
+          <h3>인쇄는 "사양산업, 낡은 이미지"의 산업</h3>
+          <ul class="perception-list">
+            <li class="perception-item">
+              <h4>디지털화로 종이 수요 감소</h4>
+              <p>일본의 인쇄 산업은 디지털화로 인해 전성기 대비 출하액과 사업장 수가 50% 이상 감소하는 한계에 직면해 있습니다.</p>
+            </li>
+            <li class="perception-item">
+              <h4>젊은 세대와 무관한 사업</h4>
+              <p>인쇄 시설이 덥고 열악하다는 부정적인 이미지가 지배적이어서, 가로 내 우수한 청년 인재 유입을 막는 요소가 되고 있습니다.</p>
+            </li>
+            <li class="perception-item">
+              <h4>책, 신문만 찍는 산업</h4>
+              <p>대중들에게는 단순히 전통적인 책이나 신문 지면만을 인쇄하여 납품하는 닫힌 산업이라는 인식이 강하게 자리 잡고 있습니다.</p>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="perception-col right">
+          <h3>인쇄는 "양적 감소 ≠ 산업 소멸"로 이어지지 않는 산업</h3>
+          <ul class="perception-list">
+            <li class="perception-item">
+              <h4>분야에 따라서 지금도 성장 중</h4>
+              <p>전통 출판 시장은 줄어들었을지 몰라도, 현대 브랜드들이 필요로 하는 맞춤형 상업 인쇄 및 굿즈 시장은 가로 내에서 급성장 중입니다.</p>
+            </li>
+            <li class="perception-item">
+              <h4>고객의 문제를 해결하는 수단</h4>
+              <p>단순 제조를 넘어 크리에이터나 브랜드 고객과 긴밀하게 상호작용하며 시각적 문제를 함께 해결해 나가는 고도화된 협력 산업입니다.</p>
+            </li>
+            <li class="perception-item">
+              <h4>산업 고도화 현상</h4>
+              <p>영세 사업체와 종사자 수는 표면적으로 감소하고 있으나, 스마트 기술과의 융합을 통해 총 출하액과 부가가치는 지속적으로 증가하고 있습니다.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ── 페이지 네비게이션 카드 ── -->
   <div class="nav-card-grid">
