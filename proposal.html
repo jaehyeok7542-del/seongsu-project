@@ -6,148 +6,76 @@
   <title>제안 — 남겨진 공장, 열린 거리</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ── 설계 제안 페이지 전용 확장형 레이아웃 스타일 ── */
+    /* ── 🔍 라이트박스 애니메이션 모달 (부드러운 원본 크게보기) ── */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      padding-top: 30px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.94);
+      cursor: zoom-out;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .modal.show {
+      display: block;
+      opacity: 1;
+    }
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 92%;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 8px;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .modal.show .modal-content {
+      transform: scale(1);
+    }
     
-    .proposal-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0;
-    }
-
-    /* 상단 비전 슬롯 (컨셉 메인 박스) */
-    .vision-box {
-      background-color: var(--gray-bg);
-      padding: 4.5rem 4rem;
-      border-radius: 24px;
-      margin: 4rem auto;
-      border-left: 6px solid #C05A46;
-    }
-    .vision-quote {
-      font-family: var(--font-display);
-      font-size: 2.2rem;
-      line-height: 1.35;
-      margin-bottom: 2rem;
-      color: var(--black);
-    }
-
-    /* 3가지 핵심전략 그리드 */
-    .strategy-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-    .strategy-card {
-      background: var(--white);
-      padding: 2.5rem;
-      border: 1px solid var(--gray-light);
-      border-radius: 16px;
+    /* 본문 내 확대 가능한 이미지 스타일 및 호버 효과 */
+    .section img, .proposal-split img, .proposal-grid img {
+      cursor: zoom-in;
       transition: all 0.3s ease;
     }
-    .strategy-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 35px rgba(192, 90, 70, 0.1);
-      border-color: #C05A46;
-    }
-    .strategy-num {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      color: #C05A46;
-      font-weight: bold;
-      display: block;
-      margin-bottom: 1rem;
+    .section img:hover, .proposal-split img:hover, .proposal-grid img:hover {
+      opacity: 0.88;
+      transform: scale(1.01);
     }
 
-    /* 공간 전략 교차 스플릿 레이아웃 (추후 공간 무한 추가 가능) */
-    .space-row {
+    /* 제안 페이지용 스플릿 레이아웃 */
+    .proposal-split {
       display: grid;
-      grid-template-columns: 1fr 1.2fr;
+      grid-template-columns: 1.2fr 1fr;
       gap: 4rem;
       align-items: center;
-      padding: 5rem 0;
-      border-bottom: 1px solid var(--gray-light);
+      margin: 4.5rem 0;
     }
-    .space-row:last-of-type { border-bottom: none; }
-    
-    /* 지그재그 교차 정렬 클래스 */
-    .space-row.reverse {
-      grid-template-columns: 1.2fr 1fr;
-    }
-    .space-row.reverse .space-img-slot {
-      order: 2;
-    }
-    .space-row.reverse .space-text-slot {
-      order: 1;
-    }
-    
-    .space-img-slot {
+    .proposal-img-frame {
       width: 100%;
-      aspect-ratio: 4/3;
-      background-color: var(--gray-bg);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    }
-    .space-img-slot img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-    .space-img-slot:hover img { transform: scale(1.03); }
-
-    /* 스탬프 투어 및 추가 콘텐츠용 플레이스홀더 */
-    .add-content-block {
-      background: #fafafa;
-      border: 1px dashed var(--gray-light);
-      border-radius: 16px;
-      padding: 4rem 2rem;
-      text-align: center;
-      margin: 2rem 0;
-      color: var(--gray-mid);
-      font-size: 0.95rem;
-    }
-
-    /* 입체형 4열 기대효과 카드 */
-    .effect-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin-top: 2.5rem;
-    }
-    .effect-card {
-      background: #fdfdfd;
-      padding: 2rem;
+      aspect-ratio: 16/10;
       border-radius: 12px;
-      border: 1px solid #f0f0f0;
-    }
-    .effect-card h4 {
-      color: #C05A46;
-      margin-bottom: 0.8rem;
-      font-size: 1.1rem;
-      font-weight: bold;
-    }
-
-    /* 인스퍼레이션 4열 이미지 갤러리 */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-      margin-top: 2.5rem;
-    }
-    .gallery-item {
-      aspect-ratio: 3/4;
       overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-    .gallery-item:hover img { transform: scale(1.05); }
+    .proposal-img-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-    /* 반응형 해상도 조절 */
     @media (max-width: 900px) {
-      .strategy-grid, .space-row, .space-row.reverse, .effect-grid, .gallery-grid { 
-        grid-template-columns: 1fr; 
+      .proposal-split {
+        grid-template-columns: 1fr;
         gap: 2rem;
       }
-      .space-row.reverse .space-img-slot { order: 1; }
-      .space-row.reverse .space-text-slot { order: 2; }
-      .vision-box { padding: 2.5rem 2rem; }
     }
   </style>
 </head>
@@ -165,176 +93,79 @@
   </nav>
 
   <div class="page-header">
-    <p class="section-label">DESIGN PROPOSAL</p>
-    <h1>아이디어가 인쇄되고,<br>거리가 되는 곳</h1>
-    <p class="page-header-desc">
-      전통 인쇄 산업 인프라와 현대적 창작 문화를 연결하는 보행 중심의 네트워크 활성화 구상을 제시합니다.
-    </p>
+    <p class="section-label">MASTER PLAN PROPOSAL</p>
+    <h1>열린 거리를 위한 재생 제안</h1>
+    <p class="page-header-desc">성수동 북측 인쇄 가로의 정체성을 보존하며 보행자 중심의 활력을 불어넣는 마스터플랜입니다.</p>
   </div>
 
-  <section class="section">
-    <div class="proposal-container">
+  <div class="container">
+    
+    <section class="section" style="padding-top: 4rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
+      <p class="section-label">HERITAGE & SPACE</p>
+      <h2 class="section-title">성수 인쇄 공간의 역사와 보존</h2>
       
-      <div class="vision-box">
-        <h2 class="vision-quote">
-          "성수동 인쇄거리는 단순한 제조업 보존이 아니라,<br>
-          <span style="color:#C05A46;">전통 인쇄산업과 창작 산업을 연결</span>하여 새로운 문화거리로 재생하는 것을 목표로 한다."
-        </h2>
-        <p class="section-desc" style="max-width: 100%; margin-bottom: 0;">
-          기존 인쇄산업의 생산기능이 활발히 유지되고 있음에도 불구하고, 가로변에서 시민들이 이를 직관적으로 체감하고 참여할 수 있는 장소 정체성이 부족한 상황이다. 이에 현재의 우수한 인쇄 생산 인프라를 전면 파괴하지 않고 유지하면서, 시민참여형 체험·창작·협업 인프라와 문화 콘텐츠를 유기적으로 결합한 새로운 준공업지역 가로 모델을 제안한다.
-        </p>
-      </div>
-
-      <div style="margin-top: 6rem;">
-        <p class="section-label">CORE STRATEGY</p>
-        <h2 class="section-title">3가지 핵심 전략</h2>
-        
-        <div class="strategy-grid">
-          <div class="strategy-card">
-            <span class="strategy-num">01</span>
-            <h3 style="font-size:1.3rem; margin-bottom:0.8rem; font-weight:normal;">체험거리 활성화</h3>
-            <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark);">제조공간을 시민과 연결하여 인쇄산업을 직접 경험할 수 있도록 구성한다. 엽서, 포스터 제작, 굿즈 커스터마이징 등 참여형 프로그램을 통해 산업공간이 시민의 일상과 만나는 접점을 만든다.</p>
-          </div>
-          <div class="strategy-card">
-            <span class="strategy-num">02</span>
-            <h3 style="font-size:1.3rem; margin-bottom:0.8rem; font-weight:normal;">창작 네트워크 구축</h3>
-            <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark);">기존 인쇄업체와 디자이너, 브랜드, 스타트업 간 협업 시스템을 구축한다. 단순 수주관계를 넘어 공동제작, 기획이 가능한 구조를 만들어 인쇄산업의 새로운 수요를 창출한다.</p>
-          </div>
-          <div class="strategy-card">
-            <span class="strategy-num">03</span>
-            <h3 style="font-size:1.3rem; margin-bottom:0.8rem; font-weight:normal;">거리 브랜딩 강화</h3>
-            <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark);">인쇄 산업 정체성을 거리 디자인 요소로 시각화한다. 인쇄 모티프 바닥 디자인과 같은 물리적 공간 구성을 통해 성수동 인쇄문화거리만의 고유한 장소 정체성을 형성한다.</p>
-          </div>
+      <div class="proposal-split">
+        <div class="proposal-img-frame">
+          <img src="images/proposal9.jpg" alt="성수 인쇄공장 역사 보존 공간 구상도">
+        </div>
+        <div class="proposal-text-content">
+          <p class="card-tag">HISTORICAL VALUE</p>
+          <h3 style="font-size:1.6rem; font-weight:normal; margin-bottom:1rem;">산업 유산의 가치를 담은 아카이빙</h3>
+          <p class="section-desc" style="max-width: 100%; font-size:0.95rem; text-align:justify; margin-bottom:0; line-height: 1.8;">
+            단순한 철거와 전면 재개발 방식에서 벗어나, 수십 년간 축적된 소공인들의 기술력과 인쇄 장비의 아날로그적 매력을 공간의 핵심 자산으로 삼습니다. 옛 윤전기 부품과 타이포그래피 요소를 가로 시설물 및 파사드 디자인에 녹여내고, 닫힌 공장 전면부를 개방형 쇼윈도 형태로 전환하여 거리 자체가 하나의 '살아있는 인쇄 박물관'으로 기능하도록 유도합니다.
+          </p>
         </div>
       </div>
+    </section>
 
-      <div style="margin-top: 8rem;">
-        <p class="section-label">SPACE STRATEGY</p>
-        <h2 class="section-title">공간별 가로 전략</h2>
-        
-        <div class="space-row">
-          <div class="space-img-slot">
-            <img src="images/proposal4.jpg" alt="성수 인쇄 역사 공간">
-          </div>
-          <div class="space-text-slot">
-            <p class="card-tag">SPOT 01 / HISTORICAL</p>
-            <h3 style="font-size: 1.6rem; margin-bottom: 1rem; font-weight:normal;">성수 인쇄 역사 공간</h3>
-            <p class="section-desc" style="font-size:0.95rem; margin-bottom:0;">성수동 인쇄산업의 역사와 기술 변천을 전시한다. 활판, 오프셋부터 디지털 인쇄까지의 흐름을 시각화하여 방문자가 이 거리의 맥락을 깊이 있게 이해할 수 있는 핵심 출발 거점이 된다.</p>
-          </div>
-        </div>
+    <section class="section" style="padding-top: 5rem; padding-bottom: 4rem;">
+      <p class="section-label">FUTURE VISION</p>
+      <h2 class="section-title">종합 재생 마스터플랜 제안</h2>
+      <p class="section-desc">보행로 확보, 가로 조도 개선, 공유 커뮤니티 거점 구축을 통해 인쇄 가로가 나아갈 미래 청사진을 제시합니다.</p>
+      
+      </section>
 
-        <div class="space-row reverse">
-          <div class="space-img-slot">
-            <img src="images/proposal5.jpg" alt="체험 공간">
-          </div>
-          <div class="space-text-slot">
-            <p class="card-tag">SPOT 02 / EXPERENTIAL</p>
-            <h3 style="font-size: 1.6rem; margin-bottom: 1rem; font-weight:normal;">체험 공간</h3>
-            <p class="section-desc" style="font-size:0.95rem; margin-bottom:0;">엽서, 포스터 직접 제작 및 굿즈 커스터마이징 프로그램을 운영한다. 기존 인쇄업체의 유휴 장비와 내부 공간을 링크하여 시민이 실제 인쇄 공정을 라이브로 경험할 수 있도록 유도하며, 생산 인프라를 보존하는 동시에 새로운 가로 활성화 유동 인구를 만드는 주축이 된다.</p>
-          </div>
-        </div>
+  </div>
 
-        <div class="space-row">
-          <div class="space-img-slot">
-            <img src="images/proposal6.jpg" alt="창작 협업 공간">
-          </div>
-          <div class="space-text-slot">
-            <p class="card-tag">SPOT 03 / CO-WORKING</p>
-            <h3 style="font-size: 1.6rem; margin-bottom: 1rem; font-weight:normal;">창작 협업 공간</h3>
-            <p class="section-desc" style="font-size:0.95rem; margin-bottom:0;">디자인 스튜디오, 팝업 전시 공간, 브랜드 협업 제작실, 공동 작업 공간으로 구성한다. 인쇄 마스터 엔지니어와 청년 창작자가 동일 가로 구역 안에서 기획 마케팅부터 최종 물질적 프린팅 구현까지 원스톱으로 공생할 수 있는 네트워크 생태계를 구축한다.</p>
-          </div>
-        </div>
-
-        <div class="space-row reverse">
-          <div class="space-img-slot">
-            <img src="images/proposal7.jpg" alt="커뮤니티 시설 공간">
-          </div>
-          <div class="space-text-slot">
-            <p class="card-tag">SPOT 04 / COMMUNITY</p>
-            <h3 style="font-size: 1.6rem; margin-bottom: 1rem; font-weight:normal;">커뮤니티 시설 공간</h3>
-            <p class="section-desc" style="font-size:0.95rem; margin-bottom:0;">지역 주민, 기존 인쇄업 종사 소상공인, 그리고 외부에서 유입된 다학제적 창작자가 경계 없이 교류하는 복합 소통 거점 공간이다. 가로 네트워크의 영속성을 뒷받침하는 거버넌스 기반이 된다.</p>
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top: 6rem;">
-        <p class="section-label">STAMP TOUR &amp; MAPS</p>
-        <h2 class="section-title">스탬프 투어 및 공간 배치 구상</h2>
-        <p class="section-desc">각 설계 거점 지점을 엮는 보행 가로 스탬프 투어 경로 및 다이어그램 배치 예정 구역입니다.</p>
-        
-        <div class="add-content-block">
-          📍 스탬프 투어 경로 및 포인트 리플렛 이미지 / 도면 추가 업로드 대기 영역
-        </div>
-      </div>
-
-      <div style="margin-top: 8rem;">
-        <p class="section-label">EXPECTED EFFECTS</p>
-        <h2 class="section-title">프로젝트의 기대효과</h2>
-        
-        <div class="effect-grid">
-          <div class="effect-card">
-            <h4>산업적 측면</h4>
-            <p class="card-text" style="font-size:0.92rem; line-height:1.7;">전통 인쇄산업의 생산 기반을 유지하면서 새로운 수요 창출 가능. 특히 대형 인쇄 플랫폼인 레드 프린팅과 골목길 기존 인쇄업체를 중심으로 창작자 협업 네트워크가 크게 형성되며 전통 제조업의 영속적 지속가능성을 도출한다.</p>
-          </div>
-          <div class="effect-card">
-            <h4>경제적 측면</h4>
-            <p class="card-text" style="font-size:0.92rem; line-height:1.7;">체험형 크리에이티브 프로그램 운영과 유니크한 가로 브랜딩 맞춤형 굿즈 소비를 활성화하여, 단순 통과 통로였던 골목 가로에 체류형 경제 활성화 효과를 부여한다.</p>
-          </div>
-          <div class="effect-card">
-            <h4>문화적 측면</h4>
-            <p class="card-text" style="font-size:0.92rem; line-height:1.7;">소외되어 있던 성수동 북측 인쇄 단지 고유의 산업유산 자산을 문화 텍스처로 전환한다. 단순 기계 가공 공장에서 탈바꿈하여 트렌디한 시각 문화 콘텐츠 메카로 가로 브랜드 정체성을 강화한다.</p>
-          </div>
-          <div class="effect-card">
-            <h4>도시재생 측면</h4>
-            <p class="card-text" style="font-size:0.92rem; line-height:1.7;">전면 철거형 대규모 전면 개발 방식에서 벗어나, 기존 도시 조직의 물리적 구조(공개공지, 필로티, 가로 표면) 내에서 최소 개입을 통해 단절을 치유하는 보행 중심 가로 재생의 표준 모델을 제시한다.</p>
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top: 8rem; margin-bottom: 4rem;">
-        <p class="section-label">INSPIRATION MOODBOARD</p>
-        <h2 class="section-title">디자인 모티프 및 레퍼런스</h2>
-        <p class="section-desc">프로젝트가 구상하는 가로 디자인 질감, 그래픽 노면 스티커 브랜딩, 그리고 독창적인 커스텀 소품 연출의 영감 무드보드입니다.</p>
-        
-        <div class="gallery-grid">
-          <div class="gallery-item"><img src="images/proposal1.jpg" alt="커스텀 인쇄 무드 1"></div>
-          <div class="gallery-item"><img src="images/proposal2.jpg" alt="커스텀 말풍선 키링 소품"></div>
-          <div class="gallery-item"><img src="images/proposal3.jpg" alt="인쇄물 그래픽 연출"></div>
-          <div class="gallery-item"><img src="images/proposal8.jpg" alt="가로 인테리어 및 그래픽 디자인 모티프"></div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="section" style="background:var(--black); padding: 8rem 0;">
-    <div class="proposal-container" style="max-width:1200px; margin:0 auto; padding:0 1rem;">
-      <h2 style="font-family:var(--font-display); font-size:2.5rem; color:#fff; margin-bottom:2rem; font-weight:normal;">레트로 인쇄 체험</h2>
-      <div class="video-wrap">
-        <video controls style="position:absolute;inset:0;width:100%;height:100%;">
-          <source src="videos/vintage.mp4" type="video/mp4" />
-        </video>
-      </div>
-    </div>
-  </section>
-
-  <div class="page-nav">
-    <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
-    <a href="index.html" class="btn btn-dark">← 홈으로 돌아가기</a>
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <img class="modal-content" id="modalImg" />
   </div>
 
   <footer>
     <span>성수동 프로젝트 &nbsp;·&nbsp; 도시설계 스튜디오 2026</span>
-    <span>Urban Design Studio</span>
+    <a href="index.html">← 홈으로</a>
   </footer>
 
   <script>
-    // 스크롤 탑 내비게이션 바 제어 효과
+    // 네비게이션 스크롤 효과
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       if (window.scrollY < 40) nav.classList.remove('scrolled');
       else nav.classList.add('scrolled');
     });
+
+    // 💡 이미지 원본 확대 및 라이트박스 부드러운 애니메이션 연동 스크립트
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+
+    document.querySelectorAll('img').forEach(img => {
+      if (!img.classList.contains('nav-logo')) {
+        img.addEventListener('click', function() {
+          modal.style.display = "block";
+          setTimeout(() => {
+            modal.classList.add('show');
+          }, 15);
+          modalImg.src = this.src;
+        });
+      }
+    });
+
+    function closeModal() {
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = "none";
+      }, 300);
+    }
   </script>
 </body>
 </html>
