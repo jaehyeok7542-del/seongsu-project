@@ -6,7 +6,7 @@
   <title>남겨진 공장, 열린 거리</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* 라이트박스 모달 팝업 스타일 */
+    /* ── 🔍 라이트박스 모달 팝업 스타일 (메인 비주얼 확대용) ── */
     .modal {
       display: none;
       position: fixed;
@@ -17,8 +17,14 @@
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: rgba(0, 0, 0, 0.92);
       cursor: zoom-out;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .modal.show {
+      display: block;
+      opacity: 1;
     }
     .modal-content {
       margin: auto;
@@ -27,18 +33,19 @@
       max-height: 85vh;
       object-fit: contain;
       border-radius: 6px;
-      animation: zoom 0.3s ease;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
     }
-    @keyframes zoom {
-      from { transform: scale(0.95); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+    .modal.show .modal-content {
+      transform: scale(1);
     }
-    /* 본문 내 확대 가능한 이미지에 커서 스타일 추가 */
-    .section img, .hero img {
+    
+    /* 본문 내 확대 가능한 이미지 커서 스타일 */
+    .hero img, .section img {
       cursor: zoom-in;
-      transition: opacity 0.3s;
+      transition: opacity 0.3s ease;
     }
-    .section img:hover {
+    .hero img:hover, .section img:hover {
       opacity: 0.95;
     }
   </style>
@@ -58,7 +65,7 @@
 
   <header class="hero">
     <div class="hero-bg">
-      <img src="images/hero.jpg" alt="성수동 인쇄공장 가로 전경" class="zoomable" />
+      <img src="images/hero.jpg" alt="성수동 인쇄공장 가로 전경" />
     </div>
     <div class="hero-content">
       <p class="hero-subtitle">도시설계 스튜디오 2026</p>
@@ -69,12 +76,12 @@
   </header>
 
   <main class="section">
-    <div class="container" style="max-width: 800px; text-align: center; padding: 4rem 0;">
+    <div class="container" style="max-width: 800px; text-align: center; padding: 5rem 0 7rem 0;">
       <p class="section-label" style="justify-content: center;">INTRODUCTION</p>
-      <h2 style="font-family: var(--font-display); font-size: 2.2rem; margin-bottom: 2rem; font-weight: normal; line-height: 1.4;">
+      <h2 style="font-family: var(--font-display); font-size: 2.3rem; margin-bottom: 2rem; font-weight: normal; line-height: 1.45; color: var(--black);">
         성수동의 가장 깊은 골목,<br />그곳의 이야기를 다시 쓰다.
       </h2>
-      <p class="section-desc" style="max-width: 100%; text-align: justify;">
+      <p class="section-desc" style="max-width: 100%; text-align: justify; line-height: 1.9; font-size: 1.02rem;">
         붉은 벽돌과 철제 셔터문, 밤낮없이 돌아가는 윤전기 소리. 성수동 북측의 인쇄 골목은 오랜 시간 동안 도시의 보이지 않는 생산 엔진 역할을 해왔습니다. 하지만 급격한 주변부 개발과 세련된 상업화의 물결 속에서, 이 소중한 산업 생태계와 골목 가로는 점차 단절되고 고립되고 있습니다. 본 프로젝트는 성수동 고유의 인쇄 인프라를 보존하는 동시에, 시민의 보행과 문화적 크리에이티브를 수용하는 열린 거리로의 재생 마스터플랜을 제안합니다.
       </p>
     </div>
@@ -90,23 +97,34 @@
   </footer>
 
   <script>
-    // 스크롤 연동 헤더 바 배경 전환 효과
+    // 스크롤 연동 헤더 바 배경 전환 효과 (홈 화면 전용 투명 -> 불투명 조절)
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       if (window.scrollY < 60) nav.classList.remove('scrolled');
       else nav.classList.add('scrolled');
     });
 
-    // 💡 이미지 클릭 원본 확대 스크립트 모듈
-    document.querySelectorAll('.section img, .hero img').forEach(img => {
-      img.addEventListener('click', function() {
-        document.getElementById('imageModal').style.display = "block";
-        document.getElementById('modalImg').src = this.src;
-      });
+    // 💡 부드러운 이미지 원본 확대(애니메이션 모달) 스크립트 모듈
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+
+    document.querySelectorAll('img').forEach(img => {
+      if (!img.classList.contains('nav-logo')) {
+        img.addEventListener('click', function() {
+          modal.style.display = "block";
+          setTimeout(() => {
+            modal.classList.add('show');
+          }, 10);
+          modalImg.src = this.src;
+        });
+      }
     });
 
     function closeModal() {
-      document.getElementById('imageModal').style.display = "none";
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = "none";
+      }, 300);
     }
   </script>
 </body>
