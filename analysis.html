@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>분석 — 성수동 프로젝트</title>
+  <title>현황 — 남겨진 공장, 열린 거리</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
   <style>
     /* ── 라이트박스 모달 ── */
     .modal {
@@ -21,227 +20,173 @@
       border-radius: 8px; transform: scale(0.95); transition: transform 0.3s ease;
     }
     .modal.show .modal-content { transform: scale(1); }
-    .section img, .analysis-split img {
+    .section img, .status-split img, .site-analysis-grid img, .reason-img-wrapper img {
       cursor: zoom-in; transition: all 0.3s ease;
     }
-    .section img:hover, .analysis-split img:hover {
+    .section img:hover, .status-split img:hover, .site-analysis-grid img:hover, .reason-img-wrapper img:hover {
       opacity: 0.88; transform: scale(1.01);
     }
 
-    /* ── 프리미엄 데이터 레이아웃 스플릿 ── */
-    .analysis-split {
-      display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: 4rem;
-      align-items: flex-start;
-      margin: 4.5rem 0;
-    }
-    .analysis-chart-zone {
-      background: var(--white);
-      border: 1px solid var(--gray-light);
-      border-radius: 16px;
-      padding: 2.5rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.01);
-    }
-    .chart-zone-title {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      color: var(--black);
-      margin-bottom: 2rem;
-      font-weight: normal;
-      border-left: 3px solid #C05A46;
-      padding-left: 0.75rem;
-    }
-
-    /* ── 순수 CSS 가로형 막대그래프 ── */
-    .css-bar-chart {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    .chart-row {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-    .chart-label-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      color: var(--black);
-    }
-    .chart-label-row .rank-num {
-      font-weight: bold;
-      color: #C05A46;
-      margin-right: 0.4rem;
-    }
-    .bar-track {
+    /* ── 레드프린팅 히어로 섹션 ── */
+    .red-hero {
+      position: relative;
       width: 100%;
-      height: 12px;
-      background: var(--gray-bg);
-      border-radius: 6px;
+      height: 480px;
       overflow: hidden;
     }
-    .bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--gray-dark), #888);
-      border-radius: 6px;
+    .red-hero-img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+      filter: brightness(0.45);
+      transition: transform 0.6s ease;
     }
-    .bar-fill.highlight {
-      background: linear-gradient(90deg, #1D6B4A, #4DA07A);
-    }
-
-    /* ── 서브 그리드 및 카드 ── */
-    .sub-data-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-    .sub-data-card {
-      background: var(--gray-bg);
-      border: 1px solid var(--gray-light);
-      border-radius: 12px;
-      padding: 1.5rem;
-    }
-    .sub-data-card h4 {
-      font-size: 0.9rem;
-      color: var(--black);
-      margin-bottom: 0.5rem;
-    }
-
-    /* ── 모순성 진단 하이라이트 박스 ── */
-    .paradox-box {
-      background: #fdf8f7;
-      border: 1px solid #f0c0b8;
-      border-radius: 16px;
-      padding: 2.5rem;
-      margin: 4rem 0;
-    }
-    .paradox-title {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      color: #C05A46;
-      margin-bottom: 1rem;
-      font-weight: normal;
-    }
-    .paradox-desc {
-      font-size: 0.95rem;
-      line-height: 1.75;
-      color: var(--gray-dark);
-      text-align: justify;
-    }
-
-    /* ── 로드 다이어트 제안 구역 ── */
-    .diet-banner {
-      background: #111;
-      color: #fff;
-      border-radius: 20px;
-      padding: 4rem 3.5rem;
-      margin-top: 4rem;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
-    }
-    .diet-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 3.5rem;
-      align-items: center;
-    }
-    .diet-tag {
-      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em;
-      color: #e28774; text-transform: uppercase; margin-bottom: 0.75rem;
-      display: inline-block;
-    }
-    .diet-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.5rem, 2.5vw, 2.1rem);
-      font-weight: normal; line-height: 1.3; margin-bottom: 1.5rem;
-    }
-    .diet-text {
-      font-size: 0.92rem; line-height: 1.8; color: #aaa; text-align: justify;
-    }
-    .diet-specs {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      background: #1e1e1e;
-      padding: 1.8rem;
-      border-radius: 12px;
-      border: 1px solid #333;
-    }
-    .spec-item {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.88rem;
-      border-bottom: 1px solid #333;
-      padding-bottom: 0.75rem;
-    }
-    .spec-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .spec-label { color: #888; }
-    .spec-val { color: #fff; font-weight: 600; }
-    .spec-val.highlight { color: #e28774; }
-
-    /* ── 그래프형 인디케이터 대시보드 전용 스타일 ── */
-    .metric-visual-dashboard {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin: 2.5rem 0 3.5rem;
-    }
-    .metric-chart-card {
-      background: var(--white);
-      border: 1px solid var(--gray-light);
-      border-radius: 16px;
-      padding: 2.2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-    }
-    .metric-chart-container {
-      position: relative;
-      width: 140px;
-      height: 140px;
-      margin-bottom: 1.5rem;
-    }
-    .metric-chart-center-text {
+    .red-hero:hover .red-hero-img { transform: scale(1.02); }
+    .red-hero-overlay {
       position: absolute;
       inset: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .red-hero-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: #e28774;
+      margin-bottom: 1rem;
+    }
+    .red-hero-title {
       font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      color: #fff; font-weight: normal;
+      line-height: 1.25; margin-bottom: 1rem;
     }
-    .metric-chart-center-text .main-num {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: var(--black);
-      line-height: 1.1;
-    }
-    .metric-chart-center-text .sub-unit {
-      font-size: 0.8rem;
-      color: var(--gray-mid);
-      margin-top: 0.1rem;
-    }
-    .metric-meta-title {
-      font-size: 0.88rem;
-      font-weight: bold;
-      color: var(--black);
-      margin-bottom: 0.5rem;
-    }
-    .metric-meta-desc {
-      font-size: 0.8rem;
-      color: var(--gray-mid);
-      line-height: 1.5;
+    .red-hero-sub {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.12em;
     }
 
+    /* ── 3개 특징 카드 ── */
+    .red-cards-wrap {
+      background: var(--gray-bg);
+      padding: 4rem 3rem;
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .red-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .red-card {
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .red-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(192,90,70,0.1);
+      border-color: #C05A46;
+    }
+    .red-card-accent {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #C05A46, #e28774);
+    }
+    .red-card-icon {
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+    .red-card-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: normal;
+      color: #C05A46;
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+    .red-card-desc {
+      font-size: 0.88rem;
+      color: var(--gray-dark);
+      line-height: 1.78;
+    }
+    .red-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+    }
+    .red-tag {
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      background: #fdf8f7;
+      border: 1px solid #f0c0b8;
+      color: #C05A46;
+      border-radius: 30px;
+      font-weight: 600;
+    }
+
+    /* ── 기존 스타일들 ── */
+    .site-reason-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; margin: 3rem 0 0 0;
+    }
+    .site-reason-card {
+      background: var(--white); border: 1px solid var(--gray-light);
+      border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      overflow: hidden; display: flex; flex-direction: column;
+    }
+    .reason-img-wrapper { width: 100%; aspect-ratio: 16/10; overflow: hidden; background-color: var(--gray-bg); }
+    .reason-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+    .reason-text-content { padding: 2rem; flex-grow: 1; }
+    .reason-num { font-family: var(--font-display); font-size: 1.3rem; color: #C05A46; font-weight: bold; display: block; margin-bottom: 0.6rem; }
+    .site-analysis-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+    .analysis-photo-card { background: var(--white); border: 1px solid var(--gray-light); border-radius: 14px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
+    .analysis-img-box { width: 100%; aspect-ratio: 4/3; overflow: hidden; background-color: #ededed; }
+    .analysis-img-box img { width: 100%; height: 100%; object-fit: cover; }
+    .analysis-card-body { padding: 1.5rem 1.8rem; }
+    .status-split { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center; margin: 4.5rem 0; }
+    .status-img-frame { width: 100%; aspect-ratio: 16/10; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .status-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .status-meta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; margin-top: 4rem; }
+    .meta-box { background-color: var(--gray-bg); padding: 2.5rem; border-radius: 16px; border: 1px solid var(--gray-light); }
+    .meta-box h3 { font-size: 1.25rem; font-weight: normal; color: var(--black); margin-bottom: 1rem; border-left: 3px solid #C05A46; padding-left: 0.75rem; }
+    .meta-box p { font-size: 0.94rem; line-height: 1.75; color: var(--gray-dark); }
+    .gis-dashboard { display: grid; grid-template-columns: 320px 1fr; gap: 2rem; background: #111; color: #fff; padding: 2rem; border-radius: 20px; margin-top: 3rem; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+    .gis-control-panel { display: flex; flex-direction: column; gap: 1.5rem; background: #1e1e1e; padding: 1.5rem; border-radius: 14px; border: 1px solid #333; }
+    .gis-panel-title { font-size: 0.9rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #C05A46; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
+    .layer-btn { width: 100%; padding: 12px 16px; background: #2a2a2a; border: 1px solid #444; color: #ccc; text-align: left; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.2s ease; display: flex; align-items: center; gap: 10px; line-height: 1.4; }
+    .layer-btn::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #666; flex-shrink: 0; }
+    .layer-btn.active[data-layer="1"] { background: rgba(220,53,69,0.15); border-color: #dc3545; color: #ff6b6b; }
+    .layer-btn.active[data-layer="1"]::before { background: #dc3545; box-shadow: 0 0 8px #dc3545; }
+    .layer-btn.active[data-layer="2"] { background: rgba(0,123,255,0.15); border-color: #007bff; color: #74b9ff; }
+    .layer-btn.active[data-layer="2"]::before { background: #007bff; box-shadow: 0 0 8px #007bff; }
+    .layer-btn.active[data-layer="3"] { background: rgba(40,167,69,0.15); border-color: #28a745; color: #55efc4; }
+    .layer-btn.active[data-layer="3"]::before { background: #28a745; box-shadow: 0 0 8px #28a745; }
+    .layer-btn.active[data-layer="4"] { background: rgba(23,162,184,0.15); border-color: #17a2b8; color: #81ecec; }
+    .layer-btn.active[data-layer="4"]::before { background: #17a2b8; box-shadow: 0 0 8px #17a2b8; }
+    .layer-btn.active[data-layer="5"] { background: rgba(255,193,7,0.15); border-color: #ffc107; color: #ffeaa7; }
+    .layer-btn.active[data-layer="5"]::before { background: #ffc107; box-shadow: 0 0 8px #ffc107; }
+    .gis-map-canvas { position: relative; width: 100%; aspect-ratio: 16/10; background: #151515; border-radius: 14px; overflow: hidden; border: 1px solid #333; }
+    .gis-layer-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+    .gis-layer-img.active { opacity: 1; pointer-events: auto; }
+    .gis-map-tip { position: absolute; bottom: 1rem; right: 1rem; background: rgba(0,0,0,0.6); padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; color: #aaa; z-index: 10; }
+
     @media (max-width: 900px) {
-      .analysis-split, .diet-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .metric-visual-dashboard { grid-template-columns: 1fr; gap: 1.5rem; }
-      .sub-data-grid { grid-template-columns: 1fr; }
-      .diet-banner { padding: 2.5rem 1.5rem; }
+      .red-cards-grid { grid-template-columns: 1fr; }
+      .red-cards-wrap { padding: 3rem 1.5rem; }
+      .red-hero { height: 320px; }
+      .site-reason-grid, .site-analysis-grid, .status-split, .status-meta-grid, .gis-dashboard { grid-template-columns: 1fr; gap: 2rem; }
+      .gis-dashboard { padding: 1rem; }
     }
   </style>
 </head>
@@ -251,250 +196,170 @@
     <a class="nav-logo" href="index.html">남겨진 공장, 열린 거리</a>
     <ul class="nav-links">
       <li><a href="index.html">홈</a></li>
-      <li><a href="status.html">현황</a></li>
-      <li><a href="analysis.html" class="active">분석</a></li>
+      <li><a href="status.html" class="active">현황</a></li>
+      <li><a href="analysis.html">분석</a></li>
       <li><a href="case.html">사례</a></li>
       <li><a href="proposal.html">제안</a></li>
     </ul>
   </nav>
 
   <div class="page-header">
-    <p class="section-label">DATA ANALYSIS</p>
-    <h1>인쇄 산업 및 가로 정밀 분석</h1>
-    <p class="page-header-desc">공공 통계자료와 도심 물류 실측 데이터를 기반으로 대상지 일대의 정체성을 정량 진단합니다.</p>
+    <p class="section-label">SITE STATUS</p>
+    <h1>대상지 선정 및 가로 현황</h1>
+    <p class="page-header-desc">성수동 북측 인쇄 단지가 지닌 독특한 공간 구조와 골목 환경을 종합적으로 진단합니다.</p>
+  </div>
+
+  <div class="red-hero">
+    <img src="images/site-main.png" alt="레드프린팅 성수 전경" class="red-hero-img">
+    <div class="red-hero-overlay">
+      <p class="red-hero-label">CORE INDUSTRIAL ANCHOR</p>
+      <h2 class="red-hero-title">인쇄 패러다임을 바꾼 스마트 팩토리,<br>'레드프린팅 앤 프레스'</h2>
+      <p class="red-hero-sub">최소 수량 / 자동화 / 소재의 무한 확장</p>
+    </div>
+  </div>
+
+  <div class="red-cards-wrap">
+    <div class="red-cards-grid">
+      <div class="red-card">
+        <div class="red-card-accent"></div>
+        <span class="red-card-icon">🎁</span>
+        <div class="red-card-title">굿즈 제작의 성지</div>
+        <p class="red-card-desc">아이돌·캐릭터 굿즈, 아크릴 키링, 스티커, 스마트폰 케이스 등 MZ세대 기업이 타깃인 커스텀 상품 제조. 모양대로 칼선을 따주는 '도송(톰슨) 공정'과 UV 인쇄의 독보적 기술력을 보유합니다.</p>
+        <div class="red-card-tags">
+          <span class="red-tag">커스텀 상품</span>
+          <span class="red-tag">도송 공정</span>
+          <span class="red-tag">UV 인쇄</span>
+        </div>
+      </div>
+      <div class="red-card">
+        <div class="red-card-accent"></div>
+        <span class="red-card-icon">⚡</span>
+        <div class="red-card-title">디지털 인쇄의 혁신</div>
+        <p class="red-card-desc">전통적인 대량 인쇄(오프셋) 방식을 벗어나, 데이터만 있으면 1장의 인쇄물도 즉시 생산 가능한 시스템 구축. 명함, 리플렛, 포스터 등 비즈니스 인쇄물 초고속 맞춤 생산이 가능합니다.</p>
+        <div class="red-card-tags">
+          <span class="red-tag">소량 인쇄</span>
+          <span class="red-tag">즉시 생산</span>
+          <span class="red-tag">초고속 맞춤</span>
+        </div>
+      </div>
+      <div class="red-card">
+        <div class="red-card-accent"></div>
+        <span class="red-card-icon">🔗</span>
+        <div class="red-card-title">시스템 연동 생산</div>
+        <p class="red-card-desc">자체 웹사이트뿐만 아니라 다양한 커머스 플랫폼과 API를 연동하여 주문부터 배송까지 자동화된 공정 제공. 주문 접수 → 자동 검수 → 스마트 생산 → 자동 분류 → 배송 출고 → 방문 수령.</p>
+        <div class="red-card-tags">
+          <span class="red-tag">API 연동</span>
+          <span class="red-tag">전공정 자동화</span>
+          <span class="red-tag">방문 수령</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="container">
 
-    <section class="section" style="padding-top: 1rem; border-bottom: 1px solid var(--gray-light); padding-bottom: 4rem;">
-      <p class="section-label">CLUSTER METRICS</p>
-      <h2 class="section-title">성수동 인쇄업 밀집도 현황 지표</h2>
-      <p class="section-desc">성수동 준공업 가로망이 서울의 핵심 인쇄 산업 생태계를 지탱하는 중추 거점임을 증명하는 집적도 시각화 차트입니다.</p>
-
-      <div class="metric-visual-dashboard">
-        
-        <div class="metric-chart-card">
-          <div class="metric-chart-container">
-            <canvas id="metricRingChart1"></canvas>
-            <div class="metric-chart-center-text">
-              <span class="main-num" style="color: #1D6B4A;">87.9</span>
-              <span class="sub-unit">%</span>
-            </div>
-          </div>
-          <div class="metric-meta-title">성수동 4개동 사업체 비중</div>
-          <div class="metric-meta-desc">성동구 전체 인쇄업 297개소 중<br><strong>261개소</strong>가 성수동에 밀집 [cite: 26, 27]</div>
-        </div>
-
-        <div class="metric-chart-card" style="background: #fdfbfb; border-color: #cbd5e1;">
-          <div class="metric-chart-container" style="display:flex; justify-content:center; align-items:center; background:#f4f3ef; border-radius:50%; border:4px solid #1D6B4A; box-shadow: inset 0 0 15px rgba(29,107,74,0.06);">
-            <div style="font-family:var(--font-display); text-align:center;">
-              <span style="font-size:2rem; font-weight:bold; color:var(--black);">2,521</span>
-              <span style="font-size:0.85rem; color:var(--gray-dark); display:block; font-weight:bold; margin-top:-2px;">명</span>
-            </div>
-          </div>
-          <div class="metric-meta-title" style="color:#1D6B4A;">인쇄 가로 고용 창출 효과</div>
-          <div class="metric-meta-desc">인쇄 및 인쇄관련산업 합산<br>가로 기반 생태계 총 종사자 수 [cite: 28]</div>
-        </div>
-
-        <div class="metric-chart-card">
-          <div class="metric-chart-container">
-            <canvas id="metricRingChart3"></canvas>
-            <div class="metric-chart-center-text">
-              <span class="main-num" style="color: #C05A46;">84.0</span>
-              <span class="sub-unit">%</span>
-            </div>
-          </div>
-          <div class="metric-meta-title">성수2가3동 고용 집중도</div>
-          <div class="metric-meta-desc">성동구 전체 종사자 중 무려<br><strong>2,190명</strong>이 단 하나의 동에 집중 [cite: 32]</div>
-        </div>
-
-      </div>
-
-      <div class="analysis-split" style="margin-top: 4rem;">
-        <div class="analysis-chart-zone">
-          <h3 class="chart-zone-title">서울 주요 구별 인쇄업 사업체 수 비교</h3>
-          <div class="css-bar-chart">
-            <div class="chart-row">
-              <div class="chart-label-row">
-                <span><span class="rank-num">1</span>중구</span>
-                <span>3,500개 이상 [cite: 26]</span>
-              </div>
-              <div class="bar-track"><div class="bar-fill" style="width: 100%; background: #c5c3bb;"></div></div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label-row">
-                <span><span class="rank-num">2</span>영등포구</span>
-                <span>약 350개 [cite: 26]</span>
-              </div>
-              <div class="bar-track"><div class="bar-fill" style="width: 12%; background: #c5c3bb;"></div></div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label-row" style="font-weight: bold; color: #1D6B4A;">
-                <span><span class="rank-num" style="color: #1D6B4A;">3</span>성동구 (대상지)</span>
-                <span>297개 [cite: 26]</span>
-              </div>
-              <div class="bar-track"><div class="bar-fill highlight" style="width: 10%;"></div></div>
-            </div>
-            <div class="chart-row">
-              <div class="chart-label-row">
-                <span><span class="rank-num">4</span>금천구</span>
-                <span>약 200개</span>
-              </div>
-              <div class="bar-track"><div class="bar-fill" style="width: 7%; background: #c5c3bb;"></div></div>
-            </div>
+    <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
+      <p class="section-label">SELECTION REASON</p>
+      <h2 class="section-title">왜 성수동 북측 인쇄 가로인가?</h2>
+      <p class="section-desc">성수2가 1동 및 성수동 북측 준공업지역 일대는 성수동의 중심부와 상업지구 이면에 숨겨진 가장 밀도 높은 독자적 산업 공간입니다.</p>
+      <div class="site-reason-grid">
+        <div class="site-reason-card">
+          <div class="reason-img-wrapper"><img src="images/map1.jpg" alt="독보적인 산업 생태계"></div>
+          <div class="reason-text-content">
+            <span class="reason-num">01</span>
+            <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">독보적인 산업 생태계</h3>
+            <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark); line-height: 1.65;">기획, 디자인, 출력, 후가공까지 전 공정이 반경 500m 이내에 긴밀한 물리적 네트워크로 집적되어 있는 살아있는 준공업 도심 제조 유산입니다.</p>
           </div>
         </div>
-
-        <div class="analysis-text-zone" style="display: flex; flex-direction: column; justify-content: center;">
-          <h3 style="font-size:1.4rem; font-weight:normal; margin-bottom:1.25rem; color:var(--black);">성동구의 위상과 성수동의 집중도</h3>
-          <p class="section-desc" style="max-width:100%; text-align:justify; line-height:1.75; font-size:0.95rem; margin-bottom:1.5rem;">
-            성동구는 서울 전체 자치구 중 중구, 영등포구에 이어 인쇄업 사업체 수 3위를 차지하는 핵심 산업 거점입니다[cite: 26]. 특히 성수동 내에서도 <strong>성수2가3동</strong>은 단독으로 인쇄 사업체 159개소(과반수 이상)와 종사자 2,190명을 보유하여 핵심 인프라가 초집중되어 있습니다[cite: 29, 30, 31].
-          </p>
-          <div class="sub-data-grid">
-            <div class="sub-data-card">
-              <h4>성수동 세부 행정동별 사업체</h4>
-              <p style="font-size:0.82rem; color:var(--gray-dark); line-height:1.5; margin:0;">4개 행정동에 총 261개소가 분포하며, 성수2가3동이 핵심 엔진 역할을 담당합니다[cite: 27, 29].</p>
-            </div>
-            <div class="sub-data-card">
-              <h4>물류·교통 환경 개선의 필연성</h4>
-              <p style="font-size:0.82rem; color:var(--gray-dark); line-height:1.5; margin:0;">이 일대의 가로 접근성을 개선하는 것은 성수동 인쇄 산업 유산과 생태계를 보존하기 위한 최우선 과제입니다[cite: 33].</p>
-            </div>
+        <div class="site-reason-card">
+          <div class="reason-img-wrapper"><img src="images/map2.jpg" alt="주변 상업 중심과의 단절"></div>
+          <div class="reason-text-content">
+            <span class="reason-num">02</span>
+            <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">주변 상업 중심과의 단절</h3>
+            <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark); line-height: 1.65;">성수역 남측 연무장길이나 카페거리의 급격한 상업화 흐름과 대조적으로, 북측 블록은 물리적·인지적으로 고립되어 있어 재생이 시급합니다.</p>
+          </div>
+        </div>
+        <div class="site-reason-card">
+          <div class="reason-img-wrapper"><img src="images/map3.jpg" alt="보행 친화적 잠재력"></div>
+          <div class="reason-text-content">
+            <span class="reason-num">03</span>
+            <h3 style="font-size:1.25rem; margin-bottom:0.6rem; font-weight:normal;">보행 친화적 잠재력</h3>
+            <p class="card-text" style="font-size:0.92rem; color:var(--gray-dark); line-height: 1.65;">낮은 스카이라인과 옛 격자형 골목 조직을 원형 그대로 유지하고 있어, 필로티와 닫힌 공장 전면부를 조정하면 매력적인 문화적 보행 통로로 전환 가능합니다.</p>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
-      <p class="section-label">DETAILED DISTRIBUTION</p>
-      <h2 class="section-title">성수동 행정동별 통계 정밀 분석</h2>
-      <p class="section-desc">성수동 내 4개 행정동간의 인쇄업 및 관련 산업 인프라 스케일을 비교 진단한 공공 통계 데이터 그래프입니다[cite: 27].</p>
-
-      <div style="margin-bottom:3.5rem; margin-top:3rem;">
-        <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--gray-light); padding-bottom:0.8rem; margin-bottom:1.2rem;">
-          <p style="font-size:14px; font-weight:500; color:var(--black);">성수동 행정동별 인쇄업 사업체 수 현황</p>
-          <div style="display:flex; gap:16px; font-size:11px; color:var(--gray-mid);">
-            <span style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:12px; height:3px; background:#1D6B4A; border-radius:2px;"></span>인쇄업</span>
-            <span style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:12px; height:3px; background:#4DA07A; border-radius:2px;"></span>인쇄관련산업</span>
-          </div>
+      <p class="section-label">INDUSTRIAL GEOGRAPHY</p>
+      <h2 class="section-title">대상지 주변 산업현황 데이터 맵</h2>
+      <p class="section-desc">성수동 북측 인쇄지구 일대의 용도 분포, 사업체 밀집도, 유동 동선을 다각도로 중첩 분석한 인구·산업 지리 정보 레이어입니다. 좌측의 제안 장치를 클릭하여 입체적으로 비교 분석해 보세요.</p>
+      <div class="gis-dashboard">
+        <div class="gis-control-panel">
+          <div class="gis-panel-title">데이터 레이어 토글</div>
+          <button class="layer-btn active" data-layer="1" onclick="toggleGisLayer(1)">통합</button>
+          <button class="layer-btn" data-layer="2" onclick="toggleGisLayer(2)">스티커 라벨 & 아크릴 가공 공장</button>
+          <button class="layer-btn" data-layer="3" onclick="toggleGisLayer(3)">종합 대형 & 특수 패키징 기업</button>
+          <button class="layer-btn" data-layer="4" onclick="toggleGisLayer(4)">소량 홍보물 & 오피스형 출력 기업</button>
+          <button class="layer-btn" data-layer="5" onclick="toggleGisLayer(5)">산업용 마킹 & 장비 명판 공장</button>
         </div>
-        <div style="position:relative; height:240px;">
-          <canvas id="chartDong"></canvas>
-        </div>
-      </div>
-
-      <div style="margin-bottom:2rem;">
-        <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--gray-light); padding-bottom:0.8rem; margin-bottom:1.2rem;">
-          <p style="font-size:14px; font-weight:500; color:var(--black);">성수동 행정동별 인쇄업 종사자 수 집중도</p>
-          <div style="display:flex; gap:16px; font-size:11px; color:var(--gray-mid);">
-            <span style="display:flex; align-items:center; gap:6px;"><span style="display:inline-block; width:12px; height:3px; background:#1D6B4A; border-radius:2px;"></span>인쇄업 + 인쇄관련산업 합산</span>
-          </div>
-        </div>
-        <div style="position:relative; height:240px;">
-          <canvas id="chartWorker"></canvas>
-        </div>
-      </div>
-      <p style="font-size:11px; color:var(--gray-mid); text-align:right; margin-top:1rem;">출처: 서울특별시, 「서울특별시 기본통계 - 출판·인쇄 및 기록매체 복제업」 </p>
-    </section>
-
-    <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
-      <p class="section-label">TRAFFIC CONDITIONS</p>
-      <h2 class="section-title">대상지 교통 여건 분석</h2>
-      <p class="section-desc">지리 정보 체계(GIS) 도면 분석 결과, 대상지는 광역적인 대중교통 인프라 접근성 측면에서 매우 우수한 지표를 나타내고 있습니다[cite: 14].</p>
-
-      <div class="analysis-split" style="margin-top: 3rem; margin-bottom: 2rem;">
-        <div class="analysis-text-zone" style="display: flex; flex-direction: column; justify-content: center;">
-          <h3 style="font-size:1.3rem; font-weight:normal; margin-bottom:1.25rem; color:var(--black);">광역 교통 근접성 분석</h3>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 1.25rem; padding:0;">
-            <li style="border-left: 3px solid var(--gray-mid); padding-left: 1rem;">
-              <strong style="display:block; font-size:0.95rem; margin-bottom:0.2rem; color:var(--black);">지하철역 접근 반경</strong>
-              <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.6;">대상지는 대중교통 인프라 핵심 축인 지하철 2호선 성수역 반경 250m 내에 밀접하게 위치하고 있습니다[cite: 14].</p>
-            </li>
-            <li style="border-left: 3px solid var(--gray-mid); padding-left: 1rem;">
-              <strong style="display:block; font-size:0.95rem; margin-bottom:0.2rem; color:var(--black);">버스 노선 연계성</strong>
-              <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.6;">대상지 경계 반경 200m 이내에 복수의 시내버스 정류장이 조밀하게 밀집해 있어, 대중교통망 네트워크 자체는 매우 뛰어납니다[cite: 14].</p>
-            </li>
-          </ul>
-        </div>
-        <div class="analysis-chart-zone" style="padding: 1.5rem; background: var(--gray-bg);">
-          <div style="width:100%; aspect-ratio: 4/3; border-radius:10px; overflow:hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.04); background:#fff; display:flex; justify-content:center; align-items:center;">
-            <img src="images/site-traffic-map.jpg" alt="대상지 교통 여건 GIS 도면 분석" style="width:100%; height:100%; object-fit:contain;">
-          </div>
-          <p style="font-size:0.78rem; color:var(--gray-mid); text-align:center; margin-top:0.75rem; margin-bottom:0;">[도면 1] 대상지 주변 광역 교통 인프라 반경 중첩 매핑 (OpenStreetMap)</p>
-        </div>
-      </div>
-
-      <div class="paradox-box">
-        <h3 class="paradox-title">⚠️ 데이터와 현장의 모순: 물리적 접근성의 한계</h3>
-        <p class="paradox-desc">
-          대중교통 노선과의 절대적인 선형 거리는 가깝지만, 대상지 내부 골목 및 주변 도로의 구조적 여건으로 인해 <strong>차량과 보행자의 실질적인 내부 '접근성'은 상대적으로 크게 떨어지는 극심한 공간적 모순 상황</strong>이 발생하고 있습니다[cite: 15].
-        </p>
-      </div>
-    </section>
-
-    <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
-      <p class="section-label">CAUSAL ANALYSIS</p>
-      <h2 class="section-title">현장 접근성 저하 원인 분석 (문제점)</h2>
-      <p class="section-desc">현장 실측 및 가로 조사를 통해 도출된, 물류 연속성과 보행 안전성을 저해하는 2가지 핵심 파괴 요인입니다[cite: 17].</p>
-
-      <div class="analysis-split" style="margin-top: 3rem;">
-        <div class="analysis-chart-zone" style="padding: 0; overflow:hidden; border-radius:14px;">
-          <div style="width:100%; aspect-ratio: 16/11; background:#ddd;">
-            <img src="images/cargo-truck.jpg" alt="1톤 화물 탑차 조업 현장 사진" style="width:100%; height:100%; object-fit:cover;">
-          </div>
-          <div style="padding: 2rem;">
-            <span style="font-size:0.75rem; font-weight:bold; color:#C05A46; letter-spacing:1px; display:block; margin-bottom:0.5rem;">LOGISTICS BOTTLENECK</span>
-            <h3 style="font-size:1.2rem; font-weight:normal; margin-bottom:0.75rem; color:var(--black);">01. 화물 차량 통행 애로 및 물류 마비</h3>
-            <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.65; text-align:justify; margin-bottom:0;">
-              현장 조사 결과, 가로 내부에는 인쇄 가공품 및 종이 원자재를 운반하는 <strong>1톤 화물 탑차(기아 봉고, 현대 포터 등)가 상시 통행</strong>하고 있습니다[cite: 18]. 그러나 극도로 협소한 도로 폭과 무분별한 불법 주정차 차량이 중첩되면서 차량 간 교행이 완전히 불가능하며 물류 상하차 작업 발생 시 골목 전체에 극심한 병목 현상이 발생하고 있습니다[cite: 19].
-            </p>
-          </div>
-        </div>
-
-        <div class="analysis-chart-zone" style="padding: 0; overflow:hidden; border-radius:14px;">
-          <div style="width:100%; aspect-ratio: 16/11; background:#ddd;">
-            <img src="images/pedestrian-danger.jpg" alt="보차분리 부재 골목길 사진" style="width:100%; height:100%; object-fit:cover;">
-          </div>
-          <div style="padding: 2rem;">
-            <span style="font-size:0.75rem; font-weight:bold; color:#C05A46; letter-spacing:1px; display:block; margin-bottom:0.5rem;">PEDESTRIAN VULNERABILITY</span>
-            <h3 style="font-size:1.2rem; font-weight:normal; margin-bottom:0.75rem; color:var(--black);">02. 보행 환경 취약 및 안전 단절</h3>
-            <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.65; text-align:justify; margin-bottom:0;">
-              대상지 내부 가로 구조상 <strong>도로 내 보행 공간과 차도의 물리적 분리가 모호</strong>합니다[cite: 20]. 보행자를 위한 최소한의 전용 인도가 확보되지 않아, 거대한 인쇄 화물 차량 및 조업 장비가 수시로 통행할 때마다 보행자의 신체적 안전이 심각하게 위협받고 있으며, 연속적인 보행 동선 흐름이 끊어지는 고질적 문제가 반복되고 있습니다[cite: 20].
-            </p>
-          </div>
+        <div class="gis-map-canvas">
+          <img src="images/population1.png" id="gis-img-1" class="gis-layer-img active" alt="통합 분석 레이어">
+          <img src="images/population2.png" id="gis-img-2" class="gis-layer-img" alt="스티커 라벨 레이어">
+          <img src="images/population3.png" id="gis-img-3" class="gis-layer-img" alt="패키징 기업 레이어">
+          <img src="images/population4.png" id="gis-img-4" class="gis-layer-img" alt="출력 기업 레이어">
+          <img src="images/population5.png" id="gis-img-5" class="gis-layer-img" alt="명판 공장 레이어">
+          <div class="gis-map-tip">💡 활성화된 도면을 클릭하면 원본 크기로 팝업 확대됩니다</div>
         </div>
       </div>
     </section>
 
-    <section class="section" style="padding-top: 5rem; padding-bottom: 2rem;">
-      <p class="section-label">SPATIAL SOLUTION CLUE</p>
-      <h2 class="section-title">공간 개선을 위한 데이터적 단서</h2>
+    <section class="section" style="padding-top: 2rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
+      <div style="width: 100%; border-radius: 14px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.06);">
+        <img src="images/factory.jpg" alt="공장 대형 전경" style="width: 100%; height: auto; display: block;">
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 5rem; padding-bottom: 4rem;">
+      <p class="section-label">SITE PROBLEMS</p>
+      <h2 class="section-title">문제점</h2>
+      <p class="section-desc">성수동 북측 인쇄 단지가 직면한 구조적·환경적 주요 한계점들을 정밀 분석합니다.</p>
       
-      <div class="diet-banner">
-        <div class="diet-grid">
-          <div>
-            <span class="diet-tag">PROPOSAL DIRECTION</span>
-            <h3 class="diet-title">로드 다이어트(Road Diet)를 통한 일방통행 전환의 당위성</h3>
-            <p class="diet-text">
-              진단된 문제점을 공간적으로 해결하기 위한 핵심 단서는 도로 다이어트 공법의 적용입니다[cite: 22]. 물리적 실측 결과 분석을 바탕으로 기존 가로 구조의 차도 폭을 과감히 줄이고, 확보된 여백을 온전히 보행자 중심 환경으로 재구성하는 마스터플랜의 공학적 토대를 마련합니다[cite: 23].
-            </p>
+      <div class="site-reason-grid">
+        <div class="site-reason-card">
+          <div class="reason-img-wrapper">
+            <img src="images/problem1.jpg" alt="지식산업센터 노후화">
           </div>
-          <div class="diet-specs">
-            <div class="spec-item">
-              <span class="spec-label">기존 가로 전체 도로 폭</span>
-              <span class="spec-val">7.5m [cite: 23]</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">차도 폭 축소 규모 (양측 공통)</span>
-              <span class="spec-val">각각 2.5m씩 감축 [cite: 23]</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">조정 후 차도 운영 방식</span>
-              <span class="spec-val highlight">1차선 일방통행 (교행 갈등 차단) [cite: 23]</span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label">확보된 여유 공간 환원 계획</span>
-              <span class="spec-val highlight">줄인 폭만큼 안전 보행로 전면 조성 [cite: 23]</span>
-            </div>
+          <div class="reason-text-content">
+            <span class="reason-num">01</span>
+            <h3 style="font-size:1.15rem; margin-bottom:0.6rem; font-weight:normal; line-height: 1.45; color: var(--black);">
+              초기 모델 지식산업센터(아파트형 공장)의 노후화 / 공간 효율 저하
+            </h3>
+          </div>
+        </div>
+        
+        <div class="site-reason-card">
+          <div class="reason-img-wrapper">
+            <img src="images/problem4.jpg" alt="무분별한 용도 혼재">
+          </div>
+          <div class="reason-text-content">
+            <span class="reason-num">02</span>
+            <h3 style="font-size:1.15rem; margin-bottom:0.6rem; font-weight:normal; line-height: 1.45; color: var(--black);">
+              주거·상업·공업의 무분별한 혼재<br>
+              <span style="font-size:0.88rem; color:var(--gray-dark); display:inline-block; margin-top:0.3rem;">(용도 혼재로 인한 젠트리피케이션 및 갈등)</span>
+            </h3>
+          </div>
+        </div>
+        
+        <div class="site-reason-card">
+          <div class="reason-img-wrapper">
+            <img src="images/problem3.jpg" alt="보행자 및 녹지 환경 열악">
+          </div>
+          <div class="reason-text-content">
+            <span class="reason-num">03</span>
+            <h3 style="font-size:1.15rem; margin-bottom:0.6rem; font-weight:normal; line-height: 1.45; color: var(--black);">
+              보행자 및 녹지 환경의 열악성
+            </h3>
           </div>
         </div>
       </div>
@@ -508,7 +373,7 @@
 
   <div class="page-nav">
     <span style="font-size:0.82rem; color:var(--gray-mid);">다음 단계</span>
-    <a href="proposal.html" class="btn btn-dark">설계 제안 보기 →</a>
+    <a href="analysis.html" class="btn btn-dark">현황 데이터 정밀 분석 보기 →</a>
   </div>
 
   <footer>
@@ -517,14 +382,19 @@
   </footer>
 
   <script>
-    /* 상단 내비게이션 바 스크롤 최적화 스크립트 */
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       if (window.scrollY < 40) nav.classList.remove('scrolled');
       else nav.classList.add('scrolled');
     });
 
-    /* 라이트박스 팝업 모달 연동 스크립트 */
+    function toggleGisLayer(layerNum) {
+      document.querySelectorAll('.layer-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.gis-layer-img').forEach(img => img.classList.remove('active'));
+      document.querySelector(`.layer-btn[data-layer="${layerNum}"]`).classList.add('active');
+      document.getElementById(`gis-img-${layerNum}`).classList.add('active');
+    }
+
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
     document.querySelectorAll('img').forEach(img => {
@@ -540,86 +410,6 @@
       modal.classList.remove('show');
       setTimeout(() => { modal.style.display = "none"; }, 300);
     }
-
-    /* 📊 Chart.js 라이브 그래프 엔진 구동부 */
-    const gridColor = 'rgba(26,26,24,0.07)';
-    const textColor = '#6b6b64';
-    Chart.defaults.color = textColor;
-    Chart.defaults.font.family = "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif";
-    Chart.defaults.font.size = 12;
-
-    // 🆕 신규 집적도 차트 1 : 성수동 사업체 지분율 (87.9%)
-    new Chart(document.getElementById('metricRingChart1'), {
-      type: 'doughnut',
-      data: {
-        datasets: [{
-          data: [261, 36], // 성수 4개동(261) vs 나머지 성동구 구역(36)
-          backgroundColor: ['#1D6B4A', '#e2e8f0'],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        cutout: '80%', responsive: true, maintainAspectRatio: false,
-        plugins: { tooltip: { enabled: false } }
-      }
-    });
-
-    // 🆕 신규 집적도 차트 3 : 성수2가3동 고용 집중도 (84.0%)
-    new Chart(document.getElementById('metricRingChart3'), {
-      type: 'doughnut',
-      data: {
-        datasets: [{
-          data: [2190, 331], // 성수2가3동(2190명) vs 나머지 성동구 인쇄종사자(331명)
-          backgroundColor: ['#C05A46', '#e2e8f0'],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        cutout: '80%', responsive: true, maintainAspectRatio: false,
-        plugins: { tooltip: { enabled: false } }
-      }
-    });
-
-    // 기존 행정동별 사업체 수 차트
-    new Chart(document.getElementById('chartDong'), {
-      type: 'bar',
-      data: {
-        labels: ['성수1가1동', '성수1가2동', '성수2가1동', '성수2가3동'],
-        datasets: [
-          { label: '인쇄업', data: [22, 57, 23, 159], backgroundColor: '#1D6B4A', borderRadius: 4, barPercentage: 0.5 },
-          { label: '인쇄관련산업', data: [2, 7, 18, 41], backgroundColor: '#4DA07A', borderRadius: 4, barPercentage: 0.5 }
-        ]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}개` } } },
-        scales: {
-          x: { grid: { display: false } },
-          y: { grid: { color: gridColor }, border: { display: false }, ticks: { callback: v => v + '개' } }
-        }
-      }
-    });
-
-    // 기존 행정동별 종사자 수 차트
-    new Chart(document.getElementById('chartWorker'), {
-      type: 'bar',
-      data: {
-        labels: ['성수1가1동', '성수1가2동', '성수2가1동', '성수2가3동'],
-        datasets: [{
-          data: [229, 284, 212, 2190],
-          backgroundColor: ['#cbd5e1','#cbd5e1','#cbd5e1','#C05A46'],
-          borderRadius: 4, barPercentage: 0.5
-        }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y.toLocaleString()}명` } } },
-        scales: {
-          x: { grid: { display: false } },
-          y: { grid: { color: gridColor }, border: { display: false }, ticks: { callback: v => v.toLocaleString() + '명' } }
-        }
-      }
-    });
   </script>
 </body>
 </html>
