@@ -116,7 +116,7 @@
     .meta-box h3 { font-size: 1.25rem; font-weight: normal; color: var(--black); margin-bottom: 1rem; border-left: 3px solid #C05A46; padding-left: 0.75rem; }
     .meta-box p { font-size: 0.94rem; line-height: 1.75; color: var(--gray-dark); }
 
-    /* ── 🌍 [NEW] 대상지 주변 산업현황 GIS 인터랙티브 대시보드 스타일 ── */
+    /* ── 🌍 대상지 주변 산업현황 인터랙티브 GIS 대시보드 스타일 ── */
     .gis-dashboard {
       display: grid;
       grid-template-columns: 320px 1fr;
@@ -138,7 +138,7 @@
       border: 1px solid #333;
     }
     .gis-panel-title {
-      font-size: 0.9rem;
+      font-size: 0.9amp;
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -170,7 +170,6 @@
       border-radius: 50%;
       background: #666;
     }
-    /* 각 레이어 버튼 클릭 활성화 시 테마 색상 정의 */
     .layer-btn.active[data-layer="1"] { background: rgba(220, 53, 69, 0.15); border-color: #dc3545; color: #ff6b6b; }
     .layer-btn.active[data-layer="1"]::before { background: #dc3545; box-shadow: 0 0 8px #dc3545; }
     
@@ -204,11 +203,11 @@
       object-fit: cover;
       opacity: 0;
       transition: opacity 0.4s ease;
-      pointer-events: none; /* 클릭 이벤트가 겹쳐서 모달을 방해하지 않게 방지 */
+      pointer-events: none;
     }
     .gis-layer-img.active {
       opacity: 1;
-      pointer-events: auto; /* 활성화된 이미지만 라이트박스 연동 가능하도록 개방 */
+      pointer-events: auto;
     }
     .gis-map-tip {
       position: absolute;
@@ -328,11 +327,11 @@
         </div>
 
         <div class="gis-map-canvas">
-          <img src="images/population1.jpg" id="gis-img-1" class="gis-layer-img active" alt="출판·인쇄업 집적도 레이어">
-          <img src="images/population2.jpg" id="gis-img-2" class="gis-layer-img" alt="지식기반·정보통신 산업 분할 레이어">
-          <img src="images/population3.jpg" id="gis-img-3" class="gis-layer-img" alt="유통 및 물류 가로 시설 레이어">
-          <img src="images/population4.jpg" id="gis-img-4" class="gis-layer-img" alt="가로 보행 유동인구 핫스팟 레이어">
-          <img src="images/population5.jpg" id="gis-img-5" class="gis-layer-img" alt="용도별 평균 가로 임대료 밀도 레이어">
+          <img src="images/population1.PNG" id="gis-img-1" class="gis-layer-img active" alt="출판·인쇄업 집적도 레이어">
+          <img src="images/population2.PNG" id="gis-img-2" class="gis-layer-img" alt="지식기반·정보통신 산업 분할 레이어">
+          <img src="images/population3.PNG" id="gis-img-3" class="gis-layer-img" alt="유통 및 물류 가로 시설 레이어">
+          <img src="images/population4.PNG" id="gis-img-4" class="gis-layer-img" alt="가로 보행 유동인구 핫스팟 레이어">
+          <img src="images/population5.PNG" id="gis-img-5" class="gis-layer-img" alt="용도별 평균 가로 임대료 밀도 레이어">
           <div class="gis-map-tip">💡 활성화된 도면을 클릭하면 원본 크기로 팝업 확대됩니다</div>
         </div>
       </div>
@@ -390,34 +389,27 @@
   </footer>
 
   <script>
-    // 1. 네비게이션 고정 제어
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       if (window.scrollY < 40) nav.classList.remove('scrolled');
       else nav.classList.add('scrolled');
     });
 
-    // 2. 🌍 GIS 데이터 레이어 변경 인터랙티브 컨트롤 시스템
     function toggleGisLayer(layerNum) {
-      // 모든 버튼 활성화 해제
       document.querySelectorAll('.layer-btn').forEach(btn => {
         btn.classList.remove('active');
       });
-      // 모든 이미지 가리기
       document.querySelectorAll('.gis-layer-img').forEach(img => {
         img.classList.remove('active');
       });
 
-      // 선택한 버튼 및 이미지 레이어만 전면 표출 활성화
       document.querySelector(`.layer-btn[data-layer="${layerNum}"]`).classList.add('active');
       document.getElementById(`gis-img-${layerNum}`).classList.add('active');
     }
 
-    // 3. 🔍 이미지 크게보기 고급 모달 시스템
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
 
-    // 동적으로 바뀌는 GIS 맵을 포함해 본문 내 모든 이미지를 모달 타겟팅
     document.querySelectorAll('img').forEach(img => {
       if (!img.classList.contains('nav-logo')) {
         img.addEventListener('click', function() {
