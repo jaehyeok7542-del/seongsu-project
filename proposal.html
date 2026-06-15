@@ -8,52 +8,31 @@
   <style>
     /* ── 🔍 라이트박스 애니메이션 모달 (부드러운 원본 크게보기) ── */
     .modal {
-      display: none;
-      position: fixed;
-      z-index: 10000;
-      padding-top: 30px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.94);
-      cursor: zoom-out;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      display: none; position: fixed; z-index: 10000;
+      padding-top: 30px; left: 0; top: 0; width: 100%; height: 100%;
+      overflow: auto; background-color: rgba(0, 0, 0, 0.94);
+      cursor: zoom-out; opacity: 0; transition: opacity 0.3s ease;
     }
-    .modal.show {
-      display: block;
-      opacity: 1;
-    }
+    .modal.show { display: block; opacity: 1; }
     .modal-content {
-      margin: auto;
-      display: block;
-      max-width: 92%;
-      max-height: 88vh;
-      object-fit: contain;
-      border-radius: 8px;
-      transform: scale(0.95);
-      transition: transform 0.3s ease;
+      margin: auto; display: block;
+      max-width: 92%; max-height: 88vh; object-fit: contain;
+      border-radius: 8px; transform: scale(0.95); transition: transform 0.3s ease;
     }
-    .modal.show .modal-content {
-      transform: scale(1);
-    }
+    .modal.show .modal-content { transform: scale(1); }
     
     /* 본문 확대 가능 이미지들의 기본 커서 및 호버 모션 */
-    .section img, .space-row img, .strategy-card img, .gallery-item img {
-      cursor: zoom-in;
-      transition: all 0.3s ease;
+    .section img, .space-row img, .strategy-card img, .gallery-item img, .sketchup-box img {
+      cursor: zoom-in; transition: all 0.3s ease;
     }
-    .section img:hover, .space-row img:hover, .strategy-card img:hover, .gallery-item img:hover {
-      opacity: 0.88;
-      transform: scale(1.01);
+    .section img:hover, .space-row img:hover, .strategy-card img:hover, .gallery-item img:hover, .sketchup-box img:hover {
+      opacity: 0.88; transform: scale(1.01);
     }
 
     .proposal-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0;
+      padding: 0 2rem;
     }
 
     /* 상단 비전 슬롯 (컨셉 메인 박스) */
@@ -100,6 +79,32 @@
       margin-bottom: 1rem;
     }
 
+    /* 스케치업 투트랙 그리드 */
+    .sketchup-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2.5rem;
+      margin: 3rem 0;
+    }
+    .sketchup-box {
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+    }
+    .sketchup-img-wrapper {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--gray-bg);
+      margin-bottom: 1.25rem;
+    }
+    .sketchup-img-wrapper img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
     /* 공간 전략 교차 스플릿 레이아웃 */
     .space-row {
       display: grid;
@@ -110,13 +115,9 @@
       border-bottom: 1px solid var(--gray-light);
     }
     .space-row:last-of-type { border-bottom: none; }
-    
-    .space-row.reverse {
-      grid-template-columns: 1.2fr 1fr;
-    }
+    .space-row.reverse { grid-template-columns: 1.2fr 1fr; }
     .space-row.reverse .space-img-slot { order: 2; }
     .space-row.reverse .space-text-slot { order: 1; }
-    
     .space-img-slot {
       width: 100%;
       aspect-ratio: 4/3;
@@ -126,6 +127,31 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     }
     .space-img-slot img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* 연령별 세부 커스텀 프로그램 타일 */
+    .age-program-box {
+      margin-top: 1.5rem;
+      background: var(--gray-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--gray-light);
+    }
+    .age-row {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      margin-bottom: 0.85rem;
+      align-items: baseline;
+    }
+    .age-row:last-child { margin-bottom: 0; }
+    .age-badge {
+      font-size: 0.75rem; font-weight: bold; background: #fff;
+      border: 1px solid #f0c0b8; color: #C05A46;
+      padding: 2px 8px; border-radius: 4px; text-align: center;
+      display: inline-block;
+    }
 
     /* 4열 기대효과 카드 */
     .effect-grid {
@@ -163,7 +189,7 @@
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
     @media (max-width: 900px) {
-      .strategy-grid, .space-row, .space-row.reverse, .effect-grid, .gallery-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .strategy-grid, .sketchup-grid, .space-row, .space-row.reverse, .effect-grid, .gallery-grid { grid-template-columns: 1fr; gap: 2rem; }
       .space-row.reverse .space-img-slot { order: 1; }
       .space-row.reverse .space-text-slot { order: 2; }
       .vision-box { padding: 2.5rem 2rem; }
@@ -227,9 +253,34 @@
         </div>
       </div>
 
+      <div style="margin-top: 7rem;">
+        <p class="section-label">3D MODELING &amp; CIRCULATION</p>
+        <h2 class="section-title">마스터플랜 공간 및 동선 설계</h2>
+        <p class="section-desc">스케치업 시뮬레이션을 통해 인쇄 가로의 전반적인 입체적 형태와 보행·체험 순환 동선 체계를 구체화했습니다.</p>
+        
+        <div class="sketchup-grid">
+          <div class="sketchup-box">
+            <div class="sketchup-img-wrapper">
+              <img src="images/rendering1.png" alt="성수동 인쇄 가로 마스터플랜 전체 모델 렌더링 스케치업">
+            </div>
+            <h4 style="font-size:1.1rem; font-weight:normal; color:var(--black); margin-bottom:0.4rem;">스케치업 01 : 전체 모델 제시</h4>
+            <p style="font-size:0.85rem; color:var(--gray-dark); line-height:1.5;">중앙 오픈스페이스와 건물을 입체적으로 연결하는 보행 브릿지 시스템 및 전반적인 단지 계획의 전체 뷰포트입니다.</p>
+          </div>
+
+          <div class="sketchup-box">
+            <div class="sketchup-img-wrapper">
+              <img src="images/route.png" alt="마스터플랜 활성화 동선 체계도 스케치업">
+            </div>
+            <h4 style="font-size:1.1rem; font-weight:normal; color:var(--black); margin-bottom:0.4rem;">스케치업 02 : 마스터플랜 동선 제시</h4>
+            <p style="font-size:0.85rem; color:var(--gray-dark); line-height:1.5;">START 포인트에서 시작해 역사 전시, 관람 브릿지, 활판·포스터·굿즈 가공 체험공간을 거쳐 FINISH로 이어지는 순환형 보행 네트워크 경로입니다.</p>
+          </div>
+        </div>
+      </div>
+
       <div style="margin-top: 8rem;">
-        <p class="section-label">SPACE STRATEGY</p>
-        <h2 class="section-title">공간별 가로 전략</h2>
+        <p class="section-label">SPACE STRATEGY &amp; PROGRAMS</p>
+        <h2 class="section-title">공간별 가로 전략 및 연령별 프로그램</h2>
+        <p class="section-desc">4가지 핵심 거점 공간에 연령대별 특화 프로그램을 대입하여 가로의 이용 밀도와 공공성을 극대화합니다.</p>
         
         <div class="space-row">
           <div class="space-img-slot">
@@ -238,18 +289,40 @@
           <div class="space-text-slot">
             <p class="card-tag">SPOT 01 / HISTORICAL</p>
             <h3 style="font-size: 1.6rem; margin-bottom: 1rem; font-weight:normal;">인쇄 역사 공간</h3>
-            <p class="section-desc" style="font-size:0.95rem; margin-bottom:0; color: var(--gray-dark);">성수동 인쇄산업의 역사와 기술 변천을 전시한다. 활판, 오프셋부터 디지털 인쇄까지의 흐름을 시각화하여 방문자가 이 거리의 맥락을 이해할 수 있는 출발점이 된다.</p>
+            <p class="section-desc" style="font-size:0.95rem; margin-bottom:0; color: var(--gray-dark); max-width: 100%;">성수동 인쇄산업의 역사와 기술 변천을 전시한다. 활판, 오프셋부터 디지털 인쇄까지의 흐름을 시각화하여 방문자가 이 거리의 맥락을 이해할 수 있는 출발점이 된다.</p>
+            
+            <div class="age-program-box">
+              <div class="age-row">
+                <span class="age-badge" style="background:#f1f5f9; border-color:#cbd5e1; color:#475569;">전 연령대</span>
+                <span>성수동 북측 블록 인쇄 역사의 흐름 및 아카이브 전시 콘텐츠 자율 관람</span>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="space-row reverse">
           <div class="space-img-slot">
-            <img src="images/proposal5.jpg" alt="체험공간">
+            <img src="images/renderin2.png" alt="입체 보행 교차 브릿지 및 체험 연계 가로 렌더링">
           </div>
           <div class="space-text-slot">
             <p class="card-tag">SPOT 02 / EXPERIENTIAL</p>
             <h3 style="font-size: 1.6rem; margin-bottom: 1rem; font-weight:normal;">체험공간</h3>
-            <p class="section-desc" style="font-size:0.95rem; margin-bottom:0; color: var(--gray-dark);">엽서, 포스터 직접 제작, 굿즈 커스터마이징 프로그램을 운영한다. 기존 인쇄업체의 장비와 공간을 활용하여 시민이 실제 인쇄 공정을 경험할 수 있도록 구성하며, 생산 인프라를 유지하면서 새로운 방문 수요를 만드는 핵심 공간이다.</p>
+            <p class="section-desc" style="font-size:0.95rem; margin-bottom:0; color: var(--gray-dark); max-width: 100%;">엽서, 포스터 직접 제작, 굿즈 커스터마이징 프로그램을 운영한다. 기존 인쇄업체의 장비와 공간을 활용하여 시민이 실제 인쇄 공정을 경험할 수 있도록 구성하며, 생산 인프라를 유지하면서 새로운 방문 수요를 만드는 핵심 공간이다.</p>
+            
+            <div class="age-program-box">
+              <div class="age-row">
+                <span class="age-badge">어린이·청소년</span>
+                <span>아기자기한 성수 인쇄 스탬프 도장 찍기, 기본형 엽서 인쇄 공정 체험</span>
+              </div>
+              <div class="age-row">
+                <span class="age-badge">20~30대</span>
+                <span>나만의 개성을 담은 1인 맞춤형 디자인 포스터 및 디자인 굿즈 커스터마이징 워크숍</span>
+              </div>
+              <div class="age-row">
+                <span class="age-badge">중장년·고령층</span>
+                <span>아날로그 감성의 손글씨 엽서 제작 및 전통 빈티지 활판 인쇄 기기 실전 체험</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -260,7 +333,22 @@
           <div class="space-text-slot">
             <p class="card-tag">SPOT 03 / CO-WORKING</p>
             <h3 style="font-size: 1.6rem; margin-bottom: 1rem; font-weight:normal;">창작 협업 공간</h3>
-            <p class="section-desc" style="font-size:0.95rem; margin-bottom:0; color: var(--gray-dark);">디자인 스튜디오, 팝업 전시 공간, 브랜드 협업 제작실, 공동 작업 공간으로 구성한다. 인쇄업체와 창작자가 같은 공간안에서 기획부터 제작까지 함께할 수 있는 구조를 만든다.</p>
+            <p class="section-desc" style="font-size:0.95rem; margin-bottom:0; color: var(--gray-dark); max-width: 100%;">디자인 스튜디오, 팝업 전시 공간, 브랜드 협업 제작실, 공동 작업 공간으로 구성한다. 인쇄업체와 창작자가 같은 공간안에서 기획부터 제작까지 함께할 수 있는 구조를 만든다.</p>
+            
+            <div class="age-program-box">
+              <div class="age-row">
+                <span class="age-badge">청소년</span>
+                <span>지역 연계형 미래 테크-디자인 및 도심 인쇄 정밀 기술 관련 진로 학습 교육 코스</span>
+              </div>
+              <div class="age-row">
+                <span class="age-badge">20~30대 창작자</span>
+                <span>가로 내 숙련된 인쇄 공장 업체와의 기술 협업 제작, 팝업 전시 직접 기획 및 참여</span>
+              </div>
+              <div class="age-row">
+                <span class="age-badge">스타트업·프리랜서</span>
+                <span>공동 코워킹 작업실 인프라 이용, 융합 비즈니스를 위한 공동 기획·제작 및 네트워킹</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -271,17 +359,57 @@
           <div class="space-text-slot">
             <p class="card-tag">SPOT 04 / COMMUNITY</p>
             <h3 style="font-size: 1.6rem; margin-bottom: 1rem; font-weight:normal;">커뮤니티 시설</h3>
-            <p class="section-desc" style="font-size:0.95rem; margin-bottom:0; color: var(--gray-dark);">지역주민, 인쇄업 종사자, 창작자가 함께 사용하는 거점 공간으로 복합 커뮤니티 공간으로 운영한다.</p>
+            <p class="section-desc" style="font-size:0.95rem; margin-bottom:0; color: var(--gray-dark); max-width: 100%;">지역주민, 인쇄업 종사자, 창작자가 함께 사용하는 거점 공간으로 복합 커뮤니티 공간으로 운영한다.</p>
+            
+            <div class="age-program-box">
+              <div class="age-row">
+                <span class="age-badge">어린이·가족</span>
+                <span>가로 이면의 소음을 차단하고 편안하게 정서적 휴식을 취하는 열린 작은 도서관 인프라</span>
+              </div>
+              <div class="age-row">
+                <span class="age-badge">20~30대</span>
+                <span>오픈 스트리트 스케일에 맞춘 골목형 소규모 독립 전시, 청년 문화 이벤트 연계</span>
+              </div>
+              <div class="age-row">
+                <span class="age-badge">중장년·고령층</span>
+                <span>조업 차량과 완전히 분리된 친환경 오픈스페이스 정원 산책 및 안전한 공간 향유</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div style="margin-top: 6rem;">
-        <p class="section-label">STAMP TOUR</p>
-        <h2 class="section-title">스탬프 투어 구상</h2>
-        <p class="section-desc">스탬프 투어 경로, 각 포인트 설명, 리플렛 이미지 삽입 예정 구역입니다.</p>
-        <div style="background: #fafafa; border: 1px dashed var(--gray-light); border-radius: 16px; padding: 4rem 2rem; text-align: center; color: var(--gray-mid); font-size: 0.95rem;">
-          📍 스탬프 투어 및 공간 배치도 도면 데이터 추가 업로드 대기 영역
+      <div style="margin-top: 7rem;">
+        <p class="section-label">STAMP TOUR PROGRAM</p>
+        <h2 class="section-title">성수 인쇄 스탬프 투어 프로그램</h2>
+        <p class="section-desc">가로의 활성화와 대중적 장소 브랜딩을 위해 기획된 참여형 프로그램 시나리오입니다.</p>
+        
+        <div class="space-row" style="padding-top: 2rem;">
+          <div class="space-img-slot" style="aspect-ratio: auto; height: 420px; background: none; border-radius: 0; box-shadow: none;">
+            <img src="images/red1.png" alt="성수 인쇄 스탬프 투어 공식 안내 가이드 리플렛 템플릿" style="object-fit: contain; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+          </div>
+          <div class="space-text-slot">
+            <h3 style="font-size:1.35rem; font-weight:normal; margin-bottom:1rem; color:var(--black);">인쇄 여권(Passport)과 함께 걷는 문화 가로</h3>
+            <p style="font-size:0.92rem; color:var(--gray-dark); line-height:1.7; text-align:justify; margin-bottom:1.5rem;">
+              방문객은 마스터 앵커인 레드프린팅 공간 등에서 스탬프 투어용 인쇄 여권(Passport)을 수령하여 탐방을 시작합니다. 70년의 세월이 집적된 인쇄 역사 아카이브존관람을 시작으로, 활판 공방 체험, 빈티지 레트로 포스터 프레스 인쇄, 성수 엽서 제작소와 굿즈 프린팅 랩(Lab)까지 총 8단계의 마스터 동선을 자율 순환형태로 탐색하게 됩니다.
+            </p>
+            <ul style="list-style:none; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; font-size:0.85rem; color:var(--black);">
+              <li style="background:var(--gray-bg); padding:0.75rem 1rem; border-radius:6px; border-left:3px solid #C05A46;">🎯 전 공정 완주 기념 굿즈 증정</li>
+              <li style="background:var(--gray-bg); padding:0.75rem 1rem; border-radius:6px; border-left:3px solid #C05A46;">🧭 동선 총 길이 약 600~800m</li>
+              <li style="background:var(--gray-bg); padding:0.75rem 1rem; border-radius:6px; border-left:3px solid #C05A46;">⏰ 평균 소요 시간 40~60분 소요</li>
+              <li style="background:var(--gray-bg); padding:0.75rem 1rem; border-radius:6px; border-left:3px solid #C05A46;">🏷️ 지역 인쇄 업체 가치 공유 연동</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 8rem; border-top: 1px solid var(--gray-light); padding-top: 6rem;">
+        <p class="section-label" style="justify-content: center;">VIRTUAL IMMERSIVE VIEW</p>
+        <h2 class="section-title" style="text-align: center;">마스터플랜 공간 몰입형 인터랙티브 뷰어</h2>
+        <p class="section-desc" style="text-align: center; margin-bottom: 3.5rem;">아래 가상 뷰어 엔진 창을 통해, 설계 도면상의 주요 거점을 클릭하여 실시간 1인칭 현장 전경 데이터를 조감해보세요.</p>
+        
+        <div style="width: 100%; height: 80vh; min-height: 620px; border-radius: 20px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.1); border: 1px solid var(--gray-light);">
+          <iframe src="standalone_viewer.html" style="width: 100%; height: 100%; border: none;" allowfullscreen></iframe>
         </div>
       </div>
 
@@ -346,6 +474,10 @@
     <span>Urban Design Studio</span>
   </footer>
 
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <img class="modal-content" id="modalImg" />
+  </div>
+
   <script>
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
@@ -353,7 +485,6 @@
       else nav.classList.add('scrolled');
     });
 
-    // 💡 이미지 원본 확대 및 라이트박스 애니메이션 연동 스크립트
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
 
