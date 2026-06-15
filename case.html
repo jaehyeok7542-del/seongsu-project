@@ -6,71 +6,117 @@
   <title>남겨진 공장, 열린 거리 — 해외사례</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ── 해외사례 고급 레이아웃 스타일 ── */
-    .case-container {
+    /* ── 해외사례 인터랙티브 탭 + 카운터 스타일 ── */
+    .tabs-container {
       max-width: 1200px;
-      margin: 0 auto;
+      margin: 3rem auto;
       padding: 0 1rem;
     }
 
-    /* 대형 사례 섹션 지그재그 배치 */
-    .case-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-      padding: 80px 0;
-      border-bottom: 1px solid #f0f0f0;
+    /* 탭 버튼 디자인 (기존 스타일 복원) */
+    .tab-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      border-bottom: 2px solid var(--gray-light, #e5e5e5);
+      padding-bottom: 1rem;
     }
-    .case-row:last-child { border-bottom: none; }
-    .case-row.reverse { grid-template-columns: 1fr 1fr; }
 
-    /* 사진 호버 줌인 효과 */
-    .case-img-wrapper {
+    .tab-btn {
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: none;
+      border: none;
+      color: var(--gray-mid, #888888);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    /* 활성화된 탭 버튼 스타일 (성수동 벽돌색) */
+    .tab-btn.active {
+      color: #C05A46;
+    }
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -18px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #C05A46;
+    }
+
+    /* 탭 콘텐츠 기본 숨김 및 애니메이션 */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 내측 그리드 레이아웃 */
+    .case-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .case-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+
+    /* 이미지 호버 효과 적용 */
+    .case-img-box {
       width: 100%;
       aspect-ratio: 4/3;
       overflow: hidden;
-      border-radius: 16px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.06);
-      transition: all 0.4s ease;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
-    .case-img-wrapper img {
+    .case-img-box img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.6s ease;
+      transition: transform 0.5s ease;
     }
-    /* 마우스 올리면 사진은 커지고 박스는 살짝 떠오름 */
-    .case-img-wrapper:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(192, 90, 70, 0.15);
+    .case-img-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(192, 90, 70, 0.15);
     }
-    .case-img-wrapper:hover img {
-      transform: scale(1.08);
+    .case-img-box:hover img {
+      transform: scale(1.05);
     }
 
-    /* 텍스트 위계 설정 */
-    .case-badge {
+    .case-info h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--black, #111);
+      margin-bottom: 0.5rem;
+    }
+    .case-tag {
       display: inline-block;
-      padding: 5px 14px;
+      padding: 4px 12px;
       background-color: #fdf8f7;
       color: #C05A46;
       font-size: 0.85rem;
-      font-weight: 700;
-      border-radius: 30px;
-      margin-bottom: 1rem;
-    }
-    .case-title {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: #111;
-      line-height: 1.3;
+      font-weight: 600;
+      border-radius: 4px;
       margin-bottom: 1.5rem;
     }
-    .case-desc {
-      font-size: 1.05rem;
+    .case-text {
+      font-size: 1rem;
       line-height: 1.8;
-      color: #555;
+      color: var(--gray-dark, #444);
       margin-bottom: 2rem;
     }
 
@@ -98,31 +144,24 @@
       font-weight: 500;
     }
 
-    /* 시사점 강조 상자 */
-    .insight-box {
-      background-color: #fafafa;
-      border-left: 4px solid #111;
-      padding: 1.2rem 1.5rem;
+    /* 시사점 박스 */
+    .takeaway-box {
+      background-color: #fdf8f7;
+      border-left: 4px solid #C05A46;
+      padding: 1.5rem;
       border-radius: 0 8px 8px 0;
     }
-    .insight-box h4 {
-      font-size: 0.95rem;
+    .takeaway-box h4 {
+      font-size: 1rem;
       font-weight: 700;
-      color: #111;
-      margin-bottom: 0.4rem;
+      color: #C05A46;
+      margin-bottom: 0.5rem;
     }
-    .insight-box p {
+    .takeaway-box p {
       font-size: 0.9rem;
       line-height: 1.6;
-      color: #666;
+      color: #555;
       margin: 0;
-    }
-
-    /* 반응형 모바일 설정 */
-    @media (max-width: 768px) {
-      .case-row, .case-row.reverse { grid-template-columns: 1fr; gap: 2rem; padding: 40px 0; }
-      .case-row .case-img-wrapper { order: 1; }
-      .case-row .case-content-box { order: 2; }
     }
   </style>
 </head>
@@ -139,100 +178,138 @@
     </ul>
   </nav>
 
-  <header class="section" style="padding-top: 140px; padding-bottom: 40px; background-color: #f9f9fb; border-bottom: 1px solid #e5e5e5;">
+  <header class="hero-sub" style="padding-top: 140px; padding-bottom: 40px; background-color: var(--gray-bg, #f9f9fb); border-bottom: 1px solid #e5e5e5;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
-      <p class="section-label" style="color: #C05A46; font-weight: 600; margin-bottom: 0.5rem;">CASE STUDY</p>
+      <p class="section-label" style="color: #C05A46; font-weight: 600; margin-bottom: 0.5rem; letter-spacing: 1px;">CASE STUDY</p>
       <h2 class="section-title" style="font-size: 2.5rem; font-weight: 800; color: #111; margin-bottom: 1rem;">글로벌 쇼팩토리(Show-Factory) 사례</h2>
-      <p class="section-desc" style="font-size: 1.1rem; color: #666; max-width: 800px; line-height: 1.6;">제조 공정이 훌륭한 도시 콘텐츠이자 보행의 목적지가 된 해외 선진 사례를 입체적으로 분석합니다.</p>
+      <p class="section-desc" style="font-size: 1.1rem; color: #666; max-width: 800px; line-height: 1.6;">제조 공정이 훌륭한 도시 콘텐츠이자 보행의 목적지가 된 해외 선진 사례를 분석합니다.</p>
     </div>
   </header>
 
-  <div class="case-container">
+  <div class="tabs-container">
+    
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="openTab(event, 'volkswagen')">🇩🇪 폭스바겐 투명유리공장</button>
+      <button class="tab-btn" onclick="openTab(event, 'sumida')">🇯🇵 도쿄 스미다 오픈팩토리</button>
+    </div>
 
-    <div class="case-row">
-      <div class="case-img-wrapper">
-        <img src="images/volkswagen.jpg" alt="폭스바겐 투명유리공장 전경">
-      </div>
-      <div class="case-content-box">
-        <span class="case-badge">대기업 제조 공정의 시각적 개방</span>
-        <h3 class="case-title">독일 드레스덴<br>글레제르네 마누팍투어</h3>
-        <p class="case-desc">
-          독일 드레스덴 도심 한복판에 위치한 폭스바겐의 친환경 생산 기지입니다. 전체 외벽의 상당 부분을 투명한 유리로 마감하여, 외부 보행자가 공장 내부에서 자동차가 조립되는 전 과정을 시각적으로 관람할 수 있도록 설계되었습니다. 제조 공간이 도시의 핵심 랜드마크이자 복합 문화 가로로 기능할 수 있음을 증명합니다.
-        </p>
-
-        <div class="counter-grid">
-          <div class="counter-item">
-            <div class="counter-number" data-target="150">0%</div>
-            <div class="counter-label">주변 보행량 증가</div>
-          </div>
-          <div class="counter-item">
-            <div class="counter-number" data-target="30">0만</div>
-            <div class="counter-label">연간 가로 방문객</div>
-          </div>
+    <div id="volkswagen" class="tab-content active">
+      <div class="case-grid">
+        <div class="case-img-box">
+          <img src="images/volkswagen.jpg" alt="폭스바겐 투명유리공장 전경">
         </div>
+        <div class="case-info">
+          <span class="case-tag">독일 드레스덴 — 대기업 제조 공정의 시각적 개방</span>
+          <h3>글레제르네 마누팍투어</h3>
+          <p class="case-text">
+            독일 드레스덴 도심 한복판에 위치한 폭스바겐의 친환경 생산 기지입니다. 전체 외벽의 상당 부분을 투명한 유리로 마감하여, 외부 보행자가 공장 내부에서 자동차가 조립되는 전 과정을 시각적으로 관람할 수 있도록 설계되었습니다. 제조 공간이 도시의 핵심 랜드마크이자 복합 문화 공간으로 기능할 수 있음을 증명한 대표적인 쇼팩토리 사례입니다.
+          </p>
 
-        <div class="insight-box">
-          <h4>성수동 프로젝트 시사점</h4>
-          <p>공장의 제조 공정 자체를 투명하게 노출(시각적 개방)함으로써, 닫혀 있던 성수동 인쇄 공장들의 전면부를 가로변 보행자에게 매력적인 '시각적 콘텐츠'로 전환할 수 있습니다.</p>
+          <div class="counter-grid">
+            <div class="counter-item">
+              <div class="counter-number" data-target="150" data-unit="%">0%</div>
+              <div class="counter-label">주변 보행량 증가</div>
+            </div>
+            <div class="counter-item">
+              <div class="counter-number" data-target="30" data-unit="만 명">0만 명</div>
+              <div class="counter-label">연간 가로 방문객</div>
+            </div>
+          </div>
+
+          <div class="takeaway-box">
+            <h4>성수동 프로젝트 시사점</h4>
+            <p>공장의 제조 공정 자체를 투명하게 노출(시각적 개방)함으로써, 닫혀 있던 성수동 인쇄 공장들의 전면부를 가로변 보행자에게 매력적인 '시각적 콘텐츠'로 전환할 수 있는 논리를 제공합니다.</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="case-row reverse">
-      <div class="case-content-box">
-        <span class="case-badge">골목길 인쇄·제조 산업과 보행의 결합</span>
-        <h3 class="case-title">일본 도쿄<br>스미다구 오픈팩토리</h3>
-        <p class="case-desc">
-          도쿄의 대표적인 노후 준공업지역인 스미다구 일대에서 진행되는 지역 산업 재생 프로그램입니다. 영세한 소규모 인쇄소, 금속 가공 공장들이 특정 기간 동안 내부 작업 공간을 전면 개방하고, 방문객들이 골목길을 걸으며 직접 인쇄 장비를 체험하고 디자이너와 협업할 수 있도록 가로 네트워크를 구축했습니다.
-        </p>
+    <div id="sumida" class="tab-content">
+      <div class="case-grid">
+        <div class="case-img-box">
+          <img src="images/sumida.png" alt="도쿄 스미다 워드 오픈팩토리">
+        </div>
+        <div class="case-info">
+          <span class="case-tag">일본 도쿄 — 골목길 인쇄·제조 산업과 보행의 결합</span>
+          <h3>스미다구 오픈팩토리</h3>
+          <p class="case-text">
+            도쿄의 대표적인 노후 준공업지역인 스미다구 일대에서 진행되는 지역 산업 재생 프로그램입니다. 영세한 소규모 인쇄소, 금속 가공 공장들이 특정 기간 동안 내부 작업 공간을 전면 개방하고, 방문객들이 골목길을 걸으며 직접 인쇄 장비를 체험하고 디자이너와 협업할 수 있도록 네트워크를 구축했습니다. 단절되었던 산업 블록에 보행 유동인구를 유입시켰습니다.
+          </p>
 
-        <div class="counter-grid">
-          <div class="counter-item">
-            <div class="counter-number" data-target="85">0개</div>
-            <div class="counter-label">참여 영세 공장 수</div>
+          <div class="counter-grid">
+            <div class="counter-item">
+              <div class="counter-number" data-target="85" data-unit="개소">0개소</div>
+              <div class="counter-label">참여 영세 공장 수</div>
+            </div>
+            <div class="counter-item">
+              <div class="counter-number" data-target="42" data-unit="%">0%</div>
+              <div class="counter-label">지역 보행 매출 상승</div>
+            </div>
           </div>
-          <div class="counter-item">
-            <div class="counter-number" data-target="42">0%</div>
-            <div class="counter-label">지역 보행 매출 상승</div>
+
+          <div class="takeaway-box">
+            <h4>성수동 프로젝트 시사점</h4>
+            <p>성수동 북측의 영세 인쇄 단지가 대규모 개발 없이도 '보행 통로 확보'와 '체험 프로그램 연계'를 통해 소외된 골목길 산업 지대를 활성화하는 물리적·소프트웨어적 해법이 될 수 있습니다.</p>
           </div>
         </div>
-
-        <div class="insight-box" style="border-left-color: #C05A46;">
-          <h4>성수동 프로젝트 시사점</h4>
-          <p>성수동 북측의 영세 인쇄 단지가 대규모 철거 개발 없이도 '보행 통로 확보'와 '체험 프로그램 연계'를 통해 소외된 골목길 산업 지대를 활성화하는 물리적 해법이 될 수 있습니다.</p>
-        </div>
-      </div>
-      <div class="case-img-wrapper">
-        <img src="images/sumida.png" alt="도쿄 스미다 워드 오픈팩토리">
       </div>
     </div>
 
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const counters = document.querySelectorAll('.counter-number');
+    // 숫자를 올리는 함수
+    function runCounters(containerId) {
+      const container = document.getElementById(containerId);
+      const counters = container.querySelectorAll('.counter-number');
       
       counters.forEach(counter => {
         const target = +counter.getAttribute('data-target');
-        const isMan = counter.innerText.includes('만');
-        const isPercent = counter.getAttribute('data-target') === "150" || counter.getAttribute('data-target') === "42";
+        const unit = counter.getAttribute('data-unit');
         
         let count = 0;
-        const speed = target / 50; // 속도 조절
+        counter.innerText = "0" + unit; // 시작할 때 초기화
+        
+        const speed = target / 30; // 숫자가 올라가는 속도 조절
         
         const updateCount = () => {
           count += speed;
           if (count < target) {
-            counter.innerText = isMan ? Math.floor(count) + '만 명' : isPercent ? Math.floor(count) + '%' : Math.floor(count) + '개소';
-            setTimeout(updateCount, 20);
+            counter.innerText = Math.floor(count) + unit;
+            setTimeout(updateCount, 25);
           } else {
-            counter.innerText = isMan ? target + '만 명' : isPercent ? target + '%' : target + '개소';
+            counter.innerText = target + unit;
           }
         };
-        
         updateCount();
       });
+    }
+
+    // 탭 전환 함수
+    function openTab(evt, tabName) {
+      // 1. 모든 탭 숨기기
+      const tabContents = document.getElementsByClassName("tab-content");
+      for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove("active");
+      }
+
+      // 2. 모든 버튼 활성화 해제
+      const tabButtons = document.getElementsByClassName("tab-btn");
+      for (let i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].classList.remove("active");
+      }
+
+      // 3. 선택한 탭 열기
+      document.getElementById(tabName).classList.add("active");
+      evt.currentTarget.classList.add("active");
+
+      // 4. 활성화된 탭 내부의 카운터 숫자를 0부터 다시 실행!
+      runCounters(tabName);
+    }
+
+    // 처음 페이지가 로드되었을 때 첫 번째 탭(폭스바겐) 숫자 애니메이션 자동 실행
+    document.addEventListener("DOMContentLoaded", () => {
+      runCounters('volkswagen');
     });
   </script>
 
