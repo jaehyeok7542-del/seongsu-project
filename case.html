@@ -148,12 +148,17 @@
     /* 수치 카운터 그리드 */
     .counter-grid {
       display: flex;
-      gap: 2rem;
+      flex-direction: column;
+      gap: 0;
       margin-bottom: 2rem;
       background: #fafafa;
-      padding: 1.5rem 2rem;
+      padding: 1.75rem 2rem;
       border-radius: 12px;
       border: 1px solid var(--gray-light);
+    }
+    .counter-items-row {
+      display: flex;
+      gap: 2rem;
     }
     .counter-item { flex: 1; }
     .counter-number {
@@ -161,8 +166,9 @@
       font-size: 2.6rem;
       font-weight: normal;
       color: #C05A46;
-      line-height: 1;
+      line-height: 1.1;
       margin-bottom: 0.4rem;
+      white-space: nowrap;
     }
     .counter-label {
       font-size: 0.85rem;
@@ -174,7 +180,7 @@
     .counter-source {
       font-size: 0.75rem;
       color: var(--gray-mid);
-      margin-top: 1rem;
+      margin-top: 1.25rem;
       padding-top: 0.75rem;
       border-top: 1px solid var(--gray-light);
       line-height: 1.5;
@@ -296,13 +302,15 @@
             </p>
 
             <div class="counter-grid">
-              <div class="counter-item">
-                <div class="counter-number">100만+</div>
-                <div class="counter-label">개관 이후 누적 유료 방문객</div>
-              </div>
-              <div class="counter-item">
-                <div class="counter-number">70,000+</div>
-                <div class="counter-label">누적 가이드 투어 횟수</div>
+              <div class="counter-items-row">
+                <div class="counter-item">
+                  <div class="counter-number">100만+</div>
+                  <div class="counter-label">개관 이후 누적 유료 방문객</div>
+                </div>
+                <div class="counter-item">
+                  <div class="counter-number">70,000+</div>
+                  <div class="counter-label">누적 가이드 투어 횟수</div>
+                </div>
               </div>
               <div class="counter-source">
                 출처: <span>Statistik Dresden</span> — Gläserne Manufaktur 방문객 통계 (2002년 개관~)
@@ -331,13 +339,15 @@
             </p>
 
             <div class="counter-grid">
-              <div class="counter-item">
-                <div class="counter-number">36사</div>
-                <div class="counter-label">2024년 기준 참가 기업 수</div>
-              </div>
-              <div class="counter-item">
-                <div class="counter-number">2012~</div>
-                <div class="counter-label">연 1회 정기 개최 (현재까지)</div>
+              <div class="counter-items-row">
+                <div class="counter-item">
+                  <div class="counter-number">36사</div>
+                  <div class="counter-label">2024년 기준 참가 기업 수</div>
+                </div>
+                <div class="counter-item">
+                  <div class="counter-number">2012~</div>
+                  <div class="counter-label">연 1회 정기 개최 (현재까지)</div>
+                </div>
               </div>
               <div class="counter-source">
                 출처: <span>墨田区 공식 웹사이트</span> — スミファ(すみだファクトリーめぐり) 2024년 개최 공고
