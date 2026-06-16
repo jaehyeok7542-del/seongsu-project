@@ -271,12 +271,15 @@
 
   <div class="white-container">
 
+    <!-- ── 01 지역적 맥락 분석 섹션 ── -->
     <section class="section" style="padding-top: 1rem; border-bottom: 1px solid var(--gray-light); padding-bottom: 4rem;">
       <p class="section-label">CLUSTER METRICS</p>
       <h2 class="section-title">성수동 인쇄업 밀집도 지표</h2>
       <p class="section-desc">성수동 준공업 가로망이 서울의 핵심 인쇄 산업 생태계를 지탱하는 중추 거점임을 증명하는 집적도 시각화 차트입니다.</p>
 
+      <!-- 📊 비주얼 원형 차트 대시보드 시스템 -->
       <div class="metric-visual-dashboard">
+        <!-- 차트카드 1 : 성수동 사업체 비중 -->
         <div class="metric-chart-card">
           <div class="metric-chart-container">
             <canvas id="metricRingChart1"></canvas>
@@ -289,6 +292,7 @@
           <div class="metric-meta-desc">성동구 전체 인쇄업 297개소 중<br><strong>261개소</strong>가 성수동에 밀집</div>
         </div>
 
+        <!-- 차트카드 2 : 고용 창출 규모 -->
         <div class="metric-chart-card" style="background: #fdfbfb; border-color: #cbd5e1;">
           <div class="metric-chart-container" style="display:flex; justify-content:center; align-items:center; background:#f4f3ef; border-radius:50%; border:4px solid #1D6B4A; box-shadow: inset 0 0 15px rgba(29,107,74,0.06);">
             <div style="font-family:var(--font-display); text-align:center;">
@@ -300,6 +304,7 @@
           <div class="metric-meta-desc">인쇄 및 인쇄관련산업 합산<br>가로 기반 생태계 총 종사자 수</div>
         </div>
 
+        <!-- 차트카드 3 : 성수2가3동 종사자 집중도 -->
         <div class="metric-chart-card">
           <div class="metric-chart-container">
             <canvas id="metricRingChart3"></canvas>
@@ -313,7 +318,8 @@
         </div>
       </div>
 
-      <div class="analysis-split" style="margin-top: 4rem;">
+      <div class="analysis-split" style="margin-top: 4rem; margin-bottom: 1rem;">
+        <!-- 좌측: 데이터 차트 구역 -->
         <div class="analysis-chart-zone">
           <h3 class="chart-zone-title">서울 주요 구별 인쇄업 사업체 수 비교</h3>
           <div class="css-bar-chart">
@@ -348,6 +354,7 @@
           </div>
         </div>
 
+        <!-- 우측: 텍스트 상세 분석 -->
         <div class="analysis-text-zone" style="display: flex; flex-direction: column; justify-content: center;">
           <h3 style="font-size:1.4rem; font-weight:normal; margin-bottom:1.25rem; color:var(--black);">성동구의 위상과 성수동의 집중도</h3>
           <p class="section-desc" style="max-width:100%; text-align:justify; line-height:1.75; font-size:0.95rem; margin-bottom:1.5rem;">
@@ -365,13 +372,18 @@
           </div>
         </div>
       </div>
+      
+      <!-- ── 🆕 [추가 완료] 첫 번째 섹션 우측 하단 출처 표시 청크 ── -->
+      <p style="font-size:11px; color:var(--gray-mid); text-align:right; margin-top:1.5rem; margin-bottom: 0;">출처: 서울특별시, 「서울특별시 기본통계 - 출판·인쇄 및 기록매체 복제업」</p>
     </section>
 
+    <!-- ── 세부 행정동 통계 그래프 섹션 ── -->
     <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
       <p class="section-label">DETAILED DISTRIBUTION</p>
       <h2 class="section-title">성수동 행정동별 통계 정밀 분석</h2>
       <p class="section-desc">성수동 내 4개 행정동간의 인쇄업 및 관련 산업 인프라 스케일을 비교 진단한 공공 통계 데이터 그래프입니다.</p>
 
+      <!-- 차트1 -->
       <div style="margin-bottom:3.5rem; margin-top:3rem;">
         <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--gray-light); padding-bottom:0.8rem; margin-bottom:1.2rem;">
           <p style="font-size:14px; font-weight:500; color:var(--black);">성수동 행정동별 인쇄업 사업체 수 현황</p>
@@ -385,6 +397,7 @@
         </div>
       </div>
 
+      <!-- 차트2 -->
       <div style="margin-bottom:2rem;">
         <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--gray-light); padding-bottom:0.8rem; margin-bottom:1.2rem;">
           <p style="font-size:14px; font-weight:500; color:var(--black);">성수동 행정동별 인쇄업 종사자 수 집중도</p>
@@ -399,6 +412,7 @@
       <p style="font-size:11px; color:var(--gray-mid); text-align:right; margin-top:1rem;">출처: 서울특별시, 「서울특별시 기본통계 - 출판·인쇄 및 기록매체 복제업」</p>
     </section>
 
+    <!-- ── 대상지 교통 여건 분석 섹션 ── -->
     <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
       <p class="section-label">TRAFFIC CONDITIONS</p>
       <h2 class="section-title">대상지 교통 여건 분석</h2>
@@ -434,6 +448,7 @@
       </div>
     </section>
 
+    <!-- ── 대상지 주변 현황 섹션 ── -->
     <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
       <p class="section-label">NEIGHBORHOOD STATUS</p>
       <h2 class="section-title">대상지 주변 현황</h2>
@@ -455,6 +470,7 @@
       </div>
     </section>
 
+    <!-- ── 현장 접근성 저하 원인 분석 섹션 ── -->
     <section class="section" style="padding-top: 5rem; padding-bottom: 5rem; border-bottom: 1px solid var(--gray-light);">
       <p class="section-label">CAUSAL ANALYSIS</p>
       <h2 class="section-title">현장 접근성 저하 원인 분석 (문제점)</h2>
@@ -489,6 +505,7 @@
       </div>
     </section>
 
+    <!-- ── 해결을 위한 단서 ── -->
     <section class="section" style="padding-top: 5rem; padding-bottom: 2rem;">
       <p class="section-label">SPATIAL SOLUTION CLUE</p>
       <h2 class="section-title">공간 개선을 위한 데이터적 단서</h2>
